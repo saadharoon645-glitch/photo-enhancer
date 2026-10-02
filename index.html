@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Photo Enhancer - Enhance Your Photos</title>
 
   <style>
@@ -70,7 +69,8 @@
     }
 
     .upload-btn,
-    .download-btn {
+    .download-btn,
+    .premium-btn {
       display: inline-block;
       border: none;
       padding: 13px 25px;
@@ -79,14 +79,18 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
       transition: 0.3s;
     }
 
+    .upload-btn,
+    .download-btn {
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+    }
+
     .upload-btn:hover,
-    .download-btn:hover {
+    .download-btn:hover,
+    .premium-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(37,117,252,0.3);
     }
 
     .workspace {
@@ -220,19 +224,7 @@
     }
 
     .premium-btn {
-      border: none;
-      padding: 13px 28px;
-      border-radius: 30px;
       background: linear-gradient(90deg, #ff9f00, #ff4d6d);
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .premium-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255,100,80,0.3);
     }
 
     footer {
@@ -311,13 +303,7 @@
             <span id="brightnessValue">100%</span>
           </label>
 
-          <input
-            type="range"
-            id="brightness"
-            min="50"
-            max="150"
-            value="100"
-          >
+          <input type="range" id="brightness" min="50" max="150" value="100">
         </div>
 
         <div class="control">
@@ -326,13 +312,7 @@
             <span id="contrastValue">100%</span>
           </label>
 
-          <input
-            type="range"
-            id="contrast"
-            min="50"
-            max="150"
-            value="100"
-          >
+          <input type="range" id="contrast" min="50" max="150" value="100">
         </div>
 
         <div class="control">
@@ -341,13 +321,7 @@
             <span id="saturationValue">100%</span>
           </label>
 
-          <input
-            type="range"
-            id="saturation"
-            min="0"
-            max="200"
-            value="100"
-          >
+          <input type="range" id="saturation" min="0" max="200" value="100">
         </div>
 
         <div class="control">
@@ -356,13 +330,7 @@
             <span id="sharpnessValue">0</span>
           </label>
 
-          <input
-            type="range"
-            id="sharpness"
-            min="0"
-            max="5"
-            value="0"
-          >
+          <input type="range" id="sharpness" min="0" max="5" value="0">
         </div>
 
         <button class="download-btn" id="downloadBtn">
@@ -407,10 +375,8 @@
         <span>📸 High Quality Download</span>
       </div>
 
-      <button
-        class="premium-btn"
-        onclick="alert('Premium features are coming soon!')">
-        👑 Get Premium
+      <button class="premium-btn" id="premiumBtn">
+        👑 Activate Premium
       </button>
     </div>
 
@@ -436,6 +402,7 @@
     const sharpnessValue = document.getElementById("sharpnessValue");
 
     const downloadBtn = document.getElementById("downloadBtn");
+    const premiumBtn = document.getElementById("premiumBtn");
 
     let originalImage = new Image();
 
@@ -480,6 +447,18 @@
     contrast.addEventListener("input", updateImage);
     saturation.addEventListener("input", updateImage);
     sharpness.addEventListener("input", updateImage);
+
+    premiumBtn.addEventListener("click", function() {
+
+      brightness.value = 120;
+      contrast.value = 115;
+      saturation.value = 120;
+      sharpness.value = 3;
+
+      updateImage();
+
+      alert("👑 Premium Mode Activated! Your photo has been enhanced.");
+    });
 
     downloadBtn.addEventListener("click", function() {
 
