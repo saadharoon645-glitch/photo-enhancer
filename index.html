@@ -178,6 +178,63 @@
       font-size: 14px;
     }
 
+    .premium {
+      margin-top: 30px;
+      padding: 30px;
+      text-align: center;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #fff1b8, #f4d9ff);
+      border: 2px solid #d7a900;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .premium-icon {
+      font-size: 45px;
+      margin-bottom: 8px;
+    }
+
+    .premium h2 {
+      color: #6a11cb;
+      margin-bottom: 10px;
+    }
+
+    .premium p {
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    .premium-features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .premium-features span {
+      background: white;
+      padding: 9px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .premium-btn {
+      border: none;
+      padding: 13px 28px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #ff9f00, #ff4d6d);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .premium-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255,100,80,0.3);
+    }
+
     footer {
       text-align: center;
       color: white;
@@ -204,6 +261,10 @@
 
       .features {
         grid-template-columns: 1fr;
+      }
+
+      .premium-features {
+        flex-direction: column;
       }
     }
   </style>
@@ -331,6 +392,26 @@
         <p>Your photo stays in your browser.</p>
       </div>
 
+    </div>
+
+    <div class="premium">
+      <div class="premium-icon">👑</div>
+
+      <h2>✨ Premium Photo Enhancement</h2>
+
+      <p>Unlock powerful photo enhancement features.</p>
+
+      <div class="premium-features">
+        <span>🚀 HD Enhancement</span>
+        <span>✨ AI Style Effects</span>
+        <span>📸 High Quality Download</span>
+      </div>
+
+      <button
+        class="premium-btn"
+        onclick="alert('Premium features are coming soon!')">
+        👑 Get Premium
+      </button>
     </div>
 
   </div>
