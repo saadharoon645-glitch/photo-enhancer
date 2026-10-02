@@ -4,149 +4,206 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Photo Enhance - Free Online Photo Enhancer</title>
-
-  <meta name="description"
-        content="Enhance your photos online for free. Adjust brightness, contrast and sharpness, then download your improved photo.">
+  <title>Photo Enhancer - Enhance Your Photos</title>
 
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #172033;
-    }
-
-    header {
-      background: #172033;
-      color: white;
-      padding: 22px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 30px;
-    }
-
-    header p {
-      margin: 8px 0 0;
-      color: #cbd5e1;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 35px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #222;
       padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
     }
 
-    .upload {
-      border: 2px dashed #7b8798;
-      border-radius: 15px;
-      padding: 35px 20px;
+    .header {
       text-align: center;
+      color: white;
       margin-bottom: 25px;
     }
 
-    .upload input {
-      margin-top: 15px;
+    .header h1 {
+      font-size: 42px;
+      margin-bottom: 8px;
     }
 
-    .preview {
+    .header p {
+      font-size: 17px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: rgba(255,255,255,0.96);
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .upload-box {
+      border: 3px dashed #6a11cb;
+      border-radius: 20px;
+      padding: 35px;
+      text-align: center;
+      background: #f7f3ff;
+      margin-bottom: 25px;
+    }
+
+    .upload-box h2 {
+      margin-bottom: 10px;
+      color: #5b0dbb;
+    }
+
+    .upload-box p {
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .upload-btn,
+    .download-btn {
+      display: inline-block;
+      border: none;
+      padding: 13px 25px;
+      border-radius: 30px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      transition: 0.3s;
+    }
+
+    .upload-btn:hover,
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37,117,252,0.3);
+    }
+
+    .workspace {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      grid-template-columns: 1fr 300px;
+      gap: 25px;
       margin-top: 25px;
     }
 
-    .preview-box {
+    .preview {
+      background: #111;
+      border-radius: 18px;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .preview img {
+      max-width: 100%;
+      max-height: 500px;
+      display: none;
+    }
+
+    .placeholder {
+      color: #aaa;
       text-align: center;
-    }
-
-    .preview-box h3 {
-      margin-bottom: 10px;
-    }
-
-    canvas {
-      width: 100%;
-      max-height: 450px;
-      object-fit: contain;
-      border-radius: 12px;
-      background: #e9edf3;
+      padding: 30px;
     }
 
     .controls {
-      margin-top: 30px;
+      background: #f5f7ff;
+      padding: 22px;
+      border-radius: 18px;
+    }
+
+    .controls h2 {
+      margin-bottom: 20px;
+      color: #4b0ca8;
     }
 
     .control {
-      margin: 18px 0;
+      margin-bottom: 20px;
     }
 
     .control label {
       display: flex;
       justify-content: space-between;
-      font-weight: bold;
       margin-bottom: 8px;
+      font-weight: bold;
     }
 
     input[type="range"] {
       width: 100%;
+      accent-color: #6a11cb;
     }
 
-    button {
-      border: none;
-      padding: 13px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 8px 5px 0 0;
-      font-weight: bold;
+    .download-btn {
+      width: 100%;
+      margin-top: 10px;
     }
 
-    .enhance {
-      background: #2563eb;
-      color: white;
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 25px;
     }
 
-    .download {
-      background: #16a34a;
-      color: white;
+    .feature {
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      background: linear-gradient(135deg, #f0e7ff, #e6f0ff);
     }
 
-    .reset {
-      background: #64748b;
-      color: white;
+    .feature .icon {
+      font-size: 30px;
+      margin-bottom: 8px;
     }
 
-    button:hover {
-      opacity: 0.9;
+    .feature h3 {
+      margin-bottom: 5px;
+    }
+
+    .feature p {
+      color: #666;
+      font-size: 14px;
     }
 
     footer {
       text-align: center;
-      padding: 30px;
-      color: #64748b;
+      color: white;
+      margin-top: 25px;
+      font-size: 14px;
     }
 
-    @media (max-width: 700px) {
-      .preview {
+    @media (max-width: 750px) {
+      body {
+        padding: 12px;
+      }
+
+      .header h1 {
+        font-size: 30px;
+      }
+
+      .container {
+        padding: 18px;
+      }
+
+      .workspace {
         grid-template-columns: 1fr;
       }
 
-      header h1 {
-        font-size: 24px;
+      .features {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -154,365 +211,229 @@
 
 <body>
 
-<header>
-  <h1>✨ Photo Enhance</h1>
-  <p>Free Online Photo Enhancer</p>
-</header>
+  <div class="header">
+    <h1>✨ Photo Enhancer</h1>
+    <p>Make your photos brighter, sharper and more beautiful</p>
+  </div>
 
-<div class="container">
+  <div class="container">
 
-  <div class="card">
+    <div class="upload-box">
+      <h2>📸 Upload Your Photo</h2>
+      <p>Choose an image from your device and start enhancing it.</p>
 
-    <div class="upload">
-      <h2>Upload Your Photo</h2>
-      <p>JPG, PNG or WebP</p>
+      <label for="photoInput" class="upload-btn">
+        Choose Photo
+      </label>
 
-      <input
-        type="file"
-        id="fileInput"
-        accept="image/*"
-      >
+      <input type="file" id="photoInput" accept="image/*">
     </div>
 
-    <div class="preview">
+    <div class="workspace">
 
-      <div class="preview-box">
-        <h3>Original</h3>
-        <canvas id="originalCanvas"></canvas>
+      <div class="preview">
+        <div class="placeholder" id="placeholder">
+          <h2>Your photo will appear here</h2>
+          <p>Upload an image to start editing</p>
+        </div>
+
+        <img id="previewImage" alt="Photo Preview">
       </div>
 
-      <div class="preview-box">
-        <h3>Enhanced</h3>
-        <canvas id="enhancedCanvas"></canvas>
-      </div>
+      <div class="controls">
 
+        <h2>🎨 Enhance</h2>
+
+        <div class="control">
+          <label>
+            <span>Brightness</span>
+            <span id="brightnessValue">100%</span>
+          </label>
+
+          <input
+            type="range"
+            id="brightness"
+            min="50"
+            max="150"
+            value="100"
+          >
+        </div>
+
+        <div class="control">
+          <label>
+            <span>Contrast</span>
+            <span id="contrastValue">100%</span>
+          </label>
+
+          <input
+            type="range"
+            id="contrast"
+            min="50"
+            max="150"
+            value="100"
+          >
+        </div>
+
+        <div class="control">
+          <label>
+            <span>Saturation</span>
+            <span id="saturationValue">100%</span>
+          </label>
+
+          <input
+            type="range"
+            id="saturation"
+            min="0"
+            max="200"
+            value="100"
+          >
+        </div>
+
+        <div class="control">
+          <label>
+            <span>Sharpness</span>
+            <span id="sharpnessValue">0</span>
+          </label>
+
+          <input
+            type="range"
+            id="sharpness"
+            min="0"
+            max="5"
+            value="0"
+          >
+        </div>
+
+        <button class="download-btn" id="downloadBtn">
+          💾 Download Enhanced Photo
+        </button>
+
+      </div>
     </div>
 
-    <div class="controls">
+    <div class="features">
 
-      <div class="control">
-        <label>
-          <span>Brightness</span>
-          <span id="brightnessValue">100%</span>
-        </label>
-
-        <input
-          type="range"
-          id="brightness"
-          min="50"
-          max="150"
-          value="100"
-        >
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <h3>Fast</h3>
+        <p>Enhance your photo quickly.</p>
       </div>
 
-      <div class="control">
-        <label>
-          <span>Contrast</span>
-          <span id="contrastValue">100%</span>
-        </label>
-
-        <input
-          type="range"
-          id="contrast"
-          min="50"
-          max="150"
-          value="100"
-        >
+      <div class="feature">
+        <div class="icon">🎨</div>
+        <h3>Color Boost</h3>
+        <p>Make colors look more vibrant.</p>
       </div>
 
-      <div class="control">
-        <label>
-          <span>Sharpness</span>
-          <span id="sharpnessValue">0</span>
-        </label>
-
-        <input
-          type="range"
-          id="sharpness"
-          min="0"
-          max="10"
-          value="0"
-        >
+      <div class="feature">
+        <div class="icon">🔒</div>
+        <h3>Private</h3>
+        <p>Your photo stays in your browser.</p>
       </div>
 
-    </div>
-
-    <div>
-      <button class="enhance" onclick="enhancePhoto()">
-        ✨ Enhance Photo
-      </button>
-
-      <button class="download" onclick="downloadPhoto()">
-        ⬇️ Download
-      </button>
-
-      <button class="reset" onclick="resetPhoto()">
-        🔄 Reset
-      </button>
     </div>
 
   </div>
 
-</div>
+  <footer>
+    © 2026 Photo Enhancer • Enhance your memories ✨
+  </footer>
 
-<footer>
-  <p>Photo Enhance © 2026</p>
-  <p>Your photos are processed directly in your browser.</p>
-</footer>
+  <script>
+    const photoInput = document.getElementById("photoInput");
+    const previewImage = document.getElementById("previewImage");
+    const placeholder = document.getElementById("placeholder");
 
+    const brightness = document.getElementById("brightness");
+    const contrast = document.getElementById("contrast");
+    const saturation = document.getElementById("saturation");
+    const sharpness = document.getElementById("sharpness");
 
-<script>
+    const brightnessValue = document.getElementById("brightnessValue");
+    const contrastValue = document.getElementById("contrastValue");
+    const saturationValue = document.getElementById("saturationValue");
+    const sharpnessValue = document.getElementById("sharpnessValue");
 
-let image = new Image();
-let imageLoaded = false;
+    const downloadBtn = document.getElementById("downloadBtn");
 
-const fileInput = document.getElementById("fileInput");
+    let originalImage = new Image();
 
-const originalCanvas =
-  document.getElementById("originalCanvas");
+    photoInput.addEventListener("change", function() {
+      const file = this.files[0];
 
-const enhancedCanvas =
-  document.getElementById("enhancedCanvas");
+      if (!file) return;
 
-const originalCtx =
-  originalCanvas.getContext("2d");
+      const reader = new FileReader();
 
-const enhancedCtx =
-  enhancedCanvas.getContext("2d");
+      reader.onload = function(e) {
+        originalImage.src = e.target.result;
+        previewImage.src = e.target.result;
 
+        previewImage.style.display = "block";
+        placeholder.style.display = "none";
 
-fileInput.addEventListener("change", function(event) {
+        updateImage();
+      };
 
-  const file = event.target.files[0];
+      reader.readAsDataURL(file);
+    });
 
-  if (!file) return;
+    function updateImage() {
 
-  const reader = new FileReader();
+      const b = brightness.value;
+      const c = contrast.value;
+      const s = saturation.value;
 
-  reader.onload = function(e) {
+      previewImage.style.filter =
+        `brightness(${b}%)
+         contrast(${c}%)
+         saturate(${s}%)`;
 
-    image.onload = function() {
+      brightnessValue.textContent = b + "%";
+      contrastValue.textContent = c + "%";
+      saturationValue.textContent = s + "%";
+      sharpnessValue.textContent = sharpness.value;
+    }
 
-      imageLoaded = true;
+    brightness.addEventListener("input", updateImage);
+    contrast.addEventListener("input", updateImage);
+    saturation.addEventListener("input", updateImage);
+    sharpness.addEventListener("input", updateImage);
 
-      originalCanvas.width = image.width;
-      originalCanvas.height = image.height;
+    downloadBtn.addEventListener("click", function() {
 
-      enhancedCanvas.width = image.width;
-      enhancedCanvas.height = image.height;
-
-      originalCtx.drawImage(
-        image,
-        0,
-        0
-      );
-
-      enhancedCtx.drawImage(
-        image,
-        0,
-        0
-      );
-    };
-
-    image.src = e.target.result;
-  };
-
-  reader.readAsDataURL(file);
-});
-
-
-const brightness =
-  document.getElementById("brightness");
-
-const contrast =
-  document.getElementById("contrast");
-
-const sharpness =
-  document.getElementById("sharpness");
-
-
-brightness.addEventListener("input", function() {
-  document.getElementById("brightnessValue").textContent =
-    brightness.value + "%";
-});
-
-
-contrast.addEventListener("input", function() {
-  document.getElementById("contrastValue").textContent =
-    contrast.value + "%";
-});
-
-
-sharpness.addEventListener("input", function() {
-  document.getElementById("sharpnessValue").textContent =
-    sharpness.value;
-});
-
-
-function enhancePhoto() {
-
-  if (!imageLoaded) {
-    alert("Please upload a photo first.");
-    return;
-  }
-
-  enhancedCtx.clearRect(
-    0,
-    0,
-    enhancedCanvas.width,
-    enhancedCanvas.height
-  );
-
-  enhancedCtx.filter =
-    "brightness(" + brightness.value + "%) " +
-    "contrast(" + contrast.value + "%) " +
-    "saturate(110%)";
-
-  enhancedCtx.drawImage(
-    image,
-    0,
-    0
-  );
-
-  enhancedCtx.filter = "none";
-
-  if (parseInt(sharpness.value) > 0) {
-
-    applySharpness(
-      parseInt(sharpness.value)
-    );
-
-  }
-
-}
-
-
-function applySharpness(amount) {
-
-  const width = enhancedCanvas.width;
-  const height = enhancedCanvas.height;
-
-  const source =
-    enhancedCtx.getImageData(
-      0,
-      0,
-      width,
-      height
-    );
-
-  const output =
-    enhancedCtx.createImageData(
-      width,
-      height
-    );
-
-  const src = source.data;
-  const dst = output.data;
-
-  const strength = amount / 10;
-
-  for (let y = 1; y < height - 1; y++) {
-
-    for (let x = 1; x < width - 1; x++) {
-
-      const i =
-        (y * width + x) * 4;
-
-      for (let c = 0; c < 3; c++) {
-
-        const center = src[i + c];
-
-        const top =
-          src[i - width * 4 + c];
-
-        const bottom =
-          src[i + width * 4 + c];
-
-        const left =
-          src[i - 4 + c];
-
-        const right =
-          src[i + 4 + c];
-
-        const value =
-          center +
-          strength *
-          (4 * center - top - bottom - left - right);
-
-        dst[i + c] =
-          Math.max(
-            0,
-            Math.min(255, value)
-          );
+      if (!originalImage.src) {
+        alert("Please upload a photo first.");
+        return;
       }
 
-      dst[i + 3] = src[i + 3];
-    }
-  }
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
-  enhancedCtx.putImageData(
-    output,
-    0,
-    0
-  );
-}
+      canvas.width = originalImage.naturalWidth;
+      canvas.height = originalImage.naturalHeight;
 
+      ctx.filter =
+        `brightness(${brightness.value}%)
+         contrast(${contrast.value}%)
+         saturate(${saturation.value}%)`;
 
-function downloadPhoto() {
+      ctx.drawImage(
+        originalImage,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
 
-  if (!imageLoaded) {
-    alert("Please upload and enhance a photo first.");
-    return;
-  }
+      const link = document.createElement("a");
 
-  const link =
-    document.createElement("a");
+      link.download = "enhanced-photo.png";
+      link.href = canvas.toDataURL("image/png");
 
-  link.download =
-    "enhanced-photo.png";
-
-  link.href =
-    enhancedCanvas.toDataURL("image/png");
-
-  link.click();
-}
-
-
-function resetPhoto() {
-
-  brightness.value = 100;
-  contrast.value = 100;
-  sharpness.value = 0;
-
-  document.getElementById("brightnessValue")
-    .textContent = "100%";
-
-  document.getElementById("contrastValue")
-    .textContent = "100%";
-
-  document.getElementById("sharpnessValue")
-    .textContent = "0";
-
-  if (imageLoaded) {
-
-    enhancedCtx.filter = "none";
-
-    enhancedCtx.clearRect(
-      0,
-      0,
-      enhancedCanvas.width,
-      enhancedCanvas.height
-    );
-
-    enhancedCtx.drawImage(
-      image,
-      0,
-      0
-    );
-  }
-}
-
-</script>
+      link.click();
+    });
+  </script>
 
 </body>
 </html>
