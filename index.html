@@ -8,7 +8,7 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
+      margin: 0;<button class="premium-btn" id="premiumBtn">
       padding: 0;
     }
 
@@ -376,8 +376,8 @@
       </div>
 
       <button class="premium-btn" id="premiumBtn">
-        💳 Upgrade to Premium
-      </button>
+  💳 Upgrade to Premium — Rs. 500
+</button>
     </div>
 
   </div>
@@ -448,17 +448,9 @@
     saturation.addEventListener("input", updateImage);
     sharpness.addEventListener("input", updateImage);
 
-    premiumBtn.addEventListener("click", function() {
-
-      brightness.value = 120;
-      contrast.value = 115;
-      saturation.value = 120;
-      sharpness.value = 3;
-
-      updateImage();
-
-      alert("👑 Premium Mode Activated! Your photo has been enhanced.");
-    });
+premiumBtn.addEventListener("click", function() {
+  alert("👑 Premium Plan\n\nPrice: Rs. 500\n\nHD Enhancement\nAI Style Effects\nHigh Quality Download\n\nDemo Payment Screen");
+});
 
     downloadBtn.addEventListener("click", function() {
 
