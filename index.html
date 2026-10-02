@@ -3,94 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photo Enhancer - Enhance Your Photos</title>
+  <title>Photo Enhancer</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;<button class="premium-btn" id="premiumBtn">
+      margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: Arial, sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background: #f5f7ff;
       color: #222;
-      padding: 25px;
     }
 
-    .header {
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: white;
+      padding: 16px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #6a11cb;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #6a11cb;
+    }
+
+    section {
+      padding: 80px 7%;
+    }
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       color: white;
-      margin-bottom: 25px;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
     }
 
-    .header h1 {
-      font-size: 42px;
-      margin-bottom: 8px;
+    .hero h1 {
+      font-size: 55px;
+      margin-bottom: 20px;
     }
 
-    .header p {
-      font-size: 17px;
-      opacity: 0.9;
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
     }
 
-    .container {
+    .hero-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background: white;
+      color: #6a11cb;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .title h2 {
+      font-size: 35px;
+      color: #5b0dbb;
+      margin-bottom: 10px;
+    }
+
+    .enhancer-box {
       max-width: 1000px;
       margin: auto;
-      background: rgba(255,255,255,0.96);
-      border-radius: 25px;
+      background: white;
       padding: 30px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      border-radius: 25px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
     }
 
-    .upload-box {
+    .upload {
+      text-align: center;
+      padding: 35px;
       border: 3px dashed #6a11cb;
       border-radius: 20px;
-      padding: 35px;
-      text-align: center;
-      background: #f7f3ff;
-      margin-bottom: 25px;
-    }
-
-    .upload-box h2 {
-      margin-bottom: 10px;
-      color: #5b0dbb;
-    }
-
-    .upload-box p {
-      margin-bottom: 20px;
-      color: #666;
+      background: #faf7ff;
     }
 
     input[type="file"] {
       display: none;
     }
 
-    .upload-btn,
-    .download-btn,
-    .premium-btn {
+    .upload label {
       display: inline-block;
-      border: none;
+      margin-top: 20px;
       padding: 13px 25px;
-      border-radius: 30px;
+      background: #6a11cb;
       color: white;
-      font-size: 16px;
-      font-weight: bold;
+      border-radius: 30px;
       cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .upload-btn,
-    .download-btn {
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
-    }
-
-    .upload-btn:hover,
-    .download-btn:hover,
-    .premium-btn:hover {
-      transform: translateY(-2px);
+      font-weight: bold;
     }
 
     .workspace {
@@ -101,9 +133,9 @@
     }
 
     .preview {
+      min-height: 400px;
       background: #111;
       border-radius: 18px;
-      min-height: 400px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -119,29 +151,23 @@
     .placeholder {
       color: #aaa;
       text-align: center;
-      padding: 30px;
     }
 
     .controls {
-      background: #f5f7ff;
-      padding: 22px;
+      background: #f1f3ff;
+      padding: 20px;
       border-radius: 18px;
     }
 
-    .controls h2 {
-      margin-bottom: 20px;
-      color: #4b0ca8;
-    }
-
     .control {
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
 
     .control label {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 8px;
       font-weight: bold;
+      margin-bottom: 8px;
     }
 
     input[type="range"] {
@@ -149,114 +175,101 @@
       accent-color: #6a11cb;
     }
 
-    .download-btn {
+    .download {
       width: 100%;
-      margin-top: 10px;
+      border: none;
+      padding: 14px;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    .features {
+    .cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 25px;
+      gap: 20px;
     }
 
-    .feature {
-      padding: 20px;
-      border-radius: 16px;
-      text-align: center;
-      background: linear-gradient(135deg, #f0e7ff, #e6f0ff);
-    }
-
-    .feature .icon {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
-
-    .feature h3 {
-      margin-bottom: 5px;
-    }
-
-    .feature p {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .premium {
-      margin-top: 30px;
+    .card {
+      background: white;
       padding: 30px;
       text-align: center;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #fff1b8, #f4d9ff);
-      border: 2px solid #d7a900;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
     }
 
-    .premium-icon {
-      font-size: 45px;
-      margin-bottom: 8px;
+    .card .icon {
+      font-size: 40px;
+      margin-bottom: 15px;
     }
 
-    .premium h2 {
-      color: #6a11cb;
+    .card h3 {
       margin-bottom: 10px;
     }
 
-    .premium p {
-      color: #555;
-      margin-bottom: 18px;
+    .premium {
+      background: linear-gradient(135deg, #fff1b8, #f4d9ff);
     }
 
-    .premium-features {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .premium-features span {
-      background: white;
-      padding: 9px 14px;
-      border-radius: 20px;
-      font-size: 14px;
+    .price {
+      font-size: 45px;
       font-weight: bold;
+      color: #6a11cb;
+      margin: 20px 0;
+    }
+
+    .premium-list {
+      list-style: none;
+      margin: 20px 0;
+      line-height: 2;
     }
 
     .premium-btn {
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
       background: linear-gradient(90deg, #ff9f00, #ff4d6d);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .earn {
+      background: #eef3ff;
     }
 
     footer {
-      text-align: center;
+      background: #151525;
       color: white;
-      margin-top: 25px;
-      font-size: 14px;
+      text-align: center;
+      padding: 35px;
     }
 
     @media (max-width: 750px) {
-      body {
-        padding: 12px;
-      }
-
-      .header h1 {
-        font-size: 30px;
-      }
-
-      .container {
-        padding: 18px;
-      }
-
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .premium-features {
+      header {
         flex-direction: column;
+        gap: 12px;
+      }
+
+      nav a {
+        margin: 5px;
+        font-size: 13px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .workspace,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 60px 5%;
       }
     }
   </style>
@@ -264,228 +277,314 @@
 
 <body>
 
-  <div class="header">
-    <h1>✨ Photo Enhancer</h1>
-    <p>Make your photos brighter, sharper and more beautiful</p>
+<header>
+  <div class="logo">✨ Photo Enhancer</div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#enhancer">Enhancer</a>
+    <a href="#features">Features</a>
+    <a href="#premium">Premium</a>
+  </nav>
+</header>
+
+
+<section class="hero" id="home">
+  <div>
+    <h1>✨ Make Your Photos Better</h1>
+    <p>Brighten, sharpen and improve your photos easily.</p>
+    <a href="#enhancer" class="hero-btn">Start Enhancing</a>
+  </div>
+</section>
+
+
+<section id="enhancer">
+
+  <div class="title">
+    <h2>📸 Photo Enhancer</h2>
+    <p>Upload your photo and adjust it instantly.</p>
   </div>
 
-  <div class="container">
+  <div class="enhancer-box">
 
-    <div class="upload-box">
-      <h2>📸 Upload Your Photo</h2>
-      <p>Choose an image from your device and start enhancing it.</p>
+    <div class="upload">
+      <h2>Upload Your Photo</h2>
+      <p>Choose an image from your device.</p>
 
-      <label for="photoInput" class="upload-btn">
-        Choose Photo
-      </label>
-
+      <label for="photoInput">Choose Photo</label>
       <input type="file" id="photoInput" accept="image/*">
     </div>
 
     <div class="workspace">
 
       <div class="preview">
+
         <div class="placeholder" id="placeholder">
-          <h2>Your photo will appear here</h2>
-          <p>Upload an image to start editing</p>
+          <h2>Your photo appears here</h2>
         </div>
 
-        <img id="previewImage" alt="Photo Preview">
+        <img id="previewImage">
+
       </div>
 
       <div class="controls">
 
-        <h2>🎨 Enhance</h2>
+        <h2>🎨 Controls</h2>
 
         <div class="control">
           <label>
-            <span>Brightness</span>
+            Brightness
             <span id="brightnessValue">100%</span>
           </label>
-
           <input type="range" id="brightness" min="50" max="150" value="100">
         </div>
 
         <div class="control">
           <label>
-            <span>Contrast</span>
+            Contrast
             <span id="contrastValue">100%</span>
           </label>
-
           <input type="range" id="contrast" min="50" max="150" value="100">
         </div>
 
         <div class="control">
           <label>
-            <span>Saturation</span>
+            Saturation
             <span id="saturationValue">100%</span>
           </label>
-
           <input type="range" id="saturation" min="0" max="200" value="100">
         </div>
 
-        <div class="control">
-          <label>
-            <span>Sharpness</span>
-            <span id="sharpnessValue">0</span>
-          </label>
-
-          <input type="range" id="sharpness" min="0" max="5" value="0">
-        </div>
-
-        <button class="download-btn" id="downloadBtn">
-          💾 Download Enhanced Photo
+        <button class="download" id="downloadBtn">
+          💾 Download Photo
         </button>
 
       </div>
-    </div>
 
-    <div class="features">
-
-      <div class="feature">
-        <div class="icon">⚡</div>
-        <h3>Fast</h3>
-        <p>Enhance your photo quickly.</p>
-      </div>
-
-      <div class="feature">
-        <div class="icon">🎨</div>
-        <h3>Color Boost</h3>
-        <p>Make colors look more vibrant.</p>
-      </div>
-
-      <div class="feature">
-        <div class="icon">🔒</div>
-        <h3>Private</h3>
-        <p>Your photo stays in your browser.</p>
-      </div>
-
-    </div>
-
-    <div class="premium">
-      <div class="premium-icon">👑</div>
-
-      <h2>✨ Premium Photo Enhancement</h2>
-
-      <p>Unlock powerful photo enhancement features.</p>
-
-      <div class="premium-features">
-        <span>🚀 HD Enhancement</span>
-        <span>✨ AI Style Effects</span>
-        <span>📸 High Quality Download</span>
-      </div>
-
-      <button class="premium-btn" id="premiumBtn">
-  💳 Upgrade to Premium — Rs. 500
-</button>
     </div>
 
   </div>
 
-  <footer>
-    © 2026 Photo Enhancer • Enhance your memories ✨
-  </footer>
+</section>
 
-  <script>
-    const photoInput = document.getElementById("photoInput");
-    const previewImage = document.getElementById("previewImage");
-    const placeholder = document.getElementById("placeholder");
 
-    const brightness = document.getElementById("brightness");
-    const contrast = document.getElementById("contrast");
-    const saturation = document.getElementById("saturation");
-    const sharpness = document.getElementById("sharpness");
+<section id="features">
 
-    const brightnessValue = document.getElementById("brightnessValue");
-    const contrastValue = document.getElementById("contrastValue");
-    const saturationValue = document.getElementById("saturationValue");
-    const sharpnessValue = document.getElementById("sharpnessValue");
+  <div class="title">
+    <h2>🚀 Features</h2>
+    <p>Simple tools for better photos.</p>
+  </div>
 
-    const downloadBtn = document.getElementById("downloadBtn");
-    const premiumBtn = document.getElementById("premiumBtn");
+  <div class="cards">
 
-    let originalImage = new Image();
+    <div class="card">
+      <div class="icon">⚡</div>
+      <h3>Fast</h3>
+      <p>Enhance photos quickly in your browser.</p>
+    </div>
 
-    photoInput.addEventListener("change", function() {
-      const file = this.files[0];
+    <div class="card">
+      <div class="icon">🎨</div>
+      <h3>Color Boost</h3>
+      <p>Make your colors brighter and more vibrant.</p>
+    </div>
 
-      if (!file) return;
+    <div class="card">
+      <div class="icon">🔒</div>
+      <h3>Private</h3>
+      <p>Your photo stays in your browser.</p>
+    </div>
 
-      const reader = new FileReader();
+  </div>
 
-      reader.onload = function(e) {
-        originalImage.src = e.target.result;
-        previewImage.src = e.target.result;
+</section>
 
-        previewImage.style.display = "block";
-        placeholder.style.display = "none";
 
-        updateImage();
-      };
+<section class="premium" id="premium">
 
-      reader.readAsDataURL(file);
-    });
+  <div class="title">
+    <h2>👑 Premium</h2>
+    <p>Unlock extra photo enhancement features.</p>
+  </div>
 
-    function updateImage() {
+  <div class="card">
 
-      const b = brightness.value;
-      const c = contrast.value;
-      const s = saturation.value;
+    <h3>Premium Photo Enhancement</h3>
 
-      previewImage.style.filter =
-        `brightness(${b}%)
-         contrast(${c}%)
-         saturate(${s}%)`;
+    <div class="price">Rs. 500</div>
 
-      brightnessValue.textContent = b + "%";
-      contrastValue.textContent = c + "%";
-      saturationValue.textContent = s + "%";
-      sharpnessValue.textContent = sharpness.value;
+    <ul class="premium-list">
+      <li>🚀 HD Enhancement</li>
+      <li>✨ Extra Effects</li>
+      <li>📸 High Quality Download</li>
+      <li>⚡ Faster Processing</li>
+    </ul>
+
+    <button class="premium-btn" id="premiumBtn">
+      💳 Upgrade to Premium
+    </button>
+
+  </div>
+
+</section>
+
+
+<section class="earn">
+
+  <div class="title">
+    <h2>💰 More Ways To Grow</h2>
+    <p>Future options for the website.</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon">👑</div>
+      <h3>Premium</h3>
+      <p>Offer advanced features through a paid plan.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">💎</div>
+      <h3>Paid Features</h3>
+      <p>Offer additional enhancement tools in the future.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📢</div>
+      <h3>Advertisements</h3>
+      <p>Advertisement space can be added after approval from an ad network.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+  <h2>✨ Photo Enhancer</h2>
+  <p>Enhance your memories beautifully.</p>
+  <br>
+  <p>© 2026 Photo Enhancer</p>
+</footer>
+
+
+<script>
+
+  const photoInput = document.getElementById("photoInput");
+  const previewImage = document.getElementById("previewImage");
+  const placeholder = document.getElementById("placeholder");
+
+  const brightness = document.getElementById("brightness");
+  const contrast = document.getElementById("contrast");
+  const saturation = document.getElementById("saturation");
+
+  const brightnessValue = document.getElementById("brightnessValue");
+  const contrastValue = document.getElementById("contrastValue");
+  const saturationValue = document.getElementById("saturationValue");
+
+  const downloadBtn = document.getElementById("downloadBtn");
+  const premiumBtn = document.getElementById("premiumBtn");
+
+  let originalImage = new Image();
+
+
+  photoInput.addEventListener("change", function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+      originalImage.src = e.target.result;
+      previewImage.src = e.target.result;
+
+      previewImage.style.display = "block";
+      placeholder.style.display = "none";
+
+      updateImage();
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+
+  function updateImage() {
+
+    previewImage.style.filter =
+      `brightness(${brightness.value}%)
+       contrast(${contrast.value}%)
+       saturate(${saturation.value}%)`;
+
+    brightnessValue.textContent = brightness.value + "%";
+    contrastValue.textContent = contrast.value + "%";
+    saturationValue.textContent = saturation.value + "%";
+
+  }
+
+
+  brightness.addEventListener("input", updateImage);
+  contrast.addEventListener("input", updateImage);
+  saturation.addEventListener("input", updateImage);
+
+
+  premiumBtn.addEventListener("click", function() {
+
+    alert(
+      "👑 Premium Plan\n\n" +
+      "Price: Rs. 500\n\n" +
+      "HD Enhancement\n" +
+      "Extra Effects\n" +
+      "High Quality Download\n\n" +
+      "Demo Payment Screen"
+    );
+
+  });
+
+
+  downloadBtn.addEventListener("click", function() {
+
+    if (!originalImage.src) {
+
+      alert("Please upload a photo first.");
+      return;
+
     }
 
-    brightness.addEventListener("input", updateImage);
-    contrast.addEventListener("input", updateImage);
-    saturation.addEventListener("input", updateImage);
-    sharpness.addEventListener("input", updateImage);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
-premiumBtn.addEventListener("click", function() {
-  alert("👑 Premium Plan\n\nPrice: Rs. 500\n\nHD Enhancement\nAI Style Effects\nHigh Quality Download\n\nDemo Payment Screen");
-});
+    canvas.width = originalImage.naturalWidth;
+    canvas.height = originalImage.naturalHeight;
 
-    downloadBtn.addEventListener("click", function() {
+    ctx.filter =
+      `brightness(${brightness.value}%)
+       contrast(${contrast.value}%)
+       saturate(${saturation.value}%)`;
 
-      if (!originalImage.src) {
-        alert("Please upload a photo first.");
-        return;
-      }
+    ctx.drawImage(
+      originalImage,
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+    const link = document.createElement("a");
 
-      canvas.width = originalImage.naturalWidth;
-      canvas.height = originalImage.naturalHeight;
+    link.download = "enhanced-photo.png";
+    link.href = canvas.toDataURL("image/png");
 
-      ctx.filter =
-        `brightness(${brightness.value}%)
-         contrast(${contrast.value}%)
-         saturate(${saturation.value}%)`;
+    link.click();
 
-      ctx.drawImage(
-        originalImage,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
+  });
 
-      const link = document.createElement("a");
-
-      link.download = "enhanced-photo.png";
-      link.href = canvas.toDataURL("image/png");
-
-      link.click();
-    });
-  </script>
+</script>
 
 </body>
 </html>
