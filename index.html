@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,7 +150,8 @@ body.dark .section-title p{
 body.dark .enhancer-box,
 body.dark .card,
 body.dark .privacy,
-body.dark .premium-card{
+body.dark .premium-card,
+body.dark .money-box{
   background:#1b1d2a;
 }
 
@@ -348,10 +350,6 @@ body.dark .card p{
   box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
-body.dark .money-box{
-  background:#1b1d2a;
-}
-
 .money-box h3{
   font-size:28px;
   color:#5b0dbb;
@@ -454,6 +452,7 @@ footer p{
 <body>
 
 <header>
+
   <div class="logo">✨ PhotoGlow</div>
 
   <nav>
@@ -465,34 +464,59 @@ footer p{
     <a href="#contact">Contact</a>
     <button class="mode-btn" id="modeBtn">🌙</button>
   </nav>
+
 </header>
 
 <section class="hero" id="home">
+
   <div class="hero-content">
+
     <h1>✨ Make Every Photo Glow</h1>
-    <p>Brighten, sharpen and improve your photos with PhotoGlow.</p>
-    <a href="#enhancer" class="hero-btn">📸 Start Enhancing</a>
+
+    <p>
+      Brighten, sharpen and improve your photos with PhotoGlow.
+    </p>
+
+    <a href="#enhancer" class="hero-btn">
+      📸 Start Enhancing
+    </a>
+
   </div>
+
 </section>
 
 <section id="enhancer">
 
   <div class="section-title">
+
     <h2>📸 Photo Enhancer</h2>
-    <p>Upload your photo and improve it instantly.</p>
+
+    <p>
+      Upload your photo and improve it instantly.
+    </p>
+
   </div>
 
   <div class="enhancer-box">
 
     <div class="upload-box">
+
       <h3>Upload Your Photo</h3>
-      <p>Choose an image from your computer or phone.</p>
+
+      <p>
+        Choose an image from your computer or phone.
+      </p>
 
       <label for="photoInput" class="choose-btn">
         📁 Choose Photo
       </label>
 
-      <input type="file" id="photoInput" accept="image/*">
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/*"
+      >
+
     </div>
 
     <div class="workspace">
@@ -500,11 +524,17 @@ footer p{
       <div class="preview">
 
         <div class="placeholder" id="placeholder">
+
           <h2>Your photo appears here</h2>
+
           <p>Upload a photo to begin.</p>
+
         </div>
 
-        <img id="previewImage" alt="Photo Preview">
+        <img
+          id="previewImage"
+          alt="Photo Preview"
+        >
 
       </div>
 
@@ -513,35 +543,71 @@ footer p{
         <h3>🎨 Enhance Photo</h3>
 
         <div class="control">
+
           <label>
             <span>Brightness</span>
             <span id="brightnessValue">100%</span>
           </label>
-          <input type="range" id="brightness" min="50" max="150" value="100">
+
+          <input
+            type="range"
+            id="brightness"
+            min="50"
+            max="150"
+            value="100"
+          >
+
         </div>
 
         <div class="control">
+
           <label>
             <span>Contrast</span>
             <span id="contrastValue">100%</span>
           </label>
-          <input type="range" id="contrast" min="50" max="150" value="100">
+
+          <input
+            type="range"
+            id="contrast"
+            min="50"
+            max="150"
+            value="100"
+          >
+
         </div>
 
         <div class="control">
+
           <label>
             <span>Saturation</span>
             <span id="saturationValue">100%</span>
           </label>
-          <input type="range" id="saturation" min="0" max="200" value="100">
+
+          <input
+            type="range"
+            id="saturation"
+            min="0"
+            max="200"
+            value="100"
+          >
+
         </div>
 
         <div class="control">
+
           <label>
             <span>Sharpness</span>
             <span id="sharpnessValue">0</span>
           </label>
-          <input type="range" id="sharpness" min="0" max="5" value="0">
+
+          <input
+            type="range"
+            id="sharpness"
+            min="0"
+            max="5"
+            value="0"
+          >
+
         </div>
 
         <button class="download-btn" id="downloadBtn">
@@ -553,45 +619,77 @@ footer p{
         </button>
 
       </div>
+
     </div>
+
   </div>
+
 </section>
 
 <section id="features">
 
   <div class="section-title">
+
     <h2>🚀 Powerful Features</h2>
-    <p>Simple tools for quick photo enhancement.</p>
+
+    <p>
+      Simple tools for quick photo enhancement.
+    </p>
+
   </div>
 
   <div class="cards">
 
     <div class="card">
+
       <div class="icon">⚡</div>
+
       <h3>Fast Enhancement</h3>
-      <p>Enhance photos directly in your browser.</p>
+
+      <p>
+        Enhance photos directly in your browser.
+      </p>
+
     </div>
 
     <div class="card">
+
       <div class="icon">🎨</div>
+
       <h3>Color Boost</h3>
-      <p>Adjust brightness, contrast and saturation.</p>
+
+      <p>
+        Adjust brightness, contrast and saturation.
+      </p>
+
     </div>
 
     <div class="card">
+
       <div class="icon">🔒</div>
+
       <h3>Private</h3>
-      <p>Your photo stays inside your browser in this version.</p>
+
+      <p>
+        Your photo stays inside your browser in this version.
+      </p>
+
     </div>
 
   </div>
+
 </section>
 
 <section class="premium-section" id="premium">
 
   <div class="section-title">
+
     <h2>👑 PhotoGlow Premium</h2>
-    <p>Future premium tools can be offered to users.</p>
+
+    <p>
+      Unlock more powerful photo tools.
+    </p>
+
   </div>
 
   <div class="premium-card">
@@ -603,45 +701,74 @@ footer p{
     <div class="price">Rs. 500</div>
 
     <ul class="premium-list">
+
       <li>🚀 HD Enhancement</li>
       <li>✨ Extra Effects</li>
       <li>📸 High Quality Download</li>
       <li>⚡ Faster Processing</li>
       <li>💎 Premium Tools</li>
+
     </ul>
 
     <button class="premium-btn" id="premiumBtn">
-      💳 Upgrade to Premium
+      👑 Get Premium
     </button>
 
   </div>
+
 </section>
 
 <section class="earning" id="earning">
 
   <div class="section-title">
-    <h2>💰 Website Earning</h2>
-    <p>Possible ways to monetize PhotoGlow after proper setup.</p>
+
+    <h2>💰 Monetize PhotoGlow</h2>
+
+    <p>
+      Three possible ways to build legitimate website revenue.
+    </p>
+
   </div>
 
   <div class="cards">
 
     <div class="card">
+
       <div class="icon">👑</div>
+
       <h3>Premium Plans</h3>
-      <p>Offer additional tools through an approved payment system.</p>
+
+      <p>
+        Offer advanced photo tools through an approved
+        payment provider.
+      </p>
+
     </div>
 
     <div class="card">
+
       <div class="icon">📢</div>
+
       <h3>Advertisements</h3>
-      <p>Display ads after joining an approved advertising network.</p>
+
+      <p>
+        Display advertisements after joining an approved
+        advertising network.
+      </p>
+
     </div>
 
     <div class="card">
+
       <div class="icon">💎</div>
+
       <h3>Paid Features</h3>
-      <p>Offer HD downloads or other advanced features.</p>
+
+      <p>
+        Offer optional features such as HD downloads
+        or advanced effects.
+      </p>
+
     </div>
 
   </div>
@@ -649,11 +776,14 @@ footer p{
   <br><br>
 
   <div class="money-box">
+
     <h3>📈 Grow Your Website</h3>
+
     <p>
-      More useful features + more visitors can create opportunities
-      for legitimate monetization.
+      Build useful features, attract visitors and then
+      connect approved monetization services.
     </p>
+
   </div>
 
 </section>
@@ -661,15 +791,28 @@ footer p{
 <section>
 
   <div class="section-title">
+
     <h2>📢 Advertisement</h2>
-    <p>Future approved ad network space.</p>
+
+    <p>
+      Future approved advertising space.
+    </p>
+
   </div>
 
   <div class="ad-box">
+
     <div>
+
       <h3>Advertisement Space</h3>
-      <p>Ads can appear here after an approved ad service is connected.</p>
+
+      <p>
+        Ads can appear here after an approved ad service
+        is connected.
+      </p>
+
     </div>
+
   </div>
 
 </section>
@@ -677,16 +820,23 @@ footer p{
 <section>
 
   <div class="section-title">
+
     <h2>🔒 Privacy</h2>
+
   </div>
 
   <div class="privacy">
+
     <h3>Your Photos Stay Private</h3>
+
     <br>
+
     <p>
-      In this basic version, selected photos are processed inside
-      your browser and are not automatically uploaded to our server.
+      In this basic version, selected photos are processed
+      inside your browser and are not automatically uploaded
+      to our server.
     </p>
+
   </div>
 
 </section>
@@ -694,28 +844,51 @@ footer p{
 <section id="contact">
 
   <div class="section-title">
+
     <h2>📞 Contact</h2>
-    <p>Thank you for visiting PhotoGlow.</p>
+
+    <p>
+      Thank you for visiting PhotoGlow.
+    </p>
+
   </div>
 
   <div class="cards">
 
     <div class="card">
+
       <div class="icon">💬</div>
+
       <h3>Support</h3>
-      <p>Support information can be added later.</p>
+
+      <p>
+        Support information can be added later.
+      </p>
+
     </div>
 
     <div class="card">
+
       <div class="icon">🌐</div>
+
       <h3>Online</h3>
-      <p>Use PhotoGlow from your phone or computer.</p>
+
+      <p>
+        Use PhotoGlow from your phone or computer.
+      </p>
+
     </div>
 
     <div class="card">
+
       <div class="icon">❤️</div>
+
       <h3>Thank You</h3>
-      <p>Thanks for using PhotoGlow.</p>
+
+      <p>
+        Thanks for using PhotoGlow.
+      </p>
+
     </div>
 
   </div>
@@ -723,121 +896,176 @@ footer p{
 </section>
 
 <footer>
+
   <h2>✨ PhotoGlow</h2>
+
   <p>Make every photo glow.</p>
+
   <br>
-  <p>© 2026 PhotoGlow. All rights reserved.</p>
+
+  <p>
+    © 2026 PhotoGlow. All rights reserved.
+  </p>
+
 </footer>
 
-<button class="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<button
+  class="top-btn"
+  onclick="window.scrollTo({top:0,behavior:'smooth'})"
+>
   ↑
 </button>
 
 <script>
 
-const photoInput = document.getElementById("photoInput");
-const previewImage = document.getElementById("previewImage");
-const placeholder = document.getElementById("placeholder");
+const photoInput =
+  document.getElementById("photoInput");
 
-const brightness = document.getElementById("brightness");
-const contrast = document.getElementById("contrast");
-const saturation = document.getElementById("saturation");
-const sharpness = document.getElementById("sharpness");
+const previewImage =
+  document.getElementById("previewImage");
 
-const brightnessValue = document.getElementById("brightnessValue");
-const contrastValue = document.getElementById("contrastValue");
-const saturationValue = document.getElementById("saturationValue");
-const sharpnessValue = document.getElementById("sharpnessValue");
+const placeholder =
+  document.getElementById("placeholder");
 
-const downloadBtn = document.getElementById("downloadBtn");
-const resetBtn = document.getElementById("resetBtn");
-const premiumBtn = document.getElementById("premiumBtn");
-const modeBtn = document.getElementById("modeBtn");
+const brightness =
+  document.getElementById("brightness");
+
+const contrast =
+  document.getElementById("contrast");
+
+const saturation =
+  document.getElementById("saturation");
+
+const sharpness =
+  document.getElementById("sharpness");
+
+const brightnessValue =
+  document.getElementById("brightnessValue");
+
+const contrastValue =
+  document.getElementById("contrastValue");
+
+const saturationValue =
+  document.getElementById("saturationValue");
+
+const sharpnessValue =
+  document.getElementById("sharpnessValue");
+
+const downloadBtn =
+  document.getElementById("downloadBtn");
+
+const resetBtn =
+  document.getElementById("resetBtn");
+
+const premiumBtn =
+  document.getElementById("premiumBtn");
+
+const modeBtn =
+  document.getElementById("modeBtn");
 
 let originalImage = new Image();
 
-photoInput.addEventListener("change",function(){
+photoInput.addEventListener("change", function(){
 
-  const file=this.files[0];
+  const file = this.files[0];
 
   if(!file) return;
 
-  const reader=new FileReader();
+  const reader = new FileReader();
 
-  reader.onload=function(e){
+  reader.onload = function(e){
 
-    originalImage.src=e.target.result;
+    originalImage.src = e.target.result;
 
-    previewImage.src=e.target.result;
-    previewImage.style.display="block";
-    placeholder.style.display="none";
+    previewImage.src = e.target.result;
+
+    previewImage.style.display = "block";
+
+    placeholder.style.display = "none";
 
     updateImage();
+
   };
 
   reader.readAsDataURL(file);
+
 });
 
 function updateImage(){
 
-  previewImage.style.filter=
-  `brightness(${brightness.value}%)
-   contrast(${contrast.value}%)
-   saturate(${saturation.value}%)`;
+  previewImage.style.filter =
+    `brightness(${brightness.value}%)
+     contrast(${contrast.value}%)
+     saturate(${saturation.value}%)`;
 
-  brightnessValue.textContent=brightness.value+"%";
-  contrastValue.textContent=contrast.value+"%";
-  saturationValue.textContent=saturation.value+"%";
-  sharpnessValue.textContent=sharpness.value;
+  brightnessValue.textContent =
+    brightness.value + "%";
+
+  contrastValue.textContent =
+    contrast.value + "%";
+
+  saturationValue.textContent =
+    saturation.value + "%";
+
+  sharpnessValue.textContent =
+    sharpness.value;
+
 }
 
-brightness.addEventListener("input",updateImage);
-contrast.addEventListener("input",updateImage);
-saturation.addEventListener("input",updateImage);
-sharpness.addEventListener("input",updateImage);
+brightness.addEventListener("input", updateImage);
+contrast.addEventListener("input", updateImage);
+saturation.addEventListener("input", updateImage);
+sharpness.addEventListener("input", updateImage);
 
-resetBtn.addEventListener("click",function(){
+resetBtn.addEventListener("click", function(){
 
-  brightness.value=100;
-  contrast.value=100;
-  saturation.value=100;
-  sharpness.value=0;
+  brightness.value = 100;
+  contrast.value = 100;
+  saturation.value = 100;
+  sharpness.value = 0;
 
   updateImage();
+
 });
 
-premiumBtn.addEventListener("click",function(){
+premiumBtn.addEventListener("click", function(){
 
   alert(
-    "👑 PhotoGlow Premium\n\n"+
-    "Price: Rs. 500\n\n"+
-    "HD Enhancement\n"+
-    "Extra Effects\n"+
-    "High Quality Download\n"+
-    "Premium Tools\n\n"+
-    "Demo Payment Screen"
+    "👑 PhotoGlow Premium\n\n" +
+    "Premium checkout is being prepared.\n\n" +
+    "HD Enhancement\n" +
+    "Extra Effects\n" +
+    "High Quality Download\n" +
+    "Premium Tools"
   );
 
 });
 
-downloadBtn.addEventListener("click",function(){
+downloadBtn.addEventListener("click", function(){
 
   if(!originalImage.src){
 
     alert("Please upload a photo first.");
+
     return;
   }
 
-  const canvas=document.createElement("canvas");
-  const ctx=canvas.getContext("2d");
+  const canvas =
+    document.createElement("canvas");
 
-  canvas.width=originalImage.naturalWidth;
-  canvas.height=originalImage.naturalHeight;
+  const ctx =
+    canvas.getContext("2d");
 
-  ctx.filter=
-  `brightness(${brightness.value}%)
-   contrast(${contrast.value}%)
-   saturate(${saturation.value}%)`;
+  canvas.width =
+    originalImage.naturalWidth;
+
+  canvas.height =
+    originalImage.naturalHeight;
+
+  ctx.filter =
+    `brightness(${brightness.value}%)
+     contrast(${contrast.value}%)
+     saturate(${saturation.value}%)`;
 
   ctx.drawImage(
     originalImage,
@@ -847,22 +1075,31 @@ downloadBtn.addEventListener("click",function(){
     canvas.height
   );
 
-  const link=document.createElement("a");
+  const link =
+    document.createElement("a");
 
-  link.download="photoglow-enhanced.png";
-  link.href=canvas.toDataURL("image/png");
+  link.download =
+    "photoglow-enhanced.png";
+
+  link.href =
+    canvas.toDataURL("image/png");
+
   link.click();
 
 });
 
-modeBtn.addEventListener("click",function(){
+modeBtn.addEventListener("click", function(){
 
   document.body.classList.toggle("dark");
 
   if(document.body.classList.contains("dark")){
-    modeBtn.textContent="☀️";
+
+    modeBtn.textContent = "☀️";
+
   }else{
-    modeBtn.textContent="🌙";
+
+    modeBtn.textContent = "🌙";
+
   }
 
 });
@@ -871,3 +1108,4 @@ modeBtn.addEventListener("click",function(){
 
 </body>
 </html>
+```
