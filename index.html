@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photo Enhancer</title>
+
+  <title>✨ PhotoGlow - Photo Enhancer</title>
 
   <style>
     * {
@@ -16,110 +17,150 @@
     body {
       font-family: Arial, sans-serif;
       background: #f5f7ff;
-      color: #222;
+      color: #202124;
+      line-height: 1.6;
     }
+
+    /* NAVBAR */
 
     header {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: white;
-      padding: 16px 7%;
+      z-index: 999;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 15px 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     }
 
     .logo {
-      font-size: 24px;
-      font-weight: bold;
+      font-size: 25px;
+      font-weight: 800;
       color: #6a11cb;
     }
 
     nav a {
       text-decoration: none;
       color: #333;
-      margin-left: 20px;
       font-weight: bold;
+      margin-left: 22px;
+      transition: 0.3s;
     }
 
     nav a:hover {
       color: #6a11cb;
     }
 
-    section {
-      padding: 80px 7%;
-    }
+    /* HERO */
 
     .hero {
-      min-height: 90vh;
+      min-height: 92vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 40px 6%;
       color: white;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.2), transparent 30%),
+        linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .hero-content {
+      max-width: 850px;
     }
 
     .hero h1 {
-      font-size: 55px;
+      font-size: 64px;
+      line-height: 1.1;
       margin-bottom: 20px;
     }
 
     .hero p {
-      font-size: 20px;
+      font-size: 21px;
+      opacity: .95;
       margin-bottom: 30px;
     }
 
     .hero-btn {
       display: inline-block;
-      padding: 15px 30px;
       background: white;
       color: #6a11cb;
-      border-radius: 30px;
+      padding: 15px 32px;
+      border-radius: 50px;
       text-decoration: none;
       font-weight: bold;
+      box-shadow: 0 10px 30px rgba(0,0,0,.2);
+      transition: .3s;
     }
 
-    .title {
+    .hero-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 90px 7%;
+    }
+
+    .section-title {
       text-align: center;
-      margin-bottom: 40px;
+      max-width: 700px;
+      margin: 0 auto 45px;
     }
 
-    .title h2 {
-      font-size: 35px;
+    .section-title h2 {
+      font-size: 40px;
       color: #5b0dbb;
       margin-bottom: 10px;
     }
 
+    .section-title p {
+      color: #666;
+    }
+
+    /* ENHANCER */
+
     .enhancer-box {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
       background: white;
       padding: 30px;
-      border-radius: 25px;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.1);
+      border-radius: 28px;
+      box-shadow: 0 15px 50px rgba(50,50,100,.12);
     }
 
-    .upload {
+    .upload-box {
       text-align: center;
-      padding: 35px;
+      padding: 40px;
       border: 3px dashed #6a11cb;
-      border-radius: 20px;
-      background: #faf7ff;
+      border-radius: 22px;
+      background: #faf8ff;
+    }
+
+    .upload-box h3 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .upload-box p {
+      color: #777;
     }
 
     input[type="file"] {
       display: none;
     }
 
-    .upload label {
+    .choose-btn {
       display: inline-block;
       margin-top: 20px;
-      padding: 13px 25px;
-      background: #6a11cb;
+      background: linear-gradient(90deg,#6a11cb,#2575fc);
       color: white;
+      padding: 14px 28px;
       border-radius: 30px;
       cursor: pointer;
       font-weight: bold;
@@ -127,40 +168,46 @@
 
     .workspace {
       display: grid;
-      grid-template-columns: 1fr 300px;
+      grid-template-columns: 1fr 320px;
       gap: 25px;
-      margin-top: 25px;
+      margin-top: 28px;
     }
 
     .preview {
-      min-height: 400px;
+      min-height: 430px;
       background: #111;
-      border-radius: 18px;
+      border-radius: 20px;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       overflow: hidden;
     }
 
     .preview img {
       max-width: 100%;
-      max-height: 500px;
+      max-height: 520px;
       display: none;
     }
 
     .placeholder {
       color: #aaa;
       text-align: center;
+      padding: 20px;
     }
 
     .controls {
-      background: #f1f3ff;
-      padding: 20px;
-      border-radius: 18px;
+      background: #f4f5ff;
+      padding: 25px;
+      border-radius: 20px;
+    }
+
+    .controls h3 {
+      color: #5b0dbb;
+      margin-bottom: 20px;
     }
 
     .control {
-      margin: 20px 0;
+      margin-bottom: 22px;
     }
 
     .control label {
@@ -175,80 +222,162 @@
       accent-color: #6a11cb;
     }
 
-    .download {
+    .download-btn {
       width: 100%;
       border: none;
       padding: 14px;
       border-radius: 30px;
-      background: linear-gradient(90deg, #6a11cb, #2575fc);
+      background: linear-gradient(90deg,#6a11cb,#2575fc);
       color: white;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 5px;
     }
 
+    /* FEATURES */
+
     .cards {
+      max-width: 1100px;
+      margin: auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(3,1fr);
+      gap: 22px;
     }
 
     .card {
       background: white;
-      padding: 30px;
+      padding: 32px 25px;
       text-align: center;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.07);
+      transition: .3s;
     }
 
-    .card .icon {
-      font-size: 40px;
-      margin-bottom: 15px;
+    .card:hover {
+      transform: translateY(-7px);
+    }
+
+    .icon {
+      font-size: 45px;
+      margin-bottom: 12px;
     }
 
     .card h3 {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .premium {
-      background: linear-gradient(135deg, #fff1b8, #f4d9ff);
+    .card p {
+      color: #666;
+    }
+
+    /* PREMIUM */
+
+    .premium-section {
+      background: linear-gradient(135deg,#fff4c4,#f5ddff);
+    }
+
+    .premium-card {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 45px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 15px 45px rgba(0,0,0,.12);
+      border: 2px solid #e2b400;
+    }
+
+    .crown {
+      font-size: 60px;
     }
 
     .price {
-      font-size: 45px;
+      font-size: 48px;
       font-weight: bold;
       color: #6a11cb;
-      margin: 20px 0;
+      margin: 15px 0;
     }
 
     .premium-list {
       list-style: none;
-      margin: 20px 0;
-      line-height: 2;
+      margin: 20px 0 28px;
+    }
+
+    .premium-list li {
+      margin: 8px 0;
     }
 
     .premium-btn {
       border: none;
-      padding: 15px 30px;
+      padding: 15px 32px;
       border-radius: 30px;
-      background: linear-gradient(90deg, #ff9f00, #ff4d6d);
+      background: linear-gradient(90deg,#ff9f00,#ff4d6d);
       color: white;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: .3s;
     }
 
-    .earn {
+    .premium-btn:hover {
+      transform: scale(1.04);
+    }
+
+    /* PAID FEATURES */
+
+    .paid-section {
       background: #eef3ff;
     }
 
-    footer {
-      background: #151525;
-      color: white;
+    /* AD */
+
+    .ad-box {
+      max-width: 900px;
+      margin: auto;
+      min-height: 150px;
+      border: 2px dashed #aaa;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 35px;
+      color: #888;
+      background: white;
     }
 
-    @media (max-width: 750px) {
+    /* PRIVACY */
+
+    .privacy {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      background: white;
+      padding: 35px;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.07);
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #141421;
+      color: white;
+      text-align: center;
+      padding: 45px 20px;
+    }
+
+    footer h2 {
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      color: #bbb;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:800px) {
+
       header {
         flex-direction: column;
         gap: 12px;
@@ -260,16 +389,27 @@
       }
 
       .hero h1 {
-        font-size: 38px;
+        font-size: 42px;
       }
 
-      .workspace,
+      .hero p {
+        font-size: 17px;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
       .cards {
         grid-template-columns: 1fr;
       }
 
       section {
-        padding: 60px 5%;
+        padding: 65px 5%;
+      }
+
+      .premium-card {
+        padding: 30px 20px;
       }
     }
   </style>
@@ -278,85 +418,174 @@
 <body>
 
 <header>
-  <div class="logo">✨ Photo Enhancer</div>
+
+  <div class="logo">✨ PhotoGlow</div>
 
   <nav>
     <a href="#home">Home</a>
     <a href="#enhancer">Enhancer</a>
     <a href="#features">Features</a>
     <a href="#premium">Premium</a>
+    <a href="#contact">Contact</a>
   </nav>
+
 </header>
 
 
+<!-- HOME -->
+
 <section class="hero" id="home">
-  <div>
-    <h1>✨ Make Your Photos Better</h1>
-    <p>Brighten, sharpen and improve your photos easily.</p>
-    <a href="#enhancer" class="hero-btn">Start Enhancing</a>
+
+  <div class="hero-content">
+
+    <h1>✨ Make Every Photo Glow</h1>
+
+    <p>
+      Brighten, sharpen and improve your photos
+      with our simple online photo enhancer.
+    </p>
+
+    <a href="#enhancer" class="hero-btn">
+      📸 Start Enhancing
+    </a>
+
   </div>
+
 </section>
 
 
+<!-- ENHANCER -->
+
 <section id="enhancer">
 
-  <div class="title">
+  <div class="section-title">
+
     <h2>📸 Photo Enhancer</h2>
-    <p>Upload your photo and adjust it instantly.</p>
+
+    <p>
+      Upload your photo and adjust it instantly.
+    </p>
+
   </div>
+
 
   <div class="enhancer-box">
 
-    <div class="upload">
-      <h2>Upload Your Photo</h2>
-      <p>Choose an image from your device.</p>
+    <div class="upload-box">
 
-      <label for="photoInput">Choose Photo</label>
-      <input type="file" id="photoInput" accept="image/*">
+      <h3>Upload Your Photo</h3>
+
+      <p>Choose an image from your computer or phone.</p>
+
+      <label for="photoInput" class="choose-btn">
+        Choose Photo
+      </label>
+
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/*"
+      >
+
     </div>
+
 
     <div class="workspace">
 
       <div class="preview">
 
         <div class="placeholder" id="placeholder">
+
           <h2>Your photo appears here</h2>
+
+          <p>Upload a photo to begin.</p>
+
         </div>
 
-        <img id="previewImage">
+        <img id="previewImage" alt="Photo Preview">
 
       </div>
 
+
       <div class="controls">
 
-        <h2>🎨 Controls</h2>
+        <h3>🎨 Enhance Photo</h3>
+
 
         <div class="control">
+
           <label>
-            Brightness
+            <span>Brightness</span>
             <span id="brightnessValue">100%</span>
           </label>
-          <input type="range" id="brightness" min="50" max="150" value="100">
+
+          <input
+            type="range"
+            id="brightness"
+            min="50"
+            max="150"
+            value="100"
+          >
+
         </div>
 
+
         <div class="control">
+
           <label>
-            Contrast
+            <span>Contrast</span>
             <span id="contrastValue">100%</span>
           </label>
-          <input type="range" id="contrast" min="50" max="150" value="100">
+
+          <input
+            type="range"
+            id="contrast"
+            min="50"
+            max="150"
+            value="100"
+          >
+
         </div>
+
 
         <div class="control">
+
           <label>
-            Saturation
+            <span>Saturation</span>
             <span id="saturationValue">100%</span>
           </label>
-          <input type="range" id="saturation" min="0" max="200" value="100">
+
+          <input
+            type="range"
+            id="saturation"
+            min="0"
+            max="200"
+            value="100"
+          >
+
         </div>
 
-        <button class="download" id="downloadBtn">
-          💾 Download Photo
+
+        <div class="control">
+
+          <label>
+            <span>Sharpness</span>
+            <span id="sharpnessValue">0</span>
+          </label>
+
+          <input
+            type="range"
+            id="sharpness"
+            min="0"
+            max="5"
+            value="0"
+          >
+
+        </div>
+
+
+        <button class="download-btn" id="downloadBtn">
+          💾 Download Enhanced Photo
         </button>
 
       </div>
@@ -368,31 +597,59 @@
 </section>
 
 
+<!-- FEATURES -->
+
 <section id="features">
 
-  <div class="title">
-    <h2>🚀 Features</h2>
-    <p>Simple tools for better photos.</p>
+  <div class="section-title">
+
+    <h2>🚀 Powerful Features</h2>
+
+    <p>
+      Everything you need for quick photo enhancement.
+    </p>
+
   </div>
+
 
   <div class="cards">
 
     <div class="card">
+
       <div class="icon">⚡</div>
-      <h3>Fast</h3>
-      <p>Enhance photos quickly in your browser.</p>
+
+      <h3>Fast Enhancement</h3>
+
+      <p>
+        Enhance your photos quickly in your browser.
+      </p>
+
     </div>
 
+
     <div class="card">
+
       <div class="icon">🎨</div>
+
       <h3>Color Boost</h3>
-      <p>Make your colors brighter and more vibrant.</p>
+
+      <p>
+        Improve brightness, contrast and colors.
+      </p>
+
     </div>
 
+
     <div class="card">
+
       <div class="icon">🔒</div>
+
       <h3>Private</h3>
-      <p>Your photo stays in your browser.</p>
+
+      <p>
+        Your uploaded photo stays in your browser.
+      </p>
+
     </div>
 
   </div>
@@ -400,28 +657,44 @@
 </section>
 
 
-<section class="premium" id="premium">
+<!-- PREMIUM -->
 
-  <div class="title">
-    <h2>👑 Premium</h2>
-    <p>Unlock extra photo enhancement features.</p>
+<section class="premium-section" id="premium">
+
+  <div class="section-title">
+
+    <h2>👑 Premium Photo Enhancement</h2>
+
+    <p>
+      Unlock advanced features for your photos.
+    </p>
+
   </div>
 
-  <div class="card">
 
-    <h3>Premium Photo Enhancement</h3>
+  <div class="premium-card">
+
+    <div class="crown">👑</div>
+
+    <h3>PhotoGlow Premium</h3>
 
     <div class="price">Rs. 500</div>
 
     <ul class="premium-list">
+
       <li>🚀 HD Enhancement</li>
       <li>✨ Extra Effects</li>
       <li>📸 High Quality Download</li>
       <li>⚡ Faster Processing</li>
+      <li>💎 Premium Tools</li>
+
     </ul>
 
+
     <button class="premium-btn" id="premiumBtn">
+
       💳 Upgrade to Premium
+
     </button>
 
   </div>
@@ -429,31 +702,180 @@
 </section>
 
 
-<section class="earn">
+<!-- PAID FEATURES -->
 
-  <div class="title">
-    <h2>💰 More Ways To Grow</h2>
-    <p>Future options for the website.</p>
+<section class="paid-section">
+
+  <div class="section-title">
+
+    <h2>💎 Extra Features</h2>
+
+    <p>
+      More premium tools can be added as your website grows.
+    </p>
+
   </div>
+
 
   <div class="cards">
 
     <div class="card">
-      <div class="icon">👑</div>
-      <h3>Premium</h3>
-      <p>Offer advanced features through a paid plan.</p>
+
+      <div class="icon">📸</div>
+
+      <h3>HD Download</h3>
+
+      <p>
+        Offer high-quality image downloads as a paid feature.
+      </p>
+
     </div>
 
-    <div class="card">
-      <div class="icon">💎</div>
-      <h3>Paid Features</h3>
-      <p>Offer additional enhancement tools in the future.</p>
-    </div>
 
     <div class="card">
-      <div class="icon">📢</div>
-      <h3>Advertisements</h3>
-      <p>Advertisement space can be added after approval from an ad network.</p>
+
+      <div class="icon">✨</div>
+
+      <h3>AI Effects</h3>
+
+      <p>
+        Add creative photo effects in future versions.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="icon">⚡</div>
+
+      <h3>Fast Processing</h3>
+
+      <p>
+        Premium users can receive additional processing features.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ADVERTISEMENT -->
+
+<section>
+
+  <div class="section-title">
+
+    <h2>📢 Advertisement</h2>
+
+    <p>
+      Advertisement space for future approved ad services.
+    </p>
+
+  </div>
+
+
+  <div class="ad-box">
+
+    <div>
+
+      <h3>Advertisement Space</h3>
+
+      <p>
+        Ads can appear here after an approved ad network is connected.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PRIVACY -->
+
+<section>
+
+  <div class="section-title">
+
+    <h2>🔒 Privacy</h2>
+
+  </div>
+
+
+  <div class="privacy">
+
+    <h3>Your Photos Stay Private</h3>
+
+    <br>
+
+    <p>
+      Photos selected for enhancement are processed
+      inside your browser by this website.
+      They are not automatically uploaded to a server
+      by this basic version.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+  <div class="section-title">
+
+    <h2>📞 Contact</h2>
+
+    <p>
+      Thank you for visiting PhotoGlow.
+    </p>
+
+  </div>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <div class="icon">💬</div>
+
+      <h3>Support</h3>
+
+      <p>
+        Support information can be added here later.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="icon">🌐</div>
+
+      <h3>Online</h3>
+
+      <p>
+        Use PhotoGlow from your phone or computer.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="icon">❤️</div>
+
+      <h3>Thank You</h3>
+
+      <p>
+        Thanks for using PhotoGlow.
+      </p>
+
     </div>
 
   </div>
@@ -462,32 +884,71 @@
 
 
 <footer>
-  <h2>✨ Photo Enhancer</h2>
-  <p>Enhance your memories beautifully.</p>
+
+  <h2>✨ PhotoGlow</h2>
+
+  <p>
+    Make every photo glow.
+  </p>
+
   <br>
-  <p>© 2026 Photo Enhancer</p>
+
+  <p>
+    © 2026 PhotoGlow. All rights reserved.
+  </p>
+
 </footer>
 
 
 <script>
 
-  const photoInput = document.getElementById("photoInput");
-  const previewImage = document.getElementById("previewImage");
-  const placeholder = document.getElementById("placeholder");
+  const photoInput =
+    document.getElementById("photoInput");
 
-  const brightness = document.getElementById("brightness");
-  const contrast = document.getElementById("contrast");
-  const saturation = document.getElementById("saturation");
+  const previewImage =
+    document.getElementById("previewImage");
 
-  const brightnessValue = document.getElementById("brightnessValue");
-  const contrastValue = document.getElementById("contrastValue");
-  const saturationValue = document.getElementById("saturationValue");
+  const placeholder =
+    document.getElementById("placeholder");
 
-  const downloadBtn = document.getElementById("downloadBtn");
-  const premiumBtn = document.getElementById("premiumBtn");
+
+  const brightness =
+    document.getElementById("brightness");
+
+  const contrast =
+    document.getElementById("contrast");
+
+  const saturation =
+    document.getElementById("saturation");
+
+  const sharpness =
+    document.getElementById("sharpness");
+
+
+  const brightnessValue =
+    document.getElementById("brightnessValue");
+
+  const contrastValue =
+    document.getElementById("contrastValue");
+
+  const saturationValue =
+    document.getElementById("saturationValue");
+
+  const sharpnessValue =
+    document.getElementById("sharpnessValue");
+
+
+  const downloadBtn =
+    document.getElementById("downloadBtn");
+
+  const premiumBtn =
+    document.getElementById("premiumBtn");
+
 
   let originalImage = new Image();
 
+
+  /* UPLOAD PHOTO */
 
   photoInput.addEventListener("change", function() {
 
@@ -495,24 +956,31 @@
 
     if (!file) return;
 
+
     const reader = new FileReader();
+
 
     reader.onload = function(e) {
 
       originalImage.src = e.target.result;
+
       previewImage.src = e.target.result;
 
       previewImage.style.display = "block";
+
       placeholder.style.display = "none";
 
       updateImage();
 
     };
 
+
     reader.readAsDataURL(file);
 
   });
 
+
+  /* UPDATE PHOTO */
 
   function updateImage() {
 
@@ -521,68 +989,119 @@
        contrast(${contrast.value}%)
        saturate(${saturation.value}%)`;
 
-    brightnessValue.textContent = brightness.value + "%";
-    contrastValue.textContent = contrast.value + "%";
-    saturationValue.textContent = saturation.value + "%";
+    brightnessValue.textContent =
+      brightness.value + "%";
+
+    contrastValue.textContent =
+      contrast.value + "%";
+
+    saturationValue.textContent =
+      saturation.value + "%";
+
+    sharpnessValue.textContent =
+      sharpness.value;
 
   }
 
 
-  brightness.addEventListener("input", updateImage);
-  contrast.addEventListener("input", updateImage);
-  saturation.addEventListener("input", updateImage);
+  brightness.addEventListener(
+    "input",
+    updateImage
+  );
 
+  contrast.addEventListener(
+    "input",
+    updateImage
+  );
+
+  saturation.addEventListener(
+    "input",
+    updateImage
+  );
+
+  sharpness.addEventListener(
+    "input",
+    updateImage
+  );
+
+
+  /* PREMIUM DEMO */
 
   premiumBtn.addEventListener("click", function() {
 
     alert(
-      "👑 Premium Plan\n\n" +
+      "👑 PhotoGlow Premium\n\n" +
       "Price: Rs. 500\n\n" +
       "HD Enhancement\n" +
       "Extra Effects\n" +
-      "High Quality Download\n\n" +
+      "High Quality Download\n" +
+      "Premium Tools\n\n" +
       "Demo Payment Screen"
     );
 
   });
 
 
-  downloadBtn.addEventListener("click", function() {
+  /* DOWNLOAD */
 
-    if (!originalImage.src) {
+  downloadBtn.addEventListener(
+    "click",
+    function() {
 
-      alert("Please upload a photo first.");
-      return;
+      if (!originalImage.src) {
+
+        alert("Please upload a photo first.");
+
+        return;
+
+      }
+
+
+      const canvas =
+        document.createElement("canvas");
+
+      const ctx =
+        canvas.getContext("2d");
+
+
+      canvas.width =
+        originalImage.naturalWidth;
+
+      canvas.height =
+        originalImage.naturalHeight;
+
+
+      ctx.filter =
+        `brightness(${brightness.value}%)
+         contrast(${contrast.value}%)
+         saturate(${saturation.value}%)`;
+
+
+      ctx.drawImage(
+        originalImage,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      const link =
+        document.createElement("a");
+
+
+      link.download =
+        "photoglow-enhanced.png";
+
+
+      link.href =
+        canvas.toDataURL("image/png");
+
+
+      link.click();
 
     }
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = originalImage.naturalWidth;
-    canvas.height = originalImage.naturalHeight;
-
-    ctx.filter =
-      `brightness(${brightness.value}%)
-       contrast(${contrast.value}%)
-       saturate(${saturation.value}%)`;
-
-    ctx.drawImage(
-      originalImage,
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-
-    const link = document.createElement("a");
-
-    link.download = "enhanced-photo.png";
-    link.href = canvas.toDataURL("image/png");
-
-    link.click();
-
-  });
+  );
 
 </script>
 
