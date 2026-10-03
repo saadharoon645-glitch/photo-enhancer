@@ -15,10 +15,47 @@ const downloadButton = document.getElementById("downloadButton");
 
 let rotation = 0;
 let flipped = false;
-let originalImage = "";
 
-function updateImage() {
-  if (!previewImage.src) return;
+
+// =========================
+// IMAGE UPLOAD
+// =========================
+
+if (imageInput) {
+  imageInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+      if (previewImage) {
+        previewImage.src = event.target.result;
+        previewImage.style.display = "block";
+      }
+
+      if (uploadMessage) {
+        uploadMessage.textContent =
+          "Image uploaded successfully!";
+      }
+
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+
+// =========================
+// PHOTO FILTERS
+// =========================
+
+function updateFilter() {
+
+  if (!previewImage) return;
 
   previewImage.style.filter = `
     brightness(${brightness.value}%)
@@ -26,126 +63,123 @@ function updateImage() {
     saturate(${saturation.value}%)
   `;
 
-  previewImage.style.transform =
-    `rotate(${rotation}deg) scaleX(${flipped ? -1 : 1})`;
-}
-
-/* PHOTO UPLOAD */
-
-imageInput.addEventListener("change", function () {
-  const file = this.files[0];
-
-  if (!file) return;
-
-  if (!file.type.startsWith("image/")) {
-    alert("Please select an image file.");
-    return;
+  if (brightnessValue) {
+    brightnessValue.textContent =
+      brightness.value + "%";
   }
 
-  const reader = new FileReader();
+  if (contrastValue) {
+    contrastValue.textContent =
+      contrast.value + "%";
+  }
 
-  reader.onload = function (event) {
-    originalImage = event.target.result;
+  if (saturationValue) {
+    saturationValue.textContent =
+      saturation.value + "%";
+  }
+}
 
-    previewImage.src = originalImage;
-    previewImage.style.display = "block";
-    uploadMessage.style.display = "none";
+
+if (brightness) {
+  brightness.addEventListener("input", updateFilter);
+}
+
+if (contrast) {
+  contrast.addEventListener("input", updateFilter);
+}
+
+if (saturation) {
+  saturation.addEventListener("input", updateFilter);
+}
+
+
+// =========================
+// RESET
+// =========================
+
+if (resetButton) {
+
+  resetButton.addEventListener("click", function () {
+
+    if (brightness) brightness.value = 100;
+    if (contrast) contrast.value = 100;
+    if (saturation) saturation.value = 100;
 
     rotation = 0;
     flipped = false;
 
-    updateImage();
-  };
+    if (previewImage) {
+      previewImage.style.transform =
+        "rotate(0deg) scaleX(1)";
+    }
 
-  reader.readAsDataURL(file);
-});
+    updateFilter();
 
+  });
 
-/* SLIDERS */
-
-brightness.addEventListener("input", function () {
-  brightnessValue.textContent = this.value;
-  updateImage();
-});
-
-contrast.addEventListener("input", function () {
-  contrastValue.textContent = this.value;
-  updateImage();
-});
-
-saturation.addEventListener("input", function () {
-  saturationValue.textContent = this.value;
-  updateImage();
-});
+}
 
 
-/* RESET */
+// =========================
+// ROTATE / FLIP / ENHANCE
+// =========================
 
-resetButton.addEventListener("click", function () {
-  brightness.value = 100;
-  contrast.value = 100;
-  saturation.value = 100;
-
-  brightnessValue.textContent = "100";
-  contrastValue.textContent = "100";
-  saturationValue.textContent = "100";
-
-  rotation = 0;
-  flipped = false;
-
-  updateImage();
-});
-
-
-/* TOOL BUTTONS */
-
-const toolButtons = document.querySelectorAll(".tool-grid button");
-
-toolButtons.forEach(function (button) {
+document.querySelectorAll("[data-action]").forEach(function (button) {
 
   button.addEventListener("click", function () {
 
     const action = this.dataset.action;
 
-    if (!previewImage.src) {
-      alert("Please upload a photo first.");
-      return;
-    }
 
+    // ROTATE
     if (action === "rotate") {
+
       rotation += 90;
 
-      if (rotation >= 360) {
-        rotation = 0;
+      if (previewImage) {
+
+        previewImage.style.transform =
+          `rotate(${rotation}deg) scaleX(${flipped ? -1 : 1})`;
+
       }
 
-      updateImage();
     }
 
 
+    // FLIP
     if (action === "flip") {
+
       flipped = !flipped;
-      updateImage();
+
+      if (previewImage) {
+
+        previewImage.style.transform =
+          `rotate(${rotation}deg) scaleX(${flipped ? -1 : 1})`;
+
+      }
+
     }
 
 
+    // AUTO ENHANCE
     if (action === "enhance") {
-      brightness.value = 108;
-      contrast.value = 112;
-      saturation.value = 110;
 
-      brightnessValue.textContent = "108";
-      contrastValue.textContent = "112";
-      saturationValue.textContent = "110";
+      if (brightness) brightness.value = 108;
+      if (contrast) contrast.value = 112;
+      if (saturation) saturation.value = 110;
 
-      updateImage();
+      updateFilter();
 
-      alert("Auto Enhance applied!");
+      alert("✨ Auto Enhance applied!");
+
     }
 
 
+    // DOWNLOAD
     if (action === "download") {
-      downloadEditedImage();
+
+      downloadImage();
+
     }
 
   });
@@ -153,46 +187,29 @@ toolButtons.forEach(function (button) {
 });
 
 
-/* DOWNLOAD */
+// =========================
+// DOWNLOAD EDITED IMAGE
+// =========================
 
-downloadButton.addEventListener("click", function () {
+function downloadImage() {
 
-  if (!previewImage.src) {
-    alert("Please upload a photo first.");
+  if (!previewImage || !previewImage.src) {
+
+    alert("Please upload an image first.");
+
     return;
+
   }
-
-  downloadEditedImage();
-
-});
-
-
-function downloadEditedImage() {
 
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
 
-  const image = new Image();
+  const img = new Image();
 
-  image.onload = function () {
+  img.onload = function () {
 
-    const angle = ((rotation % 360) + 360) % 360;
-
-    const isRotated = angle === 90 || angle === 270;
-
-    canvas.width = isRotated ? image.naturalHeight : image.naturalWidth;
-    canvas.height = isRotated ? image.naturalWidth : image.naturalHeight;
-
-    ctx.save();
-
-    ctx.translate(canvas.width / 2, canvas.height / 2);
-
-    ctx.rotate(angle * Math.PI / 180);
-
-    ctx.scale(
-      flipped ? -1 : 1,
-      1
-    );
+    canvas.width = img.width;
+    canvas.height = img.height;
 
     ctx.filter = `
       brightness(${brightness.value}%)
@@ -200,60 +217,183 @@ function downloadEditedImage() {
       saturate(${saturation.value}%)
     `;
 
-    ctx.drawImage(
-      image,
-      -image.naturalWidth / 2,
-      -image.naturalHeight / 2
-    );
-
-    ctx.restore();
+    ctx.drawImage(img, 0, 0);
 
     const link = document.createElement("a");
 
-    link.download = "pixelforge-edited-photo.png";
+    link.download = "photofix-enhanced.jpg";
 
-    link.href = canvas.toDataURL("image/png");
+    link.href =
+      canvas.toDataURL("image/jpeg", 0.95);
 
     link.click();
+
   };
 
-  image.src = previewImage.src;
+  img.src = previewImage.src;
+
 }
 
 
-/* PREMIUM BUTTON */
+if (downloadButton) {
 
-const upgradeButton = document.querySelector(".price-button.primary");
+  downloadButton.addEventListener(
+    "click",
+    downloadImage
+  );
+
+}
+
+
+// =========================
+// PREMIUM DEMO CHECKOUT
+// =========================
+
+const upgradeButton =
+  document.getElementById("upgradeButton");
 
 if (upgradeButton) {
 
-  upgradeButton.addEventListener("click", function () {
+  upgradeButton.addEventListener(
+    "click",
+    function () {
 
-    alert(
-      "PixelForge Pro is coming soon. Advanced AI features will be connected in the next version."
-    );
+      const paymentBox =
+        document.createElement("div");
 
-  });
+      paymentBox.innerHTML = `
+
+        <div class="payment-overlay"
+             id="paymentOverlay">
+
+          <div class="payment-box">
+
+            <button
+              class="payment-close"
+              id="paymentClose">
+              ×
+            </button>
+
+            <div class="payment-logo">
+              💳
+            </div>
+
+            <h2>
+              Upgrade to PhotoFix Pro
+            </h2>
+
+            <p class="payment-subtitle">
+              Unlock premium photo editing features.
+            </p>
+
+            <div class="payment-price">
+              $1.19
+              <span>/ month</span>
+            </div>
+
+            <div class="payment-method">
+              <strong>JazzCash</strong>
+              <span>Demo payment</span>
+            </div>
+
+            <button
+              class="payment-button"
+              id="continuePayment">
+              Continue with JazzCash
+            </button>
+
+            <small class="payment-note">
+              Payment gateway is not connected yet.
+              This is a demo checkout interface.
+            </small>
+
+          </div>
+
+        </div>
+
+      `;
+
+      document.body.appendChild(paymentBox);
+
+
+      const closeButton =
+        document.getElementById("paymentClose");
+
+      const continueButton =
+        document.getElementById("continuePayment");
+
+
+      if (closeButton) {
+
+        closeButton.onclick = function () {
+
+          const overlay =
+            document.getElementById(
+              "paymentOverlay"
+            );
+
+          if (overlay) {
+            overlay.remove();
+          }
+
+        };
+
+      }
+
+
+      if (continueButton) {
+
+        continueButton.onclick = function () {
+
+          alert(
+            "JazzCash payment gateway is not connected yet. This is currently a demo."
+          );
+
+        };
+
+      }
+
+    }
+  );
 
 }
 
 
-/* SMOOTH ANCHOR LINKS */
+// =========================
+// SMOOTH NAVIGATION
+// =========================
 
-document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+document.querySelectorAll(
+  'a[href^="#"]'
+).forEach(function (link) {
 
-  link.addEventListener("click", function (event) {
+  link.addEventListener(
+    "click",
+    function (event) {
 
-    const target = document.querySelector(this.getAttribute("href"));
+      const target =
+        document.querySelector(
+          this.getAttribute("href")
+        );
 
-    if (target) {
-      event.preventDefault();
+      if (target) {
 
-      target.scrollIntoView({
-        behavior: "smooth"
-      });
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth"
+        });
+
+      }
+
     }
-
-  });
+  );
 
 });
+
+
+// =========================
+// START
+// =========================
+
+updateFilter();
