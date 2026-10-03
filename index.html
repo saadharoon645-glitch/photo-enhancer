@@ -2,22 +2,190 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PixelPhotoFix AI — Smart Photo Editor</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>PhotoFix AI</title>
 
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =========================
+       PAYMENT DEMO POPUP
+       ========================= */
+
+    .payment-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(12px);
+    }
+
+    .payment-box {
+      position: relative;
+
+      width: min(430px, 100%);
+
+      padding: 35px;
+
+      border-radius: 24px;
+
+      background: #101426;
+
+      border: 1px solid rgba(255,255,255,0.12);
+
+      box-shadow:
+        0 30px 90px rgba(0,0,0,0.55);
+
+      text-align: center;
+    }
+
+    .payment-close {
+      position: absolute;
+
+      top: 12px;
+      right: 18px;
+
+      border: 0;
+      background: transparent;
+
+      color: #aaa;
+
+      font-size: 30px;
+
+      cursor: pointer;
+    }
+
+    .payment-logo {
+      width: 65px;
+      height: 65px;
+
+      margin: 0 auto 18px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 18px;
+
+      background: rgba(140,100,255,0.15);
+
+      font-size: 30px;
+    }
+
+    .payment-box h2 {
+      margin: 0;
+      font-size: 26px;
+      color: white;
+    }
+
+    .payment-subtitle {
+      color: #929bb0;
+      line-height: 1.5;
+    }
+
+    .payment-price {
+      margin: 25px 0;
+
+      font-size: 40px;
+
+      font-weight: 900;
+
+      color: white;
+    }
+
+    .payment-price span {
+      font-size: 14px;
+
+      color: #858da3;
+
+      font-weight: 400;
+    }
+
+    .payment-method {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 16px;
+
+      margin-bottom: 16px;
+
+      border-radius: 14px;
+
+      background: rgba(255,255,255,0.05);
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      color: white;
+    }
+
+    .payment-method strong {
+      color: #49d58d;
+    }
+
+    .payment-method span {
+      color: #858da3;
+      font-size: 12px;
+    }
+
+    .payment-button {
+      width: 100%;
+
+      padding: 15px;
+
+      border: 0;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(135deg,#8d63ff,#5e7cff);
+
+      color: white;
+
+      font-size: 15px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+    }
+
+    .payment-note {
+      display: block;
+
+      margin-top: 15px;
+
+      color: #6f778d;
+
+      font-size: 11px;
+
+      line-height: 1.5;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
+  <!-- =========================
+       NAVBAR
+       ========================= -->
+
   <header class="navbar">
 
-    <a href="#" class="logo">
-      <span class="logo-icon">✦</span>
-      PixelForge <span>AI</span>
-    </a>
+    <div class="logo">
+      ✦ PhotoFix AI
+    </div>
 
     <nav>
       <a href="#editor">Editor</a>
@@ -33,664 +201,906 @@
   </header>
 
 
-  <!-- HERO -->
-  <main>
+  <!-- =========================
+       HERO
+       ========================= -->
 
-    <section class="hero">
+  <section class="hero">
 
-      <div class="hero-content">
+    <div class="hero-content">
 
-        <div class="hero-badge">
-          ✨ Next-generation photo editing
-        </div>
+      <span class="hero-badge">
+        ✨ AI PHOTO EDITOR
+      </span>
 
-        <h1>
-          Turn ordinary photos into
-          <span>extraordinary</span> images.
-        </h1>
+      <h1>
+        Make Every Photo
+        <span>Look Amazing.</span>
+      </h1>
 
-        <p>
-          Enhance, retouch, resize and transform your photos
-          with powerful editing tools — all in one beautiful workspace.
-        </p>
+      <p>
+        Enhance, edit and transform your photos
+        with powerful AI-powered tools.
+      </p>
 
-        <div class="hero-buttons">
-
-          <a href="#editor" class="primary-button">
-            ✨ Edit a Photo
-          </a>
-
-          <a href="#features" class="secondary-button">
-            Explore Features →
-          </a>
-
-        </div>
-
-        <div class="trust-row">
-
-          <div>
-            <strong>20+</strong>
-            <small>Editing Tools</small>
-          </div>
-
-          <div>
-            <strong>4K</strong>
-            <small>AI Quality</small>
-          </div>
-
-          <div>
-            <strong>100%</strong>
-            <small>Web Based</small>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="hero-visual">
-
-        <div class="glow"></div>
-
-        <div class="floating-card card-one">
-          ✨ Auto Enhance
-          <strong>+ HD</strong>
-        </div>
-
-        <div class="photo-preview">
-
-          <div class="preview-top">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-
-          <div class="preview-image">
-
-            <div class="mountain">
-              ◢
-            </div>
-
-            <div class="sun">
-              ☀
-            </div>
-
-            <div class="preview-label">
-              AI Enhanced
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="floating-card card-two">
-          🚀 4K Upscale
-          <strong>Ready</strong>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- EDITOR -->
-    <section class="section editor-section" id="editor">
-
-      <div class="section-heading">
-
-        <div class="section-tag">
-          PHOTO EDITOR
-        </div>
-
-        <h2>
-          Your creative workspace
-        </h2>
-
-        <p>
-          Upload a photo and start editing instantly.
-        </p>
-
-      </div>
-
-
-      <div class="editor-layout">
-
-        <!-- UPLOAD / PREVIEW -->
-        <div class="editor-preview">
-
-          <div class="upload-message" id="uploadMessage">
-
-            <div class="upload-icon">
-              ↑
-            </div>
-
-            <h3>Drop your photo here</h3>
-
-            <p>
-              JPG, PNG or WEBP • Free to use
-            </p>
-
-            <label class="upload-button">
-
-              Choose Photo
-
-              <input
-                type="file"
-                id="imageInput"
-                accept="image/*"
-                hidden
-              >
-
-            </label>
-
-          </div>
-
-          <img
-            id="previewImage"
-            alt="Photo preview"
-          >
-
-        </div>
-
-
-        <!-- CONTROLS -->
-        <aside class="editor-controls">
-
-          <div class="control-header">
-
-            <div>
-              <span>EDITOR</span>
-              <h3>Adjustments</h3>
-            </div>
-
-            <button
-              class="reset-button"
-              id="resetButton"
-            >
-              Reset
-            </button>
-
-          </div>
-
-
-          <div class="control-group">
-
-            <div class="control-label">
-
-              <span>Brightness</span>
-
-              <strong id="brightnessValue">
-                100
-              </strong>
-
-            </div>
-
-            <input
-              type="range"
-              id="brightness"
-              min="0"
-              max="200"
-              value="100"
-            >
-
-          </div>
-
-
-          <div class="control-group">
-
-            <div class="control-label">
-
-              <span>Contrast</span>
-
-              <strong id="contrastValue">
-                100
-              </strong>
-
-            </div>
-
-            <input
-              type="range"
-              id="contrast"
-              min="0"
-              max="200"
-              value="100"
-            >
-
-          </div>
-
-
-          <div class="control-group">
-
-            <div class="control-label">
-
-              <span>Saturation</span>
-
-              <strong id="saturationValue">
-                100
-              </strong>
-
-            </div>
-
-            <input
-              type="range"
-              id="saturation"
-              min="0"
-              max="200"
-              value="100"
-            >
-
-          </div>
-
-
-          <div class="tool-grid">
-
-            <button data-action="rotate">
-              ↻ Rotate
-            </button>
-
-            <button data-action="flip">
-              ⇆ Flip
-            </button>
-
-            <button data-action="enhance">
-              ✦ Enhance
-            </button>
-
-            <button data-action="download">
-              ↓ Download
-            </button>
-
-          </div>
-
-
-          <button
-            class="full-button"
-            id="downloadButton"
-          >
-            Download Edited Photo
-          </button>
-
-        </aside>
-
-      </div>
-
-    </section>
-
-
-    <!-- FEATURES -->
-    <section class="section" id="features">
-
-      <div class="section-heading">
-
-        <div class="section-tag">
-          POWERFUL TOOLS
-        </div>
-
-        <h2>
-          Everything you need
-        </h2>
-
-        <p>
-          Professional editing features designed to stay simple.
-        </p>
-
-      </div>
-
-
-      <div class="feature-grid">
-
-        <article class="feature-card featured">
-
-          <div class="feature-icon purple">
-            ✦
-          </div>
-
-          <h3>Auto Enhance</h3>
-
-          <p>
-            Quickly improve brightness, contrast and color balance.
-          </p>
-
-          <span>
-            Free
-          </span>
-
-        </article>
-
-
-        <article class="feature-card">
-
-          <div class="feature-icon blue">
-            ◈
-          </div>
-
-          <h3>Background Remove</h3>
-
-          <p>
-            Prepare clean subjects for profiles, products and designs.
-          </p>
-
-          <span>
-            Free
-          </span>
-
-        </article>
-
-
-        <article class="feature-card">
-
-          <div class="feature-icon orange">
-            ◉
-          </div>
-
-          <h3>Smart Filters</h3>
-
-          <p>
-            Create different moods with beautiful photo filters.
-          </p>
-
-          <span>
-            Free
-          </span>
-
-        </article>
-
-
-        <article class="feature-card">
-
-          <div class="feature-icon green">
-            ↑
-          </div>
-
-          <h3>AI Upscale</h3>
-
-          <p>
-            Prepare images for higher-resolution AI enhancement.
-          </p>
-
-          <span class="premium-label">
-            Premium
-          </span>
-
-        </article>
-
-
-        <article class="feature-card">
-
-          <div class="feature-icon pink">
-            ◉
-          </div>
-
-          <h3>Face Restore</h3>
-
-          <p>
-            Advanced AI processing for old and low-quality portraits.
-          </p>
-
-          <span class="premium-label">
-            Premium
-          </span>
-
-        </article>
-
-
-        <article class="feature-card">
-
-          <div class="feature-icon cyan">
-            ✧
-          </div>
-
-          <h3>Object Remover</h3>
-
-          <p>
-            Remove unwanted objects when AI processing is connected.
-          </p>
-
-          <span class="premium-label">
-            Premium
-          </span>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- QUALITY -->
-    <section class="quality-section" id="quality">
-
-      <div class="quality-content">
-
-        <div class="section-tag light">
-          AI QUALITY
-        </div>
-
-        <h2>
-          From phone quality to
-          <span>4K.</span>
-        </h2>
-
-        <p>
-          Choose the quality you need. Basic editing is free,
-          while advanced AI enhancement can be connected later.
-        </p>
-
-      </div>
-
-
-      <div class="quality-grid">
-
-        <div class="quality-card">
-
-          <span>01</span>
-
-          <h3>Phone</h3>
-
-          <p>
-            Everyday mobile photos
-          </p>
-
-        </div>
-
-
-        <div class="quality-card">
-
-          <span>02</span>
-
-          <h3>HD</h3>
-
-          <p>
-            High-definition output
-          </p>
-
-        </div>
-
-
-        <div class="quality-card">
-
-          <span>03</span>
-
-          <h3>2K</h3>
-
-          <p>
-            High-resolution workflow
-          </p>
-
-        </div>
-
-
-        <div class="quality-card premium-quality">
-
-          <span>04</span>
-
-          <h3>4K</h3>
-
-          <p>
-            Premium AI workflow
-          </p>
-
-          <b>PRO</b>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PRICING -->
-    <section class="section" id="pricing">
-
-      <div class="section-heading">
-
-        <div class="section-tag">
-          SIMPLE PRICING
-        </div>
-
-        <h2>
-          Start free. Upgrade when you need more.
-        </h2>
-
-        <p>
-          Keep the essential editing tools free and unlock advanced
-          processing when you need it.
-        </p>
-
-      </div>
-
-
-      <div class="pricing-grid">
-
-        <div class="price-card">
-
-          <span class="plan-label">
-            FREE
-          </span>
-
-          <h3>Starter</h3>
-
-          <div class="price">
-            $0
-            <small>/ forever</small>
-          </div>
-
-          <p>
-            Everything you need for everyday editing.
-          </p>
-
-          <ul>
-            <li>✓ Photo upload</li>
-            <li>✓ Brightness & contrast</li>
-            <li>✓ Saturation</li>
-            <li>✓ Basic filters</li>
-            <li>✓ Rotate & flip</li>
-            <li>✓ HD workflow</li>
-            <li>✓ Download</li>
-          </ul>
-
-          <a href="#editor" class="price-button">
-            Start Free
-          </a>
-
-        </div>
-
-
-        <div class="price-card popular">
-
-          <div class="popular-badge">
-            MOST FEATURES
-          </div>
-
-          <span class="plan-label">
-            PREMIUM
-          </span>
-
-          <h3>Pro</h3>
-
-          <div class="price">
-            $1.19
-            <small>/ month</small>
-          </div>
-
-          <p>
-            Advanced tools for creators and professionals.
-          </p>
-
-          <ul>
-            <li>✓ Everything in Free</li>
-            <li>✓ AI 2K / 4K processing</li>
-            <li>✓ Face Restore</li>
-            <li>✓ Object Remover</li>
-            <li>✓ AI Colorize</li>
-            <li>✓ No watermark</li>
-            <li>✓ Higher processing limits</li>
-          </ul>
-
-          <button class="price-button primary">
-            Upgrade to Pro
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CTA -->
-    <section class="cta">
-
-      <div>
-
-        <div class="section-tag light">
-          READY TO CREATE?
-        </div>
-
-        <h2>
-          Give your photos
-          a professional finish.
-        </h2>
-
-        <p>
-          Start with the free editor and explore what PixelForge AI can do.
-        </p>
-
-      </div>
-
-      <a href="#editor" class="primary-button">
-        Start Editing ✦
+      <a href="#editor" class="hero-button">
+        Start Editing Free
       </a>
 
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <div class="footer-logo">
-      ✦ PixelForge AI
     </div>
+
+  </section>
+
+
+  <!-- =========================
+       EDITOR
+       ========================= -->
+
+  <section id="editor" class="editor-section">
+
+    <div class="section-heading">
+
+      <span>PHOTO EDITOR</span>
+
+      <h2>
+        Edit Your Photo
+      </h2>
+
+      <p>
+        Upload an image and start editing instantly.
+      </p>
+
+    </div>
+
+
+    <div class="editor-container">
+
+      <div class="upload-area">
+
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+        >
+
+        <div class="upload-icon">
+          📸
+        </div>
+
+        <h3>
+          Upload Your Photo
+        </h3>
+
+        <p id="uploadMessage">
+          Choose an image from your device
+        </p>
+
+      </div>
+
+
+      <div class="preview-area">
+
+        <img
+          id="previewImage"
+          src=""
+          alt="Photo Preview"
+          style="display:none;"
+        >
+
+      </div>
+
+
+      <!-- CONTROLS -->
+
+      <div class="controls">
+
+        <div class="control">
+
+          <label>
+            Brightness
+            <span id="brightnessValue">
+              100%
+            </span>
+          </label>
+
+          <input
+            type="range"
+            id="brightness"
+            min="50"
+            max="150"
+            value="100"
+          >
+
+        </div>
+
+
+        <div class="control">
+
+          <label>
+            Contrast
+            <span id="contrastValue">
+              100%
+            </span>
+          </label>
+
+          <input
+            type="range"
+            id="contrast"
+            min="50"
+            max="150"
+            value="100"
+          >
+
+        </div>
+
+
+        <div class="control">
+
+          <label>
+            Saturation
+            <span id="saturationValue">
+              100%
+            </span>
+          </label>
+
+          <input
+            type="range"
+            id="saturation"
+            min="0"
+            max="200"
+            value="100"
+          >
+
+        </div>
+
+
+        <div class="tool-buttons">
+
+          <button data-action="rotate">
+            ↻ Rotate
+          </button>
+
+          <button data-action="flip">
+            ⇄ Flip
+          </button>
+
+          <button data-action="enhance">
+            ✨ Enhance
+          </button>
+
+          <button data-action="download">
+            ⬇ Download
+          </button>
+
+        </div>
+
+
+        <button
+          id="resetButton"
+          class="reset-button"
+        >
+          Reset
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FEATURES
+       ========================= -->
+
+  <section id="features" class="features-section">
+
+    <div class="section-heading">
+
+      <span>POWERFUL TOOLS</span>
+
+      <h2>
+        Everything You Need
+      </h2>
+
+      <p>
+        Professional editing tools in one simple place.
+      </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div>✨</div>
+        <h3>Auto Enhance</h3>
+        <p>
+          Automatically improve brightness,
+          contrast and colors.
+        </p>
+      </div>
+
+
+      <div class="feature-card">
+        <div>🪄</div>
+        <h3>Background Remove</h3>
+        <p>
+          Remove backgrounds with AI-powered tools.
+        </p>
+      </div>
+
+
+      <div class="feature-card">
+        <div>🎨</div>
+        <h3>Smart Filters</h3>
+        <p>
+          Apply beautiful filters to your photos.
+        </p>
+      </div>
+
+
+      <div class="feature-card">
+        <div>🔍</div>
+        <h3>AI Upscale</h3>
+        <p>
+          Increase photo quality with AI.
+        </p>
+      </div>
+
+
+      <div class="feature-card">
+        <div>🙂</div>
+        <h3>Face Restore</h3>
+        <p>
+          Improve details in portraits.
+        </p>
+      </div>
+
+
+      <div class="feature-card">
+        <div>🧹</div>
+        <h3>Object Remover</h3>
+        <p>
+          Remove unwanted objects from photos.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       QUALITY
+       ========================= -->
+
+  <section id="quality" class="quality-section">
+
+    <div class="section-heading">
+
+      <span>AI QUALITY</span>
+
+      <h2>
+        Choose Your Quality
+      </h2>
+
+    </div>
+
+
+    <div class="quality-grid">
+
+      <div class="quality-card">
+        <h3>Phone</h3>
+        <p>Optimized for mobile</p>
+      </div>
+
+      <div class="quality-card">
+        <h3>HD</h3>
+        <p>High quality output</p>
+      </div>
+
+      <div class="quality-card">
+        <h3>2K</h3>
+        <p>Sharper AI output</p>
+      </div>
+
+      <div class="quality-card premium">
+        <span>PRO</span>
+        <h3>4K</h3>
+        <p>Premium AI quality</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PRICING
+       ========================= -->
+
+  <section id="pricing" class="pricing-section">
+
+    <div class="section-heading">
+
+      <span>PRICING</span>
+
+      <h2>
+        Simple & Affordable
+      </h2>
+
+      <p>
+        Start free and unlock more with Pro.
+      </p>
+
+    </div>
+
+
+    <div class="pricing-grid">
+
+
+      <!-- FREE -->
+
+      <div class="price-card">
+
+        <h3>
+          Free Starter
+        </h3>
+
+        <div class="price">
+          $0
+          <span>/ forever</span>
+        </div>
+
+        <ul>
+          <li>✓ Basic Photo Editor</li>
+          <li>✓ Brightness</li>
+          <li>✓ Contrast</li>
+          <li>✓ Saturation</li>
+          <li>✓ Phone Quality</li>
+          <li>✓ HD Quality</li>
+        </ul>
+
+        <button class="price-button">
+          Start Free
+        </button>
+
+      </div>
+
+
+      <!-- PREMIUM -->
+
+      <div class="price-card premium-card">
+
+        <div class="popular">
+          POPULAR
+        </div>
+
+        <h3>
+          PhotoFix Pro
+        </h3>
+
+        <div class="price">
+          $1.19
+          <span>/ month</span>
+        </div>
+
+        <ul>
+          <li>✓ AI Upscale 2x / 4x</li>
+          <li>✓ Face Restore</li>
+          <li>✓ Object Remover</li>
+          <li>✓ 2K Quality</li>
+          <li>✓ 4K Quality</li>
+          <li>✓ No Watermark</li>
+          <li>✓ Faster Processing</li>
+        </ul>
+
+
+        <button
+          class="price-button primary"
+          id="upgradeButton"
+        >
+          Upgrade to Pro — $1.19/month
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+       ========================= -->
+
+  <section class="cta-section">
+
+    <h2>
+      Ready to Transform Your Photos?
+    </h2>
 
     <p>
-      Smart photo editing for everyone.
+      Start editing your photos with PhotoFix AI today.
     </p>
 
-    <div class="footer-links">
-      <a href="#editor">Editor</a>
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
+    <a href="#editor" class="hero-button">
+      Start Editing
+    </a>
+
+  </section>
+
+
+  <!-- =========================
+       PAYMENT POPUP
+       ========================= -->
+
+  <div
+    class="payment-overlay"
+    id="paymentOverlay"
+  >
+
+    <div class="payment-box">
+
+      <button
+        class="payment-close"
+        id="paymentClose"
+      >
+        ×
+      </button>
+
+
+      <div class="payment-logo">
+        💳
+      </div>
+
+
+      <h2>
+        Upgrade to PhotoFix Pro
+      </h2>
+
+
+      <p class="payment-subtitle">
+        Unlock premium photo editing features.
+      </p>
+
+
+      <div class="payment-price">
+        $1.19
+        <span>/ month</span>
+      </div>
+
+
+      <div class="payment-method">
+
+        <strong>
+          JazzCash
+        </strong>
+
+        <span>
+          Demo payment
+        </span>
+
+      </div>
+
+
+      <button
+        class="payment-button"
+        id="continuePayment"
+      >
+        Continue with JazzCash
+      </button>
+
+
+      <small class="payment-note">
+        Payment gateway is not connected yet.
+        This is a demo checkout interface.
+      </small>
+
     </div>
 
-    <small>
-      © 2026 PixelForge AI. All rights reserved.
-    </small>
-
-  </footer>
+  </div>
 
 
-  <script src="script.js"></script>
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
+
+  <script>
+
+    /* IMAGE UPLOAD */
+
+    const imageInput =
+      document.getElementById("imageInput");
+
+    const previewImage =
+      document.getElementById("previewImage");
+
+    const uploadMessage =
+      document.getElementById("uploadMessage");
+
+
+    imageInput.addEventListener(
+      "change",
+      function () {
+
+        const file = this.files[0];
+
+        if (!file) return;
+
+        const reader =
+          new FileReader();
+
+        reader.onload =
+          function (event) {
+
+            previewImage.src =
+              event.target.result;
+
+            previewImage.style.display =
+              "block";
+
+            uploadMessage.textContent =
+              "Image uploaded successfully!";
+
+          };
+
+        reader.readAsDataURL(file);
+
+      }
+    );
+
+
+    /* CONTROLS */
+
+    const brightness =
+      document.getElementById("brightness");
+
+    const contrast =
+      document.getElementById("contrast");
+
+    const saturation =
+      document.getElementById("saturation");
+
+
+    const brightnessValue =
+      document.getElementById("brightnessValue");
+
+    const contrastValue =
+      document.getElementById("contrastValue");
+
+    const saturationValue =
+      document.getElementById("saturationValue");
+
+
+    function updateFilter() {
+
+      if (!previewImage) return;
+
+      previewImage.style.filter = `
+        brightness(${brightness.value}%)
+        contrast(${contrast.value}%)
+        saturate(${saturation.value}%)
+      `;
+
+      brightnessValue.textContent =
+        brightness.value + "%";
+
+      contrastValue.textContent =
+        contrast.value + "%";
+
+      saturationValue.textContent =
+        saturation.value + "%";
+
+    }
+
+
+    brightness.addEventListener(
+      "input",
+      updateFilter
+    );
+
+    contrast.addEventListener(
+      "input",
+      updateFilter
+    );
+
+    saturation.addEventListener(
+      "input",
+      updateFilter
+    );
+
+
+    /* RESET */
+
+    document
+      .getElementById("resetButton")
+      .addEventListener(
+        "click",
+        function () {
+
+          brightness.value = 100;
+          contrast.value = 100;
+          saturation.value = 100;
+
+          previewImage.style.transform =
+            "rotate(0deg) scaleX(1)";
+
+          updateFilter();
+
+        }
+      );
+
+
+    /* ROTATE + FLIP */
+
+    let rotation = 0;
+    let flipped = false;
+
+
+    document
+      .querySelectorAll("[data-action]")
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            "click",
+            function () {
+
+              const action =
+                this.dataset.action;
+
+
+              if (action === "rotate") {
+
+                rotation += 90;
+
+                previewImage.style.transform =
+                  `rotate(${rotation}deg)
+                   scaleX(${flipped ? -1 : 1})`;
+
+              }
+
+
+              if (action === "flip") {
+
+                flipped = !flipped;
+
+                previewImage.style.transform =
+                  `rotate(${rotation}deg)
+                   scaleX(${flipped ? -1 : 1})`;
+
+              }
+
+
+              if (action === "enhance") {
+
+                brightness.value = 108;
+                contrast.value = 112;
+                saturation.value = 110;
+
+                updateFilter();
+
+                alert(
+                  "✨ Auto Enhance applied!"
+                );
+
+              }
+
+
+              if (action === "download") {
+
+                downloadImage();
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+    /* DOWNLOAD */
+
+    function downloadImage() {
+
+      if (
+        !previewImage.src ||
+        previewImage.style.display === "none"
+      ) {
+
+        alert(
+          "Please upload an image first."
+        );
+
+        return;
+
+      }
+
+
+      const canvas =
+        document.createElement("canvas");
+
+      const ctx =
+        canvas.getContext("2d");
+
+
+      const img =
+        new Image();
+
+
+      img.onload =
+        function () {
+
+          canvas.width =
+            img.width;
+
+          canvas.height =
+            img.height;
+
+
+          ctx.filter = `
+            brightness(${brightness.value}%)
+            contrast(${contrast.value}%)
+            saturate(${saturation.value}%)
+          `;
+
+
+          ctx.drawImage(
+            img,
+            0,
+            0
+          );
+
+
+          const link =
+            document.createElement("a");
+
+          link.download =
+            "photofix-enhanced.jpg";
+
+          link.href =
+            canvas.toDataURL(
+              "image/jpeg",
+              0.95
+            );
+
+          link.click();
+
+        };
+
+
+      img.src =
+        previewImage.src;
+
+    }
+
+
+    document
+      .getElementById("downloadButton")
+      ?.addEventListener(
+        "click",
+        downloadImage
+      );
+
+
+    /* =========================
+       PREMIUM DEMO
+       ========================= */
+
+    const upgradeButton =
+      document.getElementById(
+        "upgradeButton"
+      );
+
+    const paymentOverlay =
+      document.getElementById(
+        "paymentOverlay"
+      );
+
+    const paymentClose =
+      document.getElementById(
+        "paymentClose"
+      );
+
+    const continuePayment =
+      document.getElementById(
+        "continuePayment"
+      );
+
+
+    upgradeButton.addEventListener(
+      "click",
+      function () {
+
+        paymentOverlay.style.display =
+          "flex";
+
+      }
+    );
+
+
+    paymentClose.addEventListener(
+      "click",
+      function () {
+
+        paymentOverlay.style.display =
+          "none";
+
+      }
+    );
+
+
+    paymentOverlay.addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target ===
+          paymentOverlay
+        ) {
+
+          paymentOverlay.style.display =
+            "none";
+
+        }
+
+      }
+    );
+
+
+    continuePayment.addEventListener(
+      "click",
+      function () {
+
+        alert(
+          "JazzCash gateway is not connected yet. This is only a demo payment screen."
+        );
+
+      }
+    );
+
+
+    /* SMOOTH SCROLL */
+
+    document
+      .querySelectorAll(
+        'a[href^="#"]'
+      )
+      .forEach(
+        function (link) {
+
+          link.addEventListener(
+            "click",
+            function (event) {
+
+              const target =
+                document.querySelector(
+                  this.getAttribute("href")
+                );
+
+              if (target) {
+
+                event.preventDefault();
+
+                target.scrollIntoView({
+                  behavior: "smooth"
+                });
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+    updateFilter();
+
+  </script>
 
 </body>
 </html>
