@@ -1,444 +1,696 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PhotoEnhance AI - Photo Editor</title>
+  <title>PixelForge AI — Smart Photo Editor</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #1f2937;
-    }
-
-    header {
-      background: #111827;
-      color: white;
-      padding: 22px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      font-size: 25px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 15px;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 65px 20px;
-      background: linear-gradient(135deg, #eef2ff, #ffffff);
-    }
-
-    .hero h2 {
-      font-size: 42px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      color: #64748b;
-      font-size: 18px;
-      margin-bottom: 28px;
-    }
-
-    .upload-box {
-      max-width: 650px;
-      margin: auto;
-      background: white;
-      border: 2px dashed #6366f1;
-      border-radius: 18px;
-      padding: 40px 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .upload-box input {
-      margin-top: 20px;
-    }
-
-    .section {
-      padding: 55px 7%;
-    }
-
-    .section h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 30px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.07);
-      transition: 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    .card .icon {
-      font-size: 35px;
-      margin-bottom: 12px;
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #64748b;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .quality-section {
-      background: #111827;
-      color: white;
-    }
-
-    .quality-section h2 {
-      color: white;
-    }
-
-    .quality-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 18px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .quality-card {
-      background: #1f2937;
-      border: 1px solid #374151;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    .quality-card h3 {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .quality-card p {
-      color: #cbd5e1;
-      font-size: 14px;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 11px 22px;
-      border: none;
-      border-radius: 9px;
-      background: #6366f1;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .btn:hover {
-      background: #4f46e5;
-    }
-
-    .earning {
-      background: #eef2ff;
-      text-align: center;
-      padding: 55px 20px;
-    }
-
-    .earning h2 {
-      font-size: 30px;
-      margin-bottom: 15px;
-    }
-
-    .earning p {
-      max-width: 700px;
-      margin: auto;
-      color: #64748b;
-      line-height: 1.6;
-    }
-
-    footer {
-      background: #0f172a;
-      color: #cbd5e1;
-      text-align: center;
-      padding: 25px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      nav a {
-        margin: 0 7px;
-      }
-
-      .hero h2 {
-        font-size: 30px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-  <h1>📸 PhotoEnhance AI</h1>
+  <!-- NAVBAR -->
+  <header class="navbar">
 
-  <nav>
-    <a href="#features">Features</a>
-    <a href="#quality">Quality</a>
-    <a href="#earning">Earning</a>
-  </nav>
-</header>
+    <a href="#" class="logo">
+      <span class="logo-icon">✦</span>
+      PixelForge <span>AI</span>
+    </a>
 
-<section class="hero">
+    <nav>
+      <a href="#editor">Editor</a>
+      <a href="#features">Features</a>
+      <a href="#quality">AI Quality</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
 
-  <h2>Make Your Photos Better with AI</h2>
+    <a href="#editor" class="nav-button">
+      Start Editing
+    </a>
 
-  <p>
-    Enhance, edit, resize and improve your photos in one place.
-  </p>
+  </header>
 
-  <div class="upload-box">
 
-    <h3>Upload Your Photo</h3>
+  <!-- HERO -->
+  <main>
 
-    <p style="margin-top:10px;color:#64748b;">
-      JPG, PNG and WEBP supported
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="hero-badge">
+          ✨ Next-generation photo editing
+        </div>
+
+        <h1>
+          Turn ordinary photos into
+          <span>extraordinary</span> images.
+        </h1>
+
+        <p>
+          Enhance, retouch, resize and transform your photos
+          with powerful editing tools — all in one beautiful workspace.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#editor" class="primary-button">
+            ✨ Edit a Photo
+          </a>
+
+          <a href="#features" class="secondary-button">
+            Explore Features →
+          </a>
+
+        </div>
+
+        <div class="trust-row">
+
+          <div>
+            <strong>20+</strong>
+            <small>Editing Tools</small>
+          </div>
+
+          <div>
+            <strong>4K</strong>
+            <small>AI Quality</small>
+          </div>
+
+          <div>
+            <strong>100%</strong>
+            <small>Web Based</small>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="glow"></div>
+
+        <div class="floating-card card-one">
+          ✨ Auto Enhance
+          <strong>+ HD</strong>
+        </div>
+
+        <div class="photo-preview">
+
+          <div class="preview-top">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="preview-image">
+
+            <div class="mountain">
+              ◢
+            </div>
+
+            <div class="sun">
+              ☀
+            </div>
+
+            <div class="preview-label">
+              AI Enhanced
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="floating-card card-two">
+          🚀 4K Upscale
+          <strong>Ready</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EDITOR -->
+    <section class="section editor-section" id="editor">
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          PHOTO EDITOR
+        </div>
+
+        <h2>
+          Your creative workspace
+        </h2>
+
+        <p>
+          Upload a photo and start editing instantly.
+        </p>
+
+      </div>
+
+
+      <div class="editor-layout">
+
+        <!-- UPLOAD / PREVIEW -->
+        <div class="editor-preview">
+
+          <div class="upload-message" id="uploadMessage">
+
+            <div class="upload-icon">
+              ↑
+            </div>
+
+            <h3>Drop your photo here</h3>
+
+            <p>
+              JPG, PNG or WEBP • Free to use
+            </p>
+
+            <label class="upload-button">
+
+              Choose Photo
+
+              <input
+                type="file"
+                id="imageInput"
+                accept="image/*"
+                hidden
+              >
+
+            </label>
+
+          </div>
+
+          <img
+            id="previewImage"
+            alt="Photo preview"
+          >
+
+        </div>
+
+
+        <!-- CONTROLS -->
+        <aside class="editor-controls">
+
+          <div class="control-header">
+
+            <div>
+              <span>EDITOR</span>
+              <h3>Adjustments</h3>
+            </div>
+
+            <button
+              class="reset-button"
+              id="resetButton"
+            >
+              Reset
+            </button>
+
+          </div>
+
+
+          <div class="control-group">
+
+            <div class="control-label">
+
+              <span>Brightness</span>
+
+              <strong id="brightnessValue">
+                100
+              </strong>
+
+            </div>
+
+            <input
+              type="range"
+              id="brightness"
+              min="0"
+              max="200"
+              value="100"
+            >
+
+          </div>
+
+
+          <div class="control-group">
+
+            <div class="control-label">
+
+              <span>Contrast</span>
+
+              <strong id="contrastValue">
+                100
+              </strong>
+
+            </div>
+
+            <input
+              type="range"
+              id="contrast"
+              min="0"
+              max="200"
+              value="100"
+            >
+
+          </div>
+
+
+          <div class="control-group">
+
+            <div class="control-label">
+
+              <span>Saturation</span>
+
+              <strong id="saturationValue">
+                100
+              </strong>
+
+            </div>
+
+            <input
+              type="range"
+              id="saturation"
+              min="0"
+              max="200"
+              value="100"
+            >
+
+          </div>
+
+
+          <div class="tool-grid">
+
+            <button data-action="rotate">
+              ↻ Rotate
+            </button>
+
+            <button data-action="flip">
+              ⇆ Flip
+            </button>
+
+            <button data-action="enhance">
+              ✦ Enhance
+            </button>
+
+            <button data-action="download">
+              ↓ Download
+            </button>
+
+          </div>
+
+
+          <button
+            class="full-button"
+            id="downloadButton"
+          >
+            Download Edited Photo
+          </button>
+
+        </aside>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="section" id="features">
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          POWERFUL TOOLS
+        </div>
+
+        <h2>
+          Everything you need
+        </h2>
+
+        <p>
+          Professional editing features designed to stay simple.
+        </p>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <article class="feature-card featured">
+
+          <div class="feature-icon purple">
+            ✦
+          </div>
+
+          <h3>Auto Enhance</h3>
+
+          <p>
+            Quickly improve brightness, contrast and color balance.
+          </p>
+
+          <span>
+            Free
+          </span>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon blue">
+            ◈
+          </div>
+
+          <h3>Background Remove</h3>
+
+          <p>
+            Prepare clean subjects for profiles, products and designs.
+          </p>
+
+          <span>
+            Free
+          </span>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon orange">
+            ◉
+          </div>
+
+          <h3>Smart Filters</h3>
+
+          <p>
+            Create different moods with beautiful photo filters.
+          </p>
+
+          <span>
+            Free
+          </span>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon green">
+            ↑
+          </div>
+
+          <h3>AI Upscale</h3>
+
+          <p>
+            Prepare images for higher-resolution AI enhancement.
+          </p>
+
+          <span class="premium-label">
+            Premium
+          </span>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon pink">
+            ◉
+          </div>
+
+          <h3>Face Restore</h3>
+
+          <p>
+            Advanced AI processing for old and low-quality portraits.
+          </p>
+
+          <span class="premium-label">
+            Premium
+          </span>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon cyan">
+            ✧
+          </div>
+
+          <h3>Object Remover</h3>
+
+          <p>
+            Remove unwanted objects when AI processing is connected.
+          </p>
+
+          <span class="premium-label">
+            Premium
+          </span>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- QUALITY -->
+    <section class="quality-section" id="quality">
+
+      <div class="quality-content">
+
+        <div class="section-tag light">
+          AI QUALITY
+        </div>
+
+        <h2>
+          From phone quality to
+          <span>4K.</span>
+        </h2>
+
+        <p>
+          Choose the quality you need. Basic editing is free,
+          while advanced AI enhancement can be connected later.
+        </p>
+
+      </div>
+
+
+      <div class="quality-grid">
+
+        <div class="quality-card">
+
+          <span>01</span>
+
+          <h3>Phone</h3>
+
+          <p>
+            Everyday mobile photos
+          </p>
+
+        </div>
+
+
+        <div class="quality-card">
+
+          <span>02</span>
+
+          <h3>HD</h3>
+
+          <p>
+            High-definition output
+          </p>
+
+        </div>
+
+
+        <div class="quality-card">
+
+          <span>03</span>
+
+          <h3>2K</h3>
+
+          <p>
+            High-resolution workflow
+          </p>
+
+        </div>
+
+
+        <div class="quality-card premium-quality">
+
+          <span>04</span>
+
+          <h3>4K</h3>
+
+          <p>
+            Premium AI workflow
+          </p>
+
+          <b>PRO</b>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PRICING -->
+    <section class="section" id="pricing">
+
+      <div class="section-heading">
+
+        <div class="section-tag">
+          SIMPLE PRICING
+        </div>
+
+        <h2>
+          Start free. Upgrade when you need more.
+        </h2>
+
+        <p>
+          Keep the essential editing tools free and unlock advanced
+          processing when you need it.
+        </p>
+
+      </div>
+
+
+      <div class="pricing-grid">
+
+        <div class="price-card">
+
+          <span class="plan-label">
+            FREE
+          </span>
+
+          <h3>Starter</h3>
+
+          <div class="price">
+            $0
+            <small>/ forever</small>
+          </div>
+
+          <p>
+            Everything you need for everyday editing.
+          </p>
+
+          <ul>
+            <li>✓ Photo upload</li>
+            <li>✓ Brightness & contrast</li>
+            <li>✓ Saturation</li>
+            <li>✓ Basic filters</li>
+            <li>✓ Rotate & flip</li>
+            <li>✓ HD workflow</li>
+            <li>✓ Download</li>
+          </ul>
+
+          <a href="#editor" class="price-button">
+            Start Free
+          </a>
+
+        </div>
+
+
+        <div class="price-card popular">
+
+          <div class="popular-badge">
+            MOST FEATURES
+          </div>
+
+          <span class="plan-label">
+            PREMIUM
+          </span>
+
+          <h3>Pro</h3>
+
+          <div class="price">
+            $4.99
+            <small>/ month</small>
+          </div>
+
+          <p>
+            Advanced tools for creators and professionals.
+          </p>
+
+          <ul>
+            <li>✓ Everything in Free</li>
+            <li>✓ AI 2K / 4K processing</li>
+            <li>✓ Face Restore</li>
+            <li>✓ Object Remover</li>
+            <li>✓ AI Colorize</li>
+            <li>✓ No watermark</li>
+            <li>✓ Higher processing limits</li>
+          </ul>
+
+          <button class="price-button primary">
+            Upgrade to Pro
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+
+      <div>
+
+        <div class="section-tag light">
+          READY TO CREATE?
+        </div>
+
+        <h2>
+          Give your photos
+          a professional finish.
+        </h2>
+
+        <p>
+          Start with the free editor and explore what PixelForge AI can do.
+        </p>
+
+      </div>
+
+      <a href="#editor" class="primary-button">
+        Start Editing ✦
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-logo">
+      ✦ PixelForge AI
+    </div>
+
+    <p>
+      Smart photo editing for everyone.
     </p>
 
-    <input type="file" accept="image/*">
-
-    <br>
-
-    <button class="btn" onclick="alert('Photo uploaded! AI editing will be connected soon.')">
-      ✨ Start Enhancing
-    </button>
-
-  </div>
-
-</section>
-
-
-<section class="section" id="features">
-
-  <h2>Photo Editing Features</h2>
-
-  <div class="features">
-
-    <div class="card">
-      <div class="icon">✂️</div>
-      <h3>Background Remove</h3>
-      <p>Remove the background from your photo automatically.</p>
+    <div class="footer-links">
+      <a href="#editor">Editor</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
     </div>
 
-    <div class="card">
-      <div class="icon">🎨</div>
-      <h3>Background Change</h3>
-      <p>Change the background color or add your own photo.</p>
-    </div>
+    <small>
+      © 2026 PixelForge AI. All rights reserved.
+    </small>
 
-    <div class="card">
-      <div class="icon">📷</div>
-      <h3>Portrait Blur</h3>
-      <p>Create a camera-style background blur effect.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">✨</div>
-      <h3>Auto Enhance</h3>
-      <p>Automatically improve brightness, contrast and colors.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🔍</div>
-      <h3>Sharpen</h3>
-      <p>Make slightly blurry photos look clearer.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎭</div>
-      <h3>Filters</h3>
-      <p>Vivid, Warm, Cool, B&W and Vintage filters.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎚️</div>
-      <h3>Photo Adjustments</h3>
-      <p>Control brightness, contrast and saturation.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🔄</div>
-      <h3>Crop & Rotate</h3>
-      <p>Crop, rotate and flip photos for social media.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🪪</div>
-      <h3>Passport Photo Maker</h3>
-      <p>Create passport and ID photos with white or blue backgrounds.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">📦</div>
-      <h3>Resize & Compress</h3>
-      <p>Reduce image size for forms, websites and WhatsApp.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">↔️</div>
-      <h3>Before / After</h3>
-      <p>Compare your original photo with the enhanced result.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">📝</div>
-      <h3>Text & Watermark</h3>
-      <p>Add names, logos, stickers and watermarks to photos.</p>
-    </div>
-
-  </div>
-
-</section>
+  </footer>
 
 
-<section class="section quality-section" id="quality">
-
-  <h2>🚀 AI Photo Quality</h2>
-
-  <div class="quality-grid">
-
-    <div class="quality-card">
-      <h3>📱 Phone</h3>
-      <p>Improve normal mobile photos.</p>
-      <button class="btn" onclick="quality('Phone')">Select</button>
-    </div>
-
-    <div class="quality-card">
-      <h3>HD</h3>
-      <p>High-definition photo enhancement.</p>
-      <button class="btn" onclick="quality('HD')">Select</button>
-    </div>
-
-    <div class="quality-card">
-      <h3>2K</h3>
-      <p>Upgrade your photo to 2K quality.</p>
-      <button class="btn" onclick="quality('2K')">Select</button>
-    </div>
-
-    <div class="quality-card">
-      <h3>4K</h3>
-      <p>Ultra-high-resolution 4K enhancement.</p>
-      <button class="btn" onclick="quality('4K')">Select</button>
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="section">
-
-  <h2>🤖 More AI Tools</h2>
-
-  <div class="features">
-
-    <div class="card">
-      <div class="icon">⬆️</div>
-      <h3>AI Upscale</h3>
-      <p>Upscale photos to 2K or 4K resolution.</p>
-      <button class="btn" onclick="comingSoon('AI Upscale')">Try Now</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">👤</div>
-      <h3>Face Restore</h3>
-      <p>Improve old and low-quality face photos.</p>
-      <button class="btn" onclick="comingSoon('Face Restore')">Try Now</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🪄</div>
-      <h3>Object Remover</h3>
-      <p>Remove unwanted objects from your photos.</p>
-      <button class="btn" onclick="comingSoon('Object Remover')">Try Now</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🌈</div>
-      <h3>AI Colorize</h3>
-      <p>Add colors to old black-and-white photos.</p>
-      <button class="btn" onclick="comingSoon('AI Colorize')">Try Now</button>
-    </div>
-
-  </div>
-
-</section>
-
-
-<section class="earning" id="earning">
-
-  <h2>💰 Creator & Earning Tools</h2>
-
-  <p>
-    Create high-quality photos for social media, websites,
-    online stores and digital content. More professional tools
-    can be added as the platform grows.
-  </p>
-
-</section>
-
-
-<footer>
-
-  © 2026 PhotoEnhance AI — Smart Photo Editing Platform
-
-</footer>
-
-
-<script>
-
-  function quality(type) {
-    alert(type + " quality selected. AI processing will be connected soon.");
-  }
-
-  function comingSoon(tool) {
-    alert(tool + " will be connected with an AI API soon.");
-  }
-
-</script>
+  <script src="script.js"></script>
 
 </body>
 </html>
-```
