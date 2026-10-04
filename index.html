@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PhotoFix AI — AI Photo Editor</title>
+<title>PhotoFix AI — Professional Photo Editor</title>
 
 <style>
 *{
@@ -13,36 +13,46 @@
   padding:0;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at 10% 0%,#283b83 0%,transparent 30%),
-    radial-gradient(circle at 90% 100%,#64277e 0%,transparent 30%),
-    #070a16;
-  color:white;
+    radial-gradient(circle at 15% 0%,#27366d 0%,transparent 32%),
+    radial-gradient(circle at 90% 80%,#40265c 0%,transparent 28%),
+    #070a14;
+  color:#fff;
   min-height:100vh;
 }
 
 header{
   position:sticky;
   top:0;
-  z-index:20;
-  padding:18px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(7,10,22,.82);
-  backdrop-filter:blur(15px);
+  z-index:100;
+  background:rgba(7,10,20,.92);
+  backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,.1);
+  padding:18px 6%;
+}
+
+.header-inner{
+  max-width:1150px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .logo{
-  font-size:24px;
+  font-size:25px;
   font-weight:800;
+  letter-spacing:-.5px;
 }
 
 .logo span{
-  color:#9183ff;
+  color:#9585ff;
 }
 
 nav{
@@ -51,13 +61,13 @@ nav{
 }
 
 nav a{
-  color:#c6c9d8;
+  color:#c8cada;
   text-decoration:none;
   font-size:14px;
 }
 
 nav a:hover{
-  color:white;
+  color:#fff;
 }
 
 .hero{
@@ -68,10 +78,10 @@ nav a:hover{
 .badge{
   display:inline-block;
   padding:8px 15px;
+  border:1px solid rgba(145,130,255,.35);
   border-radius:30px;
-  background:rgba(139,124,255,.1);
-  border:1px solid rgba(139,124,255,.3);
-  color:#bdb5ff;
+  background:rgba(145,130,255,.08);
+  color:#c5bdff;
   font-size:13px;
   margin-bottom:18px;
 }
@@ -83,15 +93,15 @@ nav a:hover{
 }
 
 .gradient{
-  background:linear-gradient(90deg,#897aff,#d37cff);
+  background:linear-gradient(90deg,#887aff,#d176ed);
   -webkit-background-clip:text;
   color:transparent;
 }
 
 .hero p{
-  max-width:680px;
+  max-width:650px;
   margin:auto;
-  color:#a5aabd;
+  color:#a7adbf;
   line-height:1.7;
 }
 
@@ -101,25 +111,31 @@ nav a:hover{
 }
 
 .upload{
-  border:2px dashed #4c4876;
+  border:2px dashed #625b98;
   border-radius:24px;
-  padding:38px 20px;
+  padding:42px 20px;
   text-align:center;
-  background:rgba(255,255,255,.04);
+  background:rgba(255,255,255,.035);
+  transition:.25s;
 }
 
 .upload:hover{
-  border-color:#8d7fff;
+  border-color:#9b8dff;
+  background:rgba(255,255,255,.05);
 }
 
 .upload-icon{
-  font-size:50px;
-  margin-bottom:10px;
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.upload h2{
+  font-size:25px;
 }
 
 .upload p{
-  color:#9298ae;
-  margin:8px 0 20px;
+  color:#9299ad;
+  margin:9px 0 22px;
 }
 
 input[type=file]{
@@ -128,46 +144,58 @@ input[type=file]{
 
 .upload-btn{
   display:inline-block;
-  padding:14px 25px;
+  padding:14px 27px;
   border-radius:12px;
-  background:linear-gradient(135deg,#7162f3,#aa68ef);
+  background:linear-gradient(135deg,#7062ef,#ad68ed);
   cursor:pointer;
-  font-weight:bold;
+  font-weight:700;
+  box-shadow:0 8px 25px rgba(116,96,239,.25);
+  transition:.2s;
+}
+
+.upload-btn:hover{
+  transform:translateY(-2px);
 }
 
 .editor-grid{
   display:grid;
-  grid-template-columns:1.5fr .9fr;
+  grid-template-columns:1.55fr .9fr;
   gap:20px;
   margin:22px 0;
 }
 
 .card{
-  background:rgba(255,255,255,.05);
+  background:rgba(255,255,255,.045);
   border:1px solid rgba(255,255,255,.1);
   border-radius:22px;
   padding:20px;
 }
 
 .preview{
+  width:100%;
   min-height:500px;
-  background:#04060d;
+  background:#03050a;
   border-radius:16px;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
+  position:relative;
 }
 
 #canvas{
+  display:none;
   max-width:100%;
   max-height:650px;
-  display:none;
+  width:auto;
+  height:auto;
+  object-fit:contain;
 }
 
 .empty{
   text-align:center;
-  color:#73798f;
+  color:#747b90;
+  padding:30px;
 }
 
 .empty-icon{
@@ -175,28 +203,34 @@ input[type=file]{
   margin-bottom:12px;
 }
 
+.empty h3{
+  color:#aab0c1;
+  margin-bottom:7px;
+}
+
 .control{
-  margin-bottom:20px;
+  margin-bottom:21px;
 }
 
 .control-title{
   display:flex;
   justify-content:space-between;
-  margin-bottom:8px;
+  margin-bottom:9px;
+  color:#d9dce7;
   font-size:14px;
-  color:#d8dae5;
 }
 
 input[type=range]{
   width:100%;
-  accent-color:#8879ff;
+  accent-color:#897bff;
+  cursor:pointer;
 }
 
 .tools-title{
-  color:#989db1;
+  color:#9298ab;
   text-transform:uppercase;
-  font-size:12px;
-  letter-spacing:1px;
+  font-size:11px;
+  letter-spacing:1.2px;
   margin:25px 0 12px;
 }
 
@@ -209,15 +243,16 @@ input[type=range]{
 .tool{
   border:1px solid rgba(255,255,255,.1);
   background:#15192a;
-  color:white;
-  padding:11px 7px;
+  color:#fff;
+  padding:12px 7px;
   border-radius:10px;
   cursor:pointer;
+  transition:.2s;
 }
 
 .tool:hover{
-  background:#252a43;
-  border-color:#8376ff;
+  background:#282d49;
+  border-color:#8175ff;
 }
 
 .actions{
@@ -233,19 +268,16 @@ input[type=range]{
   border-radius:11px;
   cursor:pointer;
   font-weight:bold;
+  color:#fff;
 }
 
 .reset{
-  background:#272b3c;
-  color:white;
+  background:#282c3e;
 }
 
 .download{
-  background:linear-gradient(135deg,#7465f5,#b267ef);
-  color:white;
+  background:linear-gradient(135deg,#7466f4,#b169ed);
 }
-
-/* QUALITY */
 
 .quality{
   margin:25px 0;
@@ -255,7 +287,7 @@ input[type=range]{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
-  margin-top:15px;
+  margin-top:16px;
 }
 
 .quality-btn{
@@ -263,9 +295,10 @@ input[type=range]{
   border-radius:15px;
   background:#121626;
   border:1px solid rgba(255,255,255,.1);
-  color:white;
+  color:#fff;
   cursor:pointer;
   text-align:left;
+  transition:.2s;
 }
 
 .quality-btn:hover,
@@ -284,8 +317,6 @@ input[type=range]{
   color:#8d93aa;
   font-size:12px;
 }
-
-/* AI */
 
 .ai{
   margin:25px 0 70px;
@@ -318,6 +349,15 @@ input[type=range]{
   margin-bottom:12px;
 }
 
+.pro{
+  display:inline-block;
+  font-size:9px;
+  padding:4px 6px;
+  background:#6e5be5;
+  border-radius:5px;
+  margin-bottom:10px;
+}
+
 .ai-card h3{
   font-size:16px;
   margin-bottom:7px;
@@ -336,21 +376,12 @@ input[type=range]{
   border:1px solid #5d55a5;
   border-radius:9px;
   background:#211e42;
-  color:white;
+  color:#fff;
   cursor:pointer;
 }
 
 .ai-btn:hover{
   background:#332d68;
-}
-
-.pro{
-  display:inline-block;
-  font-size:9px;
-  padding:4px 6px;
-  background:#6e5be5;
-  border-radius:5px;
-  margin-bottom:10px;
 }
 
 .notice{
@@ -372,6 +403,8 @@ footer{
   font-size:13px;
 }
 
+/* MOBILE */
+
 @media(max-width:850px){
 
   nav{
@@ -386,6 +419,10 @@ footer{
     grid-template-columns:1fr;
   }
 
+  .preview{
+    min-height:330px;
+  }
+
   .quality-grid{
     grid-template-columns:1fr;
   }
@@ -393,24 +430,50 @@ footer{
   .ai-grid{
     grid-template-columns:1fr 1fr;
   }
-
-  .preview{
-    min-height:330px;
-  }
 }
 
 @media(max-width:520px){
 
+  header{
+    padding:16px 20px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+  .hero{
+    padding:42px 15px 28px;
+  }
+
   .hero h1{
     font-size:38px;
+  }
+
+  .upload{
+    padding:32px 15px;
+  }
+
+  .card{
+    padding:14px;
+  }
+
+  .preview{
+    min-height:290px;
+    border-radius:14px;
+  }
+
+  #canvas{
+    max-width:100%;
+    max-height:290px;
   }
 
   .ai-grid{
     grid-template-columns:1fr;
   }
 
-  .card{
-    padding:15px;
+  .tools{
+    grid-template-columns:1fr 1fr;
   }
 }
 </style>
@@ -419,23 +482,24 @@ footer{
 <body>
 
 <header>
+  <div class="header-inner">
+    <div class="logo">
+      ✦ Photo<span>Fix AI</span>
+    </div>
 
-  <div class="logo">
-    ✦ Photo<span>Fix AI</span>
+    <nav>
+      <a href="#editor">Editor</a>
+      <a href="#quality">Quality</a>
+      <a href="#ai">AI Tools</a>
+    </nav>
   </div>
-
-  <nav>
-    <a href="#editor">Editor</a>
-    <a href="#quality">Quality</a>
-    <a href="#ai">AI Tools</a>
-  </nav>
-
 </header>
-
 
 <section class="hero">
 
-  <div class="badge">✨ Professional AI Photo Editor</div>
+  <div class="badge">
+    ✨ Professional Photo Editor
+  </div>
 
   <h1>
     Edit. Enhance.
@@ -443,14 +507,15 @@ footer{
   </h1>
 
   <p>
-    Edit your photos, enhance quality and prepare high-resolution
-    images with PhotoFix AI.
+    Edit your photos, improve colors and export high-quality images
+    with PhotoFix AI.
   </p>
 
 </section>
 
-
 <main class="container">
+
+<!-- UPLOAD -->
 
 <div class="upload">
 
@@ -473,6 +538,8 @@ footer{
 </div>
 
 
+<!-- EDITOR -->
+
 <div class="editor-grid" id="editor">
 
   <div class="card">
@@ -485,7 +552,7 @@ footer{
 
         <h3>Your photo appears here</h3>
 
-        <p>Upload an image to start</p>
+        <p>Choose a photo above to start editing</p>
 
       </div>
 
@@ -501,7 +568,6 @@ footer{
     <h2>🎛️ Editor</h2>
 
     <br>
-
 
     <div class="control">
 
@@ -563,28 +629,44 @@ footer{
 
     <div class="tools">
 
-      <button class="tool" onclick="rotatePhoto()">↻ Rotate</button>
+      <button class="tool" onclick="rotatePhoto()">
+        ↻ Rotate
+      </button>
 
-      <button class="tool" onclick="flipPhoto()">↔ Flip</button>
+      <button class="tool" onclick="flipPhoto()">
+        ↔ Flip
+      </button>
 
-      <button class="tool" onclick="autoEnhance()">✨ Enhance</button>
+      <button class="tool" onclick="autoEnhance()">
+        ✨ Enhance
+      </button>
 
-      <button class="tool" onclick="blackWhite()">◐ B&W</button>
+      <button class="tool" onclick="blackWhite()">
+        ◐ B&W
+      </button>
 
-      <button class="tool" onclick="sepia()">🟤 Sepia</button>
+      <button class="tool" onclick="sepia()">
+        🟤 Sepia
+      </button>
 
-      <button class="tool" onclick="vintage()">📷 Vintage</button>
+      <button class="tool" onclick="vintage()">
+        📷 Vintage
+      </button>
 
     </div>
 
 
     <div class="actions">
 
-      <button class="action reset" onclick="resetEditor()">
+      <button
+        class="action reset"
+        onclick="resetEditor()">
         ↻ Reset
       </button>
 
-      <button class="action download" onclick="downloadPhoto()">
+      <button
+        class="action download"
+        onclick="downloadPhoto()">
         ↓ Download
       </button>
 
@@ -599,172 +681,187 @@ footer{
 
 <section class="quality" id="quality">
 
-<div class="card">
+  <div class="card">
 
-  <h2>🚀 Output Quality</h2>
+    <h2>🚀 Output Quality</h2>
 
-  <p style="color:#8d93a8;margin-top:7px;">
-    Choose your export resolution
-  </p>
+    <p style="color:#8d93a8;margin-top:7px;">
+      Choose your export resolution
+    </p>
 
+    <div class="quality-grid">
 
-  <div class="quality-grid">
+      <button
+        class="quality-btn selected"
+        id="hdBtn"
+        onclick="setQuality('HD')">
 
-    <button
-      class="quality-btn selected"
-      id="hdBtn"
-      onclick="setQuality('HD')"
-    >
-      <strong>HD</strong>
-      <span>High quality • 1920px class</span>
-    </button>
+        <strong>HD</strong>
 
+        <span>
+          High quality • 1920px class
+        </span>
 
-    <button
-      class="quality-btn"
-      id="2kBtn"
-      onclick="setQuality('2K')"
-    >
-      <strong>2K</strong>
-      <span>2560px class output</span>
-    </button>
+      </button>
 
 
-    <button
-      class="quality-btn"
-      id="4kBtn"
-      onclick="setQuality('4K')"
-    >
-      <strong>4K</strong>
-      <span>3840px class output</span>
-    </button>
+      <button
+        class="quality-btn"
+        id="2kBtn"
+        onclick="setQuality('2K')">
+
+        <strong>2K</strong>
+
+        <span>
+          2560px class output
+        </span>
+
+      </button>
+
+
+      <button
+        class="quality-btn"
+        id="4kBtn"
+        onclick="setQuality('4K')">
+
+        <strong>4K</strong>
+
+        <span>
+          3840px class output
+        </span>
+
+      </button>
+
+    </div>
 
   </div>
-
-</div>
 
 </section>
 
 
-<!-- AI -->
+<!-- AI TOOLS -->
 
 <section class="ai" id="ai">
 
-<div class="card">
+  <div class="card">
 
-  <div class="ai-header">
+    <div class="ai-header">
 
-    <h2>🤖 AI Photo Tools</h2>
+      <h2>🤖 AI Photo Tools</h2>
 
-    <p>
-      Advanced tools for professional image enhancement
-    </p>
+      <p>
+        Advanced tools for professional image enhancement
+      </p>
+
+    </div>
+
+
+    <div class="ai-grid">
+
+
+      <div class="ai-card">
+
+        <div class="ai-icon">✂️</div>
+
+        <span class="pro">AI PRO</span>
+
+        <h3>Background Remove</h3>
+
+        <p>
+          Automatically remove the background from your photo.
+        </p>
+
+        <button
+          class="ai-btn"
+          onclick="aiMessage('Background Remove')">
+
+          Remove Background
+
+        </button>
+
+      </div>
+
+
+      <div class="ai-card">
+
+        <div class="ai-icon">🔍</div>
+
+        <span class="pro">AI PRO</span>
+
+        <h3>AI Upscale</h3>
+
+        <p>
+          Enhance image resolution for HD, 2K and 4K output.
+        </p>
+
+        <button
+          class="ai-btn"
+          onclick="aiMessage('AI Upscale')">
+
+          AI Upscale
+
+        </button>
+
+      </div>
+
+
+      <div class="ai-card">
+
+        <div class="ai-icon">🪄</div>
+
+        <span class="pro">AI PRO</span>
+
+        <h3>Object Remover</h3>
+
+        <p>
+          Remove unwanted objects using AI image processing.
+        </p>
+
+        <button
+          class="ai-btn"
+          onclick="aiMessage('Object Remover')">
+
+          Remove Object
+
+        </button>
+
+      </div>
+
+
+      <div class="ai-card">
+
+        <div class="ai-icon">✨</div>
+
+        <span class="pro">AI PRO</span>
+
+        <h3>AI Enhance</h3>
+
+        <p>
+          Improve clarity, lighting and overall image quality.
+        </p>
+
+        <button
+          class="ai-btn"
+          onclick="aiMessage('AI Enhance')">
+
+          Enhance Photo
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="notice">
+
+      🔒 <b>Privacy:</b>
+      Basic editing is performed directly in your browser.
+      Real AI processing can be connected through a secure backend.
+
+    </div>
 
   </div>
-
-
-  <div class="ai-grid">
-
-
-    <div class="ai-card">
-
-      <div class="ai-icon">✂️</div>
-
-      <span class="pro">AI PRO</span>
-
-      <h3>Background Remove</h3>
-
-      <p>
-        Automatically remove the background from your photo.
-      </p>
-
-      <button
-        class="ai-btn"
-        onclick="aiMessage('Background Remove')"
-      >
-        Remove Background
-      </button>
-
-    </div>
-
-
-    <div class="ai-card">
-
-      <div class="ai-icon">🔍</div>
-
-      <span class="pro">AI PRO</span>
-
-      <h3>AI Upscale</h3>
-
-      <p>
-        Enhance image resolution for HD, 2K and 4K output.
-      </p>
-
-      <button
-        class="ai-btn"
-        onclick="aiMessage('AI Upscale')"
-      >
-        AI Upscale
-      </button>
-
-    </div>
-
-
-    <div class="ai-card">
-
-      <div class="ai-icon">🪄</div>
-
-      <span class="pro">AI PRO</span>
-
-      <h3>Object Remover</h3>
-
-      <p>
-        Remove unwanted objects using AI image processing.
-      </p>
-
-      <button
-        class="ai-btn"
-        onclick="aiMessage('Object Remover')"
-      >
-        Remove Object
-      </button>
-
-    </div>
-
-
-    <div class="ai-card">
-
-      <div class="ai-icon">✨</div>
-
-      <span class="pro">AI PRO</span>
-
-      <h3>AI Enhance</h3>
-
-      <p>
-        Improve clarity, lighting and overall image quality.
-      </p>
-
-      <button
-        class="ai-btn"
-        onclick="aiMessage('AI Enhance')"
-      >
-        Enhance Photo
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="notice">
-
-    🔒 <b>Privacy:</b> Basic editing is performed in your browser.
-    Real AI processing will be connected through a secure backend so
-    private API keys are never exposed in this page.
-
-  </div>
-
-</div>
 
 </section>
 
@@ -773,20 +870,24 @@ footer{
 
 <footer>
 
-  © 2026 PhotoFix AI • AI-powered photo editing
+  © 2026 PhotoFix AI • Professional Photo Editing
 
 </footer>
 
 
 <script>
 
-const input = document.getElementById("photoInput");
+const input =
+  document.getElementById("photoInput");
 
-const canvas = document.getElementById("canvas");
+const canvas =
+  document.getElementById("canvas");
 
-const ctx = canvas.getContext("2d");
+const ctx =
+  canvas.getContext("2d");
 
-const empty = document.getElementById("empty");
+const empty =
+  document.getElementById("empty");
 
 let img = new Image();
 
@@ -800,7 +901,6 @@ let filterMode = "normal";
 
 let quality = "HD";
 
-
 let brightness = 100;
 
 let contrast = 100;
@@ -808,29 +908,58 @@ let contrast = 100;
 let saturation = 100;
 
 
-input.addEventListener("change",function(){
+/* =========================
+   UPLOAD PHOTO
+========================= */
+
+input.addEventListener("change", function(){
 
   const file = this.files[0];
 
-  if(!file) return;
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+    alert("Please choose an image file.");
+    return;
+  }
 
   const reader = new FileReader();
 
-  reader.onload=function(e){
+  reader.onload = function(e){
 
-    img.onload=function(){
+    img = new Image();
+
+    img.onload = function(){
 
       loaded = true;
 
-      empty.style.display="none";
+      empty.style.display = "none";
 
-      canvas.style.display="block";
+      canvas.style.display = "block";
 
-      resetEditor(false);
+      /* IMPORTANT FIX */
+      resetEditor(true);
+
+      draw();
+
+      document
+        .getElementById("editor")
+        .scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
 
     };
 
-    img.src=e.target.result;
+    img.onerror = function(){
+
+      alert("This image could not be loaded.");
+
+    };
+
+    img.src = e.target.result;
 
   };
 
@@ -839,106 +968,128 @@ input.addEventListener("change",function(){
 });
 
 
-document.getElementById("brightness")
+/* =========================
+   SLIDERS
+========================= */
+
+document
+.getElementById("brightness")
 .addEventListener("input",function(){
 
-  brightness=this.value;
+  brightness = Number(this.value);
 
-  document.getElementById("brightnessText").textContent=
-    brightness+"%";
+  document
+  .getElementById("brightnessText")
+  .textContent = brightness + "%";
 
   draw();
 
 });
 
 
-document.getElementById("contrast")
+document
+.getElementById("contrast")
 .addEventListener("input",function(){
 
-  contrast=this.value;
+  contrast = Number(this.value);
 
-  document.getElementById("contrastText").textContent=
-    contrast+"%";
+  document
+  .getElementById("contrastText")
+  .textContent = contrast + "%";
 
   draw();
 
 });
 
 
-document.getElementById("saturation")
+document
+.getElementById("saturation")
 .addEventListener("input",function(){
 
-  saturation=this.value;
+  saturation = Number(this.value);
 
-  document.getElementById("saturationText").textContent=
-    saturation+"%";
+  document
+  .getElementById("saturationText")
+  .textContent = saturation + "%";
 
   draw();
 
 });
 
+
+/* =========================
+   DRAW IMAGE
+========================= */
 
 function draw(){
 
-  if(!loaded) return;
+  if(!loaded || !img.complete){
+    return;
+  }
 
-  let w=img.width;
+  let w = img.naturalWidth;
+  let h = img.naturalHeight;
 
-  let h=img.height;
+  if(rotation % 180 !== 0){
 
-  if(rotation%180!==0){
-
-    canvas.width=h;
-
-    canvas.height=w;
+    canvas.width = h;
+    canvas.height = w;
 
   }else{
 
-    canvas.width=w;
-
-    canvas.height=h;
+    canvas.width = w;
+    canvas.height = h;
 
   }
 
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
 
   ctx.save();
 
-  ctx.translate(canvas.width/2,canvas.height/2);
+  ctx.translate(
+    canvas.width / 2,
+    canvas.height / 2
+  );
 
-  ctx.rotate(rotation*Math.PI/180);
+  ctx.rotate(
+    rotation * Math.PI / 180
+  );
 
   if(flipped){
-
     ctx.scale(-1,1);
-
   }
 
+  let filter =
+    "brightness(" + brightness + "%) " +
+    "contrast(" + contrast + "%) " +
+    "saturate(" + saturation + "%)";
 
-  let filter=
-    "brightness("+brightness+"%) "+
-    "contrast("+contrast+"%) "+
-    "saturate("+saturation+"%)";
-
-
-  if(filterMode==="bw"){
-    filter+=" grayscale(100%)";
+  if(filterMode === "bw"){
+    filter += " grayscale(100%)";
   }
 
-  if(filterMode==="sepia"){
-    filter+=" sepia(100%)";
+  if(filterMode === "sepia"){
+    filter += " sepia(100%)";
   }
 
-  if(filterMode==="vintage"){
-    filter+=" sepia(35%) contrast(110%) saturate(80%)";
+  if(filterMode === "vintage"){
+    filter +=
+      " sepia(35%) contrast(110%) saturate(80%)";
   }
 
-
-  ctx.filter=filter;
+  ctx.filter = filter;
 
   ctx.drawImage(
     img,
-    -img.width/2,
-    -img.height/2
+    -w / 2,
+    -h / 2,
+    w,
+    h
   );
 
   ctx.restore();
@@ -946,59 +1097,58 @@ function draw(){
 }
 
 
+/* =========================
+   ROTATE
+========================= */
+
 function rotatePhoto(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
 
-  rotation+=90;
+  rotation += 90;
 
-  if(rotation>=360) rotation=0;
+  if(rotation >= 360){
+    rotation = 0;
+  }
 
   draw();
 
 }
 
+
+/* =========================
+   FLIP
+========================= */
 
 function flipPhoto(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
 
-  flipped=!flipped;
+  flipped = !flipped;
 
   draw();
 
 }
 
 
+/* =========================
+   ENHANCE
+========================= */
+
 function autoEnhance(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
 
-  brightness=108;
-
-  contrast=112;
-
-  saturation=108;
-
-  filterMode="normal";
+  brightness = 108;
+  contrast = 112;
+  saturation = 108;
+  filterMode = "normal";
 
   updateControls();
 
@@ -1007,17 +1157,17 @@ function autoEnhance(){
 }
 
 
+/* =========================
+   FILTERS
+========================= */
+
 function blackWhite(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
 
-  filterMode="bw";
+  filterMode = "bw";
 
   draw();
 
@@ -1026,15 +1176,11 @@ function blackWhite(){
 
 function sepia(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
 
-  filterMode="sepia";
+  filterMode = "sepia";
 
   draw();
 
@@ -1043,118 +1189,154 @@ function sepia(){
 
 function vintage(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
 
-  filterMode="vintage";
+  filterMode = "vintage";
 
   draw();
 
 }
 
 
-function resetEditor(redraw=true){
+/* =========================
+   RESET
+========================= */
 
-  brightness=100;
+function resetEditor(redraw = true){
 
-  contrast=100;
+  brightness = 100;
+  contrast = 100;
+  saturation = 100;
 
-  saturation=100;
-
-  rotation=0;
-
-  flipped=false;
-
-  filterMode="normal";
+  rotation = 0;
+  flipped = false;
+  filterMode = "normal";
 
   updateControls();
 
-  if(redraw) draw();
+  if(redraw && loaded){
+    draw();
+  }
 
 }
 
+
+/* =========================
+   UPDATE CONTROLS
+========================= */
 
 function updateControls(){
 
-  document.getElementById("brightness").value=brightness;
+  document
+  .getElementById("brightness")
+  .value = brightness;
 
-  document.getElementById("contrast").value=contrast;
+  document
+  .getElementById("contrast")
+  .value = contrast;
 
-  document.getElementById("saturation").value=saturation;
+  document
+  .getElementById("saturation")
+  .value = saturation;
 
-  document.getElementById("brightnessText").textContent=
-    brightness+"%";
+  document
+  .getElementById("brightnessText")
+  .textContent = brightness + "%";
 
-  document.getElementById("contrastText").textContent=
-    contrast+"%";
+  document
+  .getElementById("contrastText")
+  .textContent = contrast + "%";
 
-  document.getElementById("saturationText").textContent=
-    saturation+"%";
+  document
+  .getElementById("saturationText")
+  .textContent = saturation + "%";
 
 }
 
+
+/* =========================
+   QUALITY
+========================= */
 
 function setQuality(q){
 
-  quality=q;
+  quality = q;
 
-  document.querySelectorAll(".quality-btn")
-  .forEach(btn=>btn.classList.remove("selected"));
+  document
+  .querySelectorAll(".quality-btn")
+  .forEach(function(btn){
 
-  document.getElementById(
-    q==="HD" ? "hdBtn" :
-    q==="2K" ? "2kBtn" : "4kBtn"
-  ).classList.add("selected");
+    btn.classList.remove("selected");
+
+  });
+
+  if(q === "HD"){
+
+    document
+    .getElementById("hdBtn")
+    .classList.add("selected");
+
+  }
+
+  if(q === "2K"){
+
+    document
+    .getElementById("2kBtn")
+    .classList.add("selected");
+
+  }
+
+  if(q === "4K"){
+
+    document
+    .getElementById("4kBtn")
+    .classList.add("selected");
+
+  }
 
 }
 
 
+/* =========================
+   DOWNLOAD
+========================= */
+
 function downloadPhoto(){
 
-  if(!loaded){
-
-    alert("Please upload a photo first.");
-
+  if(!checkPhoto()){
     return;
-
   }
-
 
   let targetWidth;
 
-  if(quality==="HD"){
-
-    targetWidth=1920;
-
-  }else if(quality==="2K"){
-
-    targetWidth=2560;
-
-  }else{
-
-    targetWidth=3840;
-
+  if(quality === "HD"){
+    targetWidth = 1920;
   }
 
+  else if(quality === "2K"){
+    targetWidth = 2560;
+  }
 
-  const ratio=canvas.height/canvas.width;
+  else{
+    targetWidth = 3840;
+  }
 
-  let targetHeight=Math.round(targetWidth*ratio);
+  const ratio =
+    canvas.height / canvas.width;
 
+  let targetHeight =
+    Math.round(targetWidth * ratio);
 
-  const output=document.createElement("canvas");
+  const output =
+    document.createElement("canvas");
 
-  output.width=targetWidth;
+  output.width = targetWidth;
+  output.height = targetHeight;
 
-  output.height=targetHeight;
-
-
-  const outCtx=output.getContext("2d");
+  const outCtx =
+    output.getContext("2d");
 
   outCtx.drawImage(
     canvas,
@@ -1164,34 +1346,53 @@ function downloadPhoto(){
     targetHeight
   );
 
+  const link =
+    document.createElement("a");
 
-  const link=document.createElement("a");
+  link.download =
+    "PhotoFix-AI-" + quality + ".png";
 
-  link.download=
-    "PhotoFix-AI-"+quality+".png";
-
-  link.href=output.toDataURL("image/png");
+  link.href =
+    output.toDataURL("image/png");
 
   link.click();
 
 }
 
 
-function aiMessage(feature){
+/* =========================
+   PHOTO CHECK
+========================= */
+
+function checkPhoto(){
 
   if(!loaded){
 
     alert("Please upload a photo first.");
 
-    return;
+    return false;
 
   }
 
+  return true;
+
+}
+
+
+/* =========================
+   AI BUTTONS
+========================= */
+
+function aiMessage(feature){
+
+  if(!checkPhoto()){
+    return;
+  }
 
   alert(
-    feature+
-    " is ready in the interface. " +
-    "The secure AI backend/API needs to be connected next for real AI processing."
+    feature +
+    " is ready for AI connection. " +
+    "The secure AI backend will be connected next."
   );
 
 }
