@@ -9,11 +9,17 @@ export default async function handler(req, res) {
     const chunks = [];
 
     for await (const chunk of req) {
-      chunks.push(chunk);
+      chunks.push(
+        Buffer.isBuffer(chunk)
+          ? chunk
+          : Buffer.from(chunk)
+      );
     }
 
     const body = Buffer.concat(chunks);
-    const contentType = req.headers["content-type"] || "";
+
+    const contentType =
+      req.headers["content-type"] || "";
 
     if (!contentType.includes("multipart/form-data")) {
       return res.status(400).json({
@@ -21,7 +27,8 @@ export default async function handler(req, res) {
       });
     }
 
-    const boundaryMatch = contentType.match(/boundary="?([^";]+)"?/);
+    const boundaryMatch =
+      contentType.match(/boundary="?([^";]+)"?/);
 
     if (!boundaryMatch) {
       return res.status(400).json({
@@ -29,58 +36,137 @@ export default async function handler(req, res) {
       });
     }
 
-    const boundary = boundaryMatch[1];
+    const boundary =
+      Buffer.from("--" + boundaryMatch[1]);
 
-    const parts = body.toString("binary").split(`--${boundary}`);
+    const headerSeparator =
+      Buffer.from("\r\n\r\n");
 
     let imageBuffer = null;
     let imageType = "image/jpeg";
     let filename = "image.jpg";
 
-    for (const part of parts) {
-      if (!part.includes('name="image"')) continue;
+    let start = 0;
 
-      const headerEnd = part.indexOf("\r\n\r\n");
+    while (start < body.length) {
 
-      if (headerEnd === -1) continue;
+      const boundaryIndex =
+        body.indexOf(boundary, start);
 
-      const headers = part.substring(0, headerEnd);
-      let imageData = part.substring(headerEnd + 4);
-
-      imageData = imageData.replace(/\r\n--$/, "");
-      imageData = imageData.replace(/\r\n$/, "");
-
-      const filenameMatch = headers.match(
-        /filename="([^"]+)"/
-      );
-
-      if (filenameMatch) {
-        filename = filenameMatch[1];
+      if (boundaryIndex === -1) {
+        break;
       }
 
-      if (headers.includes("image/png")) {
-        imageType = "image/png";
-      } else if (headers.includes("image/webp")) {
-        imageType = "image/webp";
-      } else if (headers.includes("image/jpeg")) {
-        imageType = "image/jpeg";
+      const partStart =
+        boundaryIndex + boundary.length;
+
+      const nextBoundary =
+        body.indexOf(boundary, partStart);
+
+      if (nextBoundary === -1) {
+        break;
       }
 
-      imageBuffer = Buffer.from(imageData, "binary");
-      break;
+      const part =
+        body.subarray(
+          partStart,
+          nextBoundary
+        );
+
+      const headerIndex =
+        part.indexOf(headerSeparator);
+
+      if (headerIndex !== -1) {
+
+        const headers =
+          part
+            .subarray(0, headerIndex)
+            .toString("utf8");
+
+        if (
+          headers.includes('name="image"')
+        ) {
+
+          const filenameMatch =
+            headers.match(
+              /filename="([^"]*)"/
+            );
+
+          if (filenameMatch) {
+            filename =
+              filenameMatch[1] ||
+              "image.jpg";
+          }
+
+          if (
+            headers.includes("image/png")
+          ) {
+            imageType = "image/png";
+          }
+
+          if (
+            headers.includes("image/webp")
+          ) {
+            imageType = "image/webp";
+          }
+
+          if (
+            headers.includes("image/jpeg")
+          ) {
+            imageType = "image/jpeg";
+          }
+
+          let dataStart =
+            headerIndex +
+            headerSeparator.length;
+
+          let dataEnd =
+            part.length;
+
+          if (
+            dataEnd >= 2 &&
+            part[dataEnd - 2] === 13 &&
+            part[dataEnd - 1] === 10
+          ) {
+            dataEnd -= 2;
+          }
+
+          imageBuffer =
+            part.subarray(
+              dataStart,
+              dataEnd
+            );
+
+          break;
+        }
+      }
+
+      start =
+        nextBoundary;
     }
 
-    if (!imageBuffer) {
+    if (!imageBuffer || imageBuffer.length === 0) {
       return res.status(400).json({
         error: "No image found."
       });
     }
 
-    const formData = new FormData();
+    if (imageBuffer.length > 15 * 1024 * 1024) {
+      return res.status(413).json({
+        error: "Photo 15MB se choti honi chahiye."
+      });
+    }
 
-    const blob = new Blob([imageBuffer], {
-      type: imageType
-    });
+    const formData =
+      new FormData();
+
+    const blob =
+      new Blob(
+        [imageBuffer],
+        {
+          type: imageType
+        }
+      );
 
     formData.append(
       "image",
@@ -88,25 +174,39 @@ export default async function handler(req, res) {
       filename
     );
 
-    const response = await fetch(
-      "https://clearbackdrop.com/api/v1/remove-background",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+    const response =
+      await fetch(
+        "https://clearbackdrop.com/api/v1/remove-background",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
 
     if (!response.ok) {
-      const errorText = await response.text();
 
-      return res.status(response.status).json({
-        error: errorText || "Background removal failed."
+      const errorText =
+        await response.text();
+
+      console.error(
+        "ClearBackdrop error:",
+        response.status,
+        errorText
+      );
+
+      return res.status(
+        response.status
+      ).json({
+        error:
+          errorText ||
+          "Background removal failed."
       });
     }
 
-    const result = Buffer.from(
-      await response.arrayBuffer()
-    );
+    const result =
+      Buffer.from(
+        await response.arrayBuffer()
+      );
 
     res.setHeader(
       "Content-Type",
@@ -118,13 +218,21 @@ export default async function handler(req, res) {
       "no-store"
     );
 
-    return res.status(200).send(result);
+    return res
+      .status(200)
+      .send(result);
 
   } catch (error) {
-    console.error(error);
+
+    console.error(
+      "Background removal error:",
+      error
+    );
 
     return res.status(500).json({
-      error: "Background removal failed."
+      error:
+        error.message ||
+        "Background removal failed."
     });
   }
 }
