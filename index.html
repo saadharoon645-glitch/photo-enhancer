@@ -416,9 +416,7 @@ footer{
 
     <label>
       Brightness:
-      <span id="brightnessValue" class="value">
-        100%
-      </span>
+      <span id="brightnessValue" class="value">100%</span>
     </label>
 
     <input
@@ -435,9 +433,7 @@ footer{
 
     <label>
       Contrast:
-      <span id="contrastValue" class="value">
-        100%
-      </span>
+      <span id="contrastValue" class="value">100%</span>
     </label>
 
     <input
@@ -454,9 +450,7 @@ footer{
 
     <label>
       Saturation:
-      <span id="saturationValue" class="value">
-        100%
-      </span>
+      <span id="saturationValue" class="value">100%</span>
     </label>
 
     <input
@@ -473,31 +467,31 @@ footer{
 
 <div class="tools">
 
-  <button class="tool-btn" onclick="rotatePhoto()">
+  <button type="button" class="tool-btn" onclick="rotatePhoto()">
     Rotate
   </button>
 
-  <button class="tool-btn" onclick="flipHorizontal()">
+  <button type="button" class="tool-btn" onclick="flipHorizontal()">
     Flip
   </button>
 
-  <button class="tool-btn" onclick="blackWhite()">
+  <button type="button" class="tool-btn" onclick="blackWhite()">
     B&W
   </button>
 
-  <button class="tool-btn" onclick="sepia()">
+  <button type="button" class="tool-btn" onclick="sepia()">
     Sepia
   </button>
 
-  <button class="tool-btn" onclick="vintage()">
+  <button type="button" class="tool-btn" onclick="vintage()">
     Vintage
   </button>
 
-  <button class="tool-btn" onclick="enhancePhoto()">
+  <button type="button" class="tool-btn" onclick="enhancePhoto()">
     Enhance
   </button>
 
-  <button class="tool-btn" onclick="resetPhoto()">
+  <button type="button" class="tool-btn" onclick="resetPhoto()">
     Reset
   </button>
 
@@ -522,9 +516,9 @@ footer{
   </p>
 
   <button
+    type="button"
     id="removeBgBtn"
-    class="ai-btn"
-    onclick="removeBackground()">
+    class="ai-btn">
 
     Remove Background
 
@@ -543,6 +537,7 @@ footer{
   </p>
 
   <button
+    type="button"
     class="ai-btn"
     onclick="enhancePhoto()">
 
@@ -563,6 +558,7 @@ footer{
   </p>
 
   <button
+    type="button"
     class="ai-btn"
     onclick="vintage()">
 
@@ -583,6 +579,7 @@ footer{
 <div class="download-area">
 
 <button
+  type="button"
   class="download-btn"
   onclick="downloadPhoto()">
 
@@ -602,38 +599,21 @@ footer{
 
 <script>
 
-const photoInput =
-  document.getElementById("photoInput");
+const photoInput = document.getElementById("photoInput");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const emptyMessage = document.getElementById("emptyMessage");
 
-const canvas =
-  document.getElementById("canvas");
+const brightness = document.getElementById("brightness");
+const contrast = document.getElementById("contrast");
+const saturation = document.getElementById("saturation");
 
-const ctx =
-  canvas.getContext("2d");
+const brightnessValue = document.getElementById("brightnessValue");
+const contrastValue = document.getElementById("contrastValue");
+const saturationValue = document.getElementById("saturationValue");
 
-const emptyMessage =
-  document.getElementById("emptyMessage");
-
-const brightness =
-  document.getElementById("brightness");
-
-const contrast =
-  document.getElementById("contrast");
-
-const saturation =
-  document.getElementById("saturation");
-
-const brightnessValue =
-  document.getElementById("brightnessValue");
-
-const contrastValue =
-  document.getElementById("contrastValue");
-
-const saturationValue =
-  document.getElementById("saturationValue");
-
-const statusBox =
-  document.getElementById("status");
+const statusBox = document.getElementById("status");
+const removeBgBtn = document.getElementById("removeBgBtn");
 
 let originalImage = null;
 let rotation = 0;
@@ -769,19 +749,13 @@ function drawImage(){
 
   if(angle === 90 || angle === 270){
 
-    canvas.width =
-      originalImage.height;
-
-    canvas.height =
-      originalImage.width;
+    canvas.width = originalImage.height;
+    canvas.height = originalImage.width;
 
   }else{
 
-    canvas.width =
-      originalImage.width;
-
-    canvas.height =
-      originalImage.height;
+    canvas.width = originalImage.width;
+    canvas.height = originalImage.height;
 
   }
 
@@ -899,8 +873,7 @@ function blackWhite(){
       canvas.height
     );
 
-  const data =
-    imageData.data;
+  const data = imageData.data;
 
   for(
     let i = 0;
@@ -1051,11 +1024,8 @@ function resetPhoto(){
 
 function showStatus(message){
 
-  statusBox.textContent =
-    message;
-
-  statusBox.style.display =
-    "block";
+  statusBox.textContent = message;
+  statusBox.style.display = "block";
 
 }
 
@@ -1063,6 +1033,9 @@ function showStatus(message){
 /* ==============================
    BACKGROUND REMOVE
    ============================== */
+
+removeBgBtn.addEventListener("click", removeBackground);
+
 
 async function removeBackground(){
 
@@ -1088,14 +1061,9 @@ async function removeBackground(){
     return;
   }
 
-  const button =
-    document.getElementById(
-      "removeBgBtn"
-    );
+  removeBgBtn.disabled = true;
 
-  button.disabled = true;
-
-  button.textContent =
+  removeBgBtn.textContent =
     "Removing Background...";
 
   showStatus(
@@ -1104,8 +1072,7 @@ async function removeBackground(){
 
   try{
 
-    const formData =
-      new FormData();
+    const formData = new FormData();
 
     formData.append(
       "image",
@@ -1113,15 +1080,9 @@ async function removeBackground(){
       file.name
     );
 
-    /*
-      IMPORTANT:
-
-      Browser directly ClearBackdrop ko
-      call nahi karta.
-
-      Request Vercel backend par jati hai:
-      /api/remove-background
-    */
+    console.log(
+      "Sending POST request to /api/remove-background"
+    );
 
     const response =
       await fetch(
@@ -1131,6 +1092,11 @@ async function removeBackground(){
           body: formData
         }
       );
+
+    console.log(
+      "Background API response:",
+      response.status
+    );
 
     if(!response.ok){
 
@@ -1154,8 +1120,7 @@ async function removeBackground(){
             await response.json();
 
           if(data.error){
-            message =
-              data.error;
+            message = data.error;
           }
 
         }catch(e){}
@@ -1182,10 +1147,7 @@ async function removeBackground(){
     const blob =
       await response.blob();
 
-    if(
-      !blob ||
-      blob.size === 0
-    ){
+    if(!blob || blob.size === 0){
 
       throw new Error(
         "AI ne empty image return ki."
@@ -1199,92 +1161,76 @@ async function removeBackground(){
     const resultImage =
       new Image();
 
-    resultImage.onload =
-      function(){
+    resultImage.onload = function(){
 
-        originalImage =
-          resultImage;
+      originalImage = resultImage;
 
-        rotation = 0;
-        flip = 1;
+      rotation = 0;
+      flip = 1;
 
-        brightness.value = 100;
-        contrast.value = 100;
-        saturation.value = 100;
+      brightness.value = 100;
+      contrast.value = 100;
+      saturation.value = 100;
 
-        brightnessValue.textContent =
-          "100%";
+      brightnessValue.textContent = "100%";
+      contrastValue.textContent = "100%";
+      saturationValue.textContent = "100%";
 
-        contrastValue.textContent =
-          "100%";
+      canvas.width =
+        resultImage.naturalWidth ||
+        resultImage.width;
 
-        saturationValue.textContent =
-          "100%";
+      canvas.height =
+        resultImage.naturalHeight ||
+        resultImage.height;
 
-        canvas.width =
-          resultImage.naturalWidth ||
-          resultImage.width;
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
 
-        canvas.height =
-          resultImage.naturalHeight ||
-          resultImage.height;
+      ctx.filter = "none";
 
-        ctx.clearRect(
-          0,
-          0,
-          canvas.width,
-          canvas.height
-        );
+      ctx.drawImage(
+        resultImage,
+        0,
+        0
+      );
 
-        ctx.filter = "none";
+      canvas.style.display = "block";
+      emptyMessage.style.display = "none";
 
-        ctx.drawImage(
-          resultImage,
-          0,
-          0
-        );
+      URL.revokeObjectURL(imageURL);
 
-        canvas.style.display =
-          "block";
+      removeBgBtn.disabled = false;
 
-        emptyMessage.style.display =
-          "none";
+      removeBgBtn.textContent =
+        "Remove Background";
 
-        URL.revokeObjectURL(
-          imageURL
-        );
+      showStatus(
+        "Background successfully removed! ✅"
+      );
 
-        button.disabled = false;
+    };
 
-        button.textContent =
-          "Remove Background";
+    resultImage.onerror = function(){
 
-        showStatus(
-          "Background successfully removed! ✅"
-        );
+      URL.revokeObjectURL(imageURL);
 
-      };
+      removeBgBtn.disabled = false;
 
-    resultImage.onerror =
-      function(){
+      removeBgBtn.textContent =
+        "Remove Background";
 
-        URL.revokeObjectURL(
-          imageURL
-        );
+      showStatus(
+        "AI image load nahi ho saki."
+      );
 
-        button.disabled = false;
+    };
 
-        button.textContent =
-          "Remove Background";
-
-        showStatus(
-          "AI image load nahi ho saki."
-        );
-
-      };
-
-    resultImage.src =
-      imageURL;
+    resultImage.src = imageURL;
 
   }catch(error){
 
@@ -1293,9 +1239,9 @@ async function removeBackground(){
       error
     );
 
-    button.disabled = false;
+    removeBgBtn.disabled = false;
 
-    button.textContent =
+    removeBgBtn.textContent =
       "Remove Background";
 
     showStatus(
