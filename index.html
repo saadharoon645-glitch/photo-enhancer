@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,12 +24,10 @@ body{
   min-height:100vh;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* HEADER */
 
 header{
-  background:#ffffff;
+  background:#fff;
   border-bottom:1px solid #e4e6e9;
   position:sticky;
   top:0;
@@ -82,16 +79,13 @@ nav a{
   color:#555c65;
   text-decoration:none;
   font-size:14px;
-  font-weight:500;
 }
 
 nav a:hover{
   color:#171a1f;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
   width:min(1180px,92%);
@@ -118,9 +112,7 @@ nav a:hover{
   line-height:1.6;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .container{
   width:min(1180px,92%);
@@ -128,21 +120,15 @@ nav a:hover{
   padding-bottom:60px;
 }
 
-/* =========================
-   EDITOR
-========================= */
-
 .editor{
-  background:#ffffff;
+  background:#fff;
   border:1px solid #e1e3e6;
   border-radius:16px;
   overflow:hidden;
   box-shadow:0 12px 40px rgba(20,25,30,.08);
 }
 
-/* =========================
-   UPLOAD
-========================= */
+/* UPLOAD */
 
 .upload-area{
   padding:26px;
@@ -193,25 +179,25 @@ nav a:hover{
   margin-bottom:19px;
 }
 
-/* =========================
-   CHOOSE BUTTON
-========================= */
+/* CHOOSE BUTTON */
 
 .choose-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   min-width:155px;
-  min-height:43px;
+  min-height:45px;
   padding:11px 22px;
   background:#1e2228;
-  color:#ffffff;
+  color:#fff;
   border:1px solid #1e2228;
   border-radius:7px;
   font-size:13px;
   font-weight:600;
   cursor:pointer;
   transition:.2s;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
 }
 
 .choose-btn:hover{
@@ -219,27 +205,27 @@ nav a:hover{
   border-color:#b38a45;
 }
 
+.choose-btn:active{
+  transform:translateY(1px);
+}
+
 #photoInput{
-  position:absolute;
+  position:fixed;
+  left:-9999px;
+  top:0;
   width:1px;
   height:1px;
   opacity:0;
-  overflow:hidden;
-  pointer-events:none;
 }
 
-/* =========================
-   WORKSPACE
-========================= */
+/* WORKSPACE */
 
 .workspace{
   display:grid;
   grid-template-columns:minmax(0,1fr) 320px;
 }
 
-/* =========================
-   PREVIEW
-========================= */
+/* PREVIEW */
 
 .preview{
   min-height:560px;
@@ -258,7 +244,7 @@ nav a:hover{
   align-items:center;
   justify-content:center;
   position:relative;
-  background-color:#ffffff;
+  background-color:#fff;
   background-image:
     linear-gradient(45deg,#f0f0f0 25%,transparent 25%),
     linear-gradient(-45deg,#f0f0f0 25%,transparent 25%),
@@ -280,6 +266,7 @@ nav a:hover{
   text-align:center;
   color:#9aa0a7;
   pointer-events:none;
+  padding:20px;
 }
 
 .empty-preview strong{
@@ -301,12 +288,10 @@ canvas{
   height:auto;
 }
 
-/* =========================
-   TOOLS
-========================= */
+/* TOOLS */
 
 .tools{
-  background:#ffffff;
+  background:#fff;
   padding:24px;
 }
 
@@ -321,9 +306,7 @@ canvas{
   font-weight:700;
 }
 
-/* =========================
-   SLIDERS
-========================= */
+/* SLIDERS */
 
 .slider-box{
   margin-bottom:17px;
@@ -348,9 +331,7 @@ input[type="range"]{
   cursor:pointer;
 }
 
-/* =========================
-   BASIC TOOLS
-========================= */
+/* BASIC TOOLS */
 
 .tool-row{
   display:grid;
@@ -371,7 +352,7 @@ input[type="range"]{
 }
 
 .tool-btn:hover{
-  background:#ffffff;
+  background:#fff;
   border-color:#b38a45;
   color:#8f692f;
 }
@@ -380,9 +361,7 @@ input[type="range"]{
   transform:translateY(1px);
 }
 
-/* =========================
-   PREMIUM AI
-========================= */
+/* AI */
 
 .ai-section{
   padding:16px;
@@ -418,7 +397,7 @@ input[type="range"]{
   margin-bottom:9px;
   border:1px solid #d9c39a;
   border-radius:7px;
-  background:#ffffff;
+  background:#fff;
   color:#4c3c22;
   font-size:12px;
   font-weight:600;
@@ -433,7 +412,7 @@ input[type="range"]{
 .ai-btn:hover{
   background:#b38a45;
   border-color:#b38a45;
-  color:#ffffff;
+  color:#fff;
 }
 
 .ai-btn:disabled{
@@ -441,9 +420,7 @@ input[type="range"]{
   cursor:not-allowed;
 }
 
-/* =========================
-   DOWNLOAD
-========================= */
+/* DOWNLOAD */
 
 .download-btn{
   width:100%;
@@ -451,7 +428,7 @@ input[type="range"]{
   border:1px solid #1e2228;
   border-radius:7px;
   background:#1e2228;
-  color:#ffffff;
+  color:#fff;
   font-size:13px;
   font-weight:600;
   cursor:pointer;
@@ -463,9 +440,7 @@ input[type="range"]{
   border-color:#b38a45;
 }
 
-/* =========================
-   STATUS
-========================= */
+/* STATUS */
 
 .status{
   min-height:40px;
@@ -483,9 +458,7 @@ input[type="range"]{
   line-height:1.4;
 }
 
-/* =========================
-   FEATURES
-========================= */
+/* FEATURES */
 
 .features{
   display:grid;
@@ -495,7 +468,7 @@ input[type="range"]{
 }
 
 .feature{
-  background:#ffffff;
+  background:#fff;
   border:1px solid #e1e3e6;
   border-radius:11px;
   padding:23px;
@@ -527,22 +500,18 @@ input[type="range"]{
   line-height:1.6;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 footer{
   border-top:1px solid #e1e3e6;
-  background:#ffffff;
+  background:#fff;
   text-align:center;
   padding:28px 20px;
   color:#858b92;
   font-size:12px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:850px){
 
@@ -624,13 +593,15 @@ footer{
   .tool-row{
     gap:7px;
   }
+
+  .choose-btn{
+    min-width:170px;
+  }
 }
 </style>
 </head>
 
 <body>
-
-<!-- HEADER -->
 
 <header>
   <div class="navbar">
@@ -649,9 +620,6 @@ footer{
   </div>
 </header>
 
-
-<!-- HERO -->
-
 <section class="hero">
 
   <h1>
@@ -664,12 +632,9 @@ footer{
 
 </section>
 
-
 <main class="container">
 
 <section class="editor" id="editor">
-
-  <!-- UPLOAD -->
 
   <div class="upload-area">
 
@@ -683,12 +648,13 @@ footer{
         JPG, PNG or WEBP · Maximum 15MB
       </p>
 
-      <label
-        for="photoInput"
+      <button
+        type="button"
         class="choose-btn"
+        id="choosePhotoBtn"
       >
         Choose Photo
-      </label>
+      </button>
 
       <input
         type="file"
@@ -699,9 +665,6 @@ footer{
     </div>
 
   </div>
-
-
-  <!-- WORKSPACE -->
 
   <div class="workspace">
 
@@ -720,17 +683,13 @@ footer{
 
     </div>
 
-
     <aside class="tools">
-
-      <!-- ADJUST -->
 
       <div class="tool-group">
 
         <h3>Adjust</h3>
 
         <div class="slider-box">
-
           <label>
             <span>Brightness</span>
             <span id="brightnessValue">100%</span>
@@ -743,12 +702,9 @@ footer{
             max="200"
             value="100"
           >
-
         </div>
 
-
         <div class="slider-box">
-
           <label>
             <span>Contrast</span>
             <span id="contrastValue">100%</span>
@@ -761,12 +717,9 @@ footer{
             max="200"
             value="100"
           >
-
         </div>
 
-
         <div class="slider-box">
-
           <label>
             <span>Saturation</span>
             <span id="saturationValue">100%</span>
@@ -779,13 +732,9 @@ footer{
             max="200"
             value="100"
           >
-
         </div>
 
       </div>
-
-
-      <!-- BASIC TOOLS -->
 
       <div class="tool-group">
 
@@ -825,19 +774,11 @@ footer{
 
       </div>
 
-
-      <!-- PREMIUM AI -->
-
       <div class="tool-group ai-section" id="ai">
 
         <div class="ai-heading">
-
           <h3>AI Tools</h3>
-
-          <span class="ai-label">
-            PREMIUM
-          </span>
-
+          <span class="ai-label">PREMIUM</span>
         </div>
 
         <button
@@ -866,9 +807,6 @@ footer{
 
       </div>
 
-
-      <!-- DOWNLOAD -->
-
       <button
         type="button"
         class="download-btn"
@@ -877,11 +815,7 @@ footer{
         Download PNG
       </button>
 
-
-      <div
-        class="status"
-        id="status"
-      >
+      <div class="status" id="status">
         Choose a photo to start editing.
       </div>
 
@@ -891,13 +825,7 @@ footer{
 
 </section>
 
-
-<!-- FEATURES -->
-
-<section
-  class="features"
-  id="features"
->
+<section class="features" id="features">
 
   <div class="feature">
 
@@ -912,7 +840,6 @@ footer{
 
   </div>
 
-
   <div class="feature">
 
     <div class="feature-icon">AI</div>
@@ -925,7 +852,6 @@ footer{
     </p>
 
   </div>
-
 
   <div class="feature">
 
@@ -944,11 +870,9 @@ footer{
 
 </main>
 
-
 <footer>
   © 2026 PhotoFix AI — Premium Photo Editing
 </footer>
-
 
 <script>
 
@@ -958,6 +882,9 @@ footer{
 
 const photoInput =
   document.getElementById("photoInput");
+
+const choosePhotoBtn =
+  document.getElementById("choosePhotoBtn");
 
 const canvas =
   document.getElementById("canvas");
@@ -1000,6 +927,18 @@ let filterMode = "none";
 
 
 /* =========================
+   CHOOSE PHOTO
+========================= */
+
+choosePhotoBtn.addEventListener(
+  "click",
+  function(){
+    photoInput.click();
+  }
+);
+
+
+/* =========================
    STATUS
 ========================= */
 
@@ -1019,7 +958,7 @@ function getSafeSize(width,height){
   const largest =
     Math.max(width,height);
 
-  if(largest <= maxSize){
+  if(!largest || largest <= maxSize){
     return {
       width:width,
       height:height
@@ -1030,8 +969,8 @@ function getSafeSize(width,height){
     maxSize / largest;
 
   return {
-    width:Math.round(width * scale),
-    height:Math.round(height * scale)
+    width:Math.max(1,Math.round(width * scale)),
+    height:Math.max(1,Math.round(height * scale))
   };
 }
 
@@ -1051,8 +990,7 @@ photoInput.addEventListener(
       return;
     }
 
-
-    if(!file.type.startsWith("image/")){
+    if(!file.type.match(/^image\/(jpeg|png|webp)$/i)){
 
       showStatus(
         "Please select a JPG, PNG or WEBP image."
@@ -1061,7 +999,6 @@ photoInput.addEventListener(
       this.value = "";
       return;
     }
-
 
     if(file.size > 15 * 1024 * 1024){
 
@@ -1073,100 +1010,93 @@ photoInput.addEventListener(
       return;
     }
 
-
     currentFile = file;
 
+    showStatus(
+      "Photo load ho rahi hai..."
+    );
 
     const reader =
       new FileReader();
 
+    reader.onload = function(event){
 
-    reader.onload =
-      function(event){
+      const img =
+        new Image();
 
-        const img =
-          new Image();
+      img.onload = function(){
 
+        originalImage = img;
 
-        img.onload =
-          function(){
+        rotation = 0;
+        flipped = false;
+        filterMode = "none";
 
-            originalImage = img;
+        brightness.value = 100;
+        contrast.value = 100;
+        saturation.value = 100;
 
-            rotation = 0;
-            flipped = false;
-            filterMode = "none";
+        document.getElementById(
+          "brightnessValue"
+        ).textContent = "100%";
 
+        document.getElementById(
+          "contrastValue"
+        ).textContent = "100%";
 
-            brightness.value = 100;
-            contrast.value = 100;
-            saturation.value = 100;
+        document.getElementById(
+          "saturationValue"
+        ).textContent = "100%";
 
+        canvas.style.display = "block";
+        emptyPreview.style.display = "none";
 
-            document.getElementById(
-              "brightnessValue"
-            ).textContent = "100%";
+        try{
+          drawImage();
 
-            document.getElementById(
-              "contrastValue"
-            ).textContent = "100%";
+          showStatus(
+            "Photo uploaded successfully."
+          );
 
-            document.getElementById(
-              "saturationValue"
-            ).textContent = "100%";
+        }catch(error){
 
+          console.error(error);
 
-            canvas.style.display =
-              "block";
+          originalImage = null;
+          currentFile = null;
 
-            emptyPreview.style.display =
-              "none";
+          canvas.style.display = "none";
+          emptyPreview.style.display = "block";
 
-
-            drawImage();
-
-
-            showStatus(
-              "Photo uploaded successfully."
-            );
-
-          };
-
-
-        img.onerror =
-          function(){
-
-            originalImage = null;
-            currentFile = null;
-
-            canvas.style.display =
-              "none";
-
-            emptyPreview.style.display =
-              "block";
-
-            showStatus(
-              "Photo load nahi ho saki."
-            );
-
-          };
-
-
-        img.src =
-          event.target.result;
+          showStatus(
+            "Photo preview nahi ban saki."
+          );
+        }
 
       };
 
+      img.onerror = function(){
 
-    reader.onerror =
-      function(){
+        originalImage = null;
+        currentFile = null;
+
+        canvas.style.display = "none";
+        emptyPreview.style.display = "block";
 
         showStatus(
-          "Photo read nahi ho saki."
+          "Photo load nahi ho saki."
         );
-
       };
 
+      img.src = event.target.result;
+    };
+
+    reader.onerror = function(){
+
+      showStatus(
+        "Photo read nahi ho saki."
+      );
+    };
 
     reader.readAsDataURL(file);
 
@@ -1184,20 +1114,17 @@ function drawImage(){
     return;
   }
 
-
   const safe =
     getSafeSize(
-      originalImage.naturalWidth,
-      originalImage.naturalHeight
+      originalImage.naturalWidth || originalImage.width,
+      originalImage.naturalHeight || originalImage.height
     );
-
 
   const width =
     safe.width;
 
   const height =
     safe.height;
-
 
   if(
     rotation === 90 ||
@@ -1211,9 +1138,7 @@ function drawImage(){
 
     canvas.width = width;
     canvas.height = height;
-
   }
-
 
   ctx.save();
 
@@ -1224,75 +1149,49 @@ function drawImage(){
     canvas.height
   );
 
-
   let filters =
     "brightness(" +
     brightness.value +
     "%) " +
-
     "contrast(" +
     contrast.value +
     "%) " +
-
     "saturate(" +
     saturation.value +
     "%)";
 
-
   if(filterMode === "bw"){
-
-    filters +=
-      " grayscale(100%)";
-
+    filters += " grayscale(100%)";
   }
-
 
   if(filterMode === "sepia"){
-
-    filters +=
-      " sepia(100%)";
-
+    filters += " sepia(100%)";
   }
-
 
   if(filterMode === "vintage"){
-
     filters +=
       " sepia(35%) contrast(110%) saturate(80%)";
-
   }
-
 
   if(filterMode === "enhance"){
-
     filters +=
       " contrast(115%) saturate(110%) brightness(105%)";
-
   }
 
-
   ctx.filter = filters;
-
 
   ctx.translate(
     canvas.width / 2,
     canvas.height / 2
   );
 
-
   ctx.rotate(
-    rotation *
-    Math.PI /
-    180
+    rotation * Math.PI / 180
   );
 
-
   if(flipped){
-
     ctx.scale(-1,1);
-
   }
-
 
   ctx.drawImage(
     originalImage,
@@ -1302,9 +1201,7 @@ function drawImage(){
     height
   );
 
-
   ctx.restore();
-
 }
 
 
@@ -1322,10 +1219,8 @@ brightness.addEventListener(
       this.value + "%";
 
     drawImage();
-
   }
 );
-
 
 contrast.addEventListener(
   "input",
@@ -1337,10 +1232,8 @@ contrast.addEventListener(
       this.value + "%";
 
     drawImage();
-
   }
 );
-
 
 saturation.addEventListener(
   "input",
@@ -1352,7 +1245,6 @@ saturation.addEventListener(
       this.value + "%";
 
     drawImage();
-
   }
 );
 
@@ -1394,7 +1286,6 @@ document.getElementById(
       (rotation + 90) % 360;
 
     drawImage();
-
   }
 );
 
@@ -1417,7 +1308,6 @@ document.getElementById(
       !flipped;
 
     drawImage();
-
   }
 );
 
@@ -1439,7 +1329,6 @@ document.getElementById(
     filterMode = "bw";
 
     drawImage();
-
   }
 );
 
@@ -1461,7 +1350,6 @@ document.getElementById(
     filterMode = "sepia";
 
     drawImage();
-
   }
 );
 
@@ -1483,7 +1371,6 @@ document.getElementById(
     filterMode = "vintage";
 
     drawImage();
-
   }
 );
 
@@ -1505,7 +1392,6 @@ document.getElementById(
     filterMode = "enhance";
 
     drawImage();
-
   }
 );
 
@@ -1524,11 +1410,9 @@ document.getElementById(
       return;
     }
 
-
     brightness.value = 100;
     contrast.value = 100;
     saturation.value = 100;
-
 
     document.getElementById(
       "brightnessValue"
@@ -1542,19 +1426,15 @@ document.getElementById(
       "saturationValue"
     ).textContent = "100%";
 
-
     rotation = 0;
     flipped = false;
     filterMode = "none";
 
-
     drawImage();
-
 
     showStatus(
       "Photo reset ho gayi."
     );
-
   }
 );
 
@@ -1583,30 +1463,25 @@ async function removeBackground(){
     return;
   }
 
-
   removeBgBtn.disabled = true;
 
   removeBgBtn.textContent =
     "Removing Background...";
 
-
   showStatus(
     "AI background removal start ho raha hai..."
   );
-
 
   try{
 
     const formData =
       new FormData();
 
-
     formData.append(
       "image",
       currentFile,
       currentFile.name
     );
-
 
     const response =
       await fetch(
@@ -1617,7 +1492,6 @@ async function removeBackground(){
         }
       );
 
-
     if(!response.ok){
 
       let message =
@@ -1625,7 +1499,6 @@ async function removeBackground(){
 
       const contentType =
         response.headers.get("content-type") || "";
-
 
       try{
 
@@ -1637,78 +1510,246 @@ async function removeBackground(){
             await response.json();
 
           if(data && data.error){
-            message =
-              data.error;
+            message = data.error;
           }
 
         }else{
 
-          const text =
+          const serverText =
             await response.text();
 
-          if(text){
+          if(serverText){
             message =
               "Server error: " +
-              text.slice(0,180);
+              serverText.slice(0,180);
           }
-
         }
 
-      }catch(e){}
-
+      }catch(error){}
 
       throw new Error(message);
-
     }
-
 
     const blob =
       await response.blob();
 
-
-    if(!blob.type.startsWith("image/")){
+    if(
+      !blob.type ||
+      !blob.type.startsWith("image/")
+    ){
 
       throw new Error(
         "Server ne image result return nahi kiya."
       );
-
     }
-
 
     const imageUrl =
       URL.createObjectURL(blob);
 
-
     const img =
       new Image();
 
+    img.onload = function(){
 
-    img.onload =
-      function(){
+      originalImage = img;
 
-        originalImage = img;
+      currentFile = null;
 
-        currentFile = null;
+      rotation = 0;
+      flipped = false;
+      filterMode = "none";
 
-        rotation = 0;
-        flipped = false;
-        filterMode = "none";
+      brightness.value = 100;
+      contrast.value = 100;
+      saturation.value = 100;
+
+      document.getElementById(
+        "brightnessValue"
+      ).textContent = "100%";
+
+      document.getElementById(
+        "contrastValue"
+      ).textContent = "100%";
+
+      document.getElementById(
+        "saturationValue"
+      ).textContent = "100%";
+
+      canvas.style.display = "block";
+      emptyPreview.style.display = "none";
+
+      drawImage();
+
+      URL.revokeObjectURL(imageUrl);
+
+      showStatus(
+        "Background successfully remove ho gaya."
+      );
+
+      removeBgBtn.disabled = false;
+
+      removeBgBtn.textContent =
+        "Remove Background";
+    };
+
+    img.onerror = function(){
+
+      URL.revokeObjectURL(imageUrl);
+
+      throw new Error(
+        "AI result image load nahi ho saki."
+      );
+    };
+
+    img.src = imageUrl;
+
+  }catch(error){
+
+    console.error(
+      "Background removal error:",
+      error
+    );
+
+    showStatus(
+      error.message ||
+      "Background removal failed."
+    );
+
+    removeBgBtn.disabled = false;
+
+    removeBgBtn.textContent =
+      "Remove Background";
+  }
+}
 
 
-        brightness.value = 100;
-        contrast.value = 100;
-        saturation.value = 100;
+/* =========================
+   AI ENHANCE
+========================= */
+
+document.getElementById(
+  "aiEnhanceBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!requirePhoto()){
+      return;
+    }
+
+    filterMode = "enhance";
+
+    brightness.value = 105;
+    contrast.value = 115;
+    saturation.value = 110;
+
+    document.getElementById(
+      "brightnessValue"
+    ).textContent = "105%";
+
+    document.getElementById(
+      "contrastValue"
+    ).textContent = "115%";
+
+    document.getElementById(
+      "saturationValue"
+    ).textContent = "110%";
+
+    drawImage();
+
+    showStatus(
+      "AI Enhance effect applied."
+    );
+  }
+);
 
 
-        document.getElementById(
-          "brightnessValue"
-        ).textContent = "100%";
+/* =========================
+   QUICK EFFECTS
+========================= */
 
-        document.getElementById(
-          "contrastValue"
-        ).textContent = "100%";
+document.getElementById(
+  "quickEffectsBtn"
+).addEventListener(
+  "click",
+  function(){
 
-        document.getElementById(
-          "saturationValue"
-        ).textContent = "100%";
-```
+    if(!requirePhoto()){
+      return;
+    }
+
+    filterMode = "vintage";
+
+    brightness.value = 105;
+    contrast.value = 110;
+    saturation.value = 90;
+
+    document.getElementById(
+      "brightnessValue"
+    ).textContent = "105%";
+
+    document.getElementById(
+      "contrastValue"
+    ).textContent = "110%";
+
+    document.getElementById(
+      "saturationValue"
+    ).textContent = "90%";
+
+    drawImage();
+
+    showStatus(
+      "Quick effect applied."
+    );
+  }
+);
+
+
+/* =========================
+   DOWNLOAD
+========================= */
+
+downloadBtn.addEventListener(
+  "click",
+  function(){
+
+    if(!requirePhoto()){
+      return;
+    }
+
+    try{
+
+      const link =
+        document.createElement("a");
+
+      link.download =
+        "photofix-ai-edited.png";
+
+      link.href =
+        canvas.toDataURL("image/png");
+
+      document.body.appendChild(link);
+
+      link.click();
+
+      link.remove();
+
+      showStatus(
+        "PNG download start ho gayi."
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      showStatus(
+        "Image download nahi ho saki."
+      );
+    }
+  }
+);
+
+</script>
+
+</body>
+</html>
