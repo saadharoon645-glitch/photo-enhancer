@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PhotoFix AI — Photo Editor</title>
+<title>PhotoFix AI — Professional Photo Editor</title>
 
 <style>
 *{
@@ -19,324 +19,429 @@ html{
 }
 
 body{
-  font-family:Arial, Helvetica, sans-serif;
-  background:#f4f6f8;
-  color:#1f2937;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#0b0f14;
+  color:#f1f5f9;
   min-height:100vh;
 }
 
 /* HEADER */
+
 header{
-  background:#ffffff;
-  border-bottom:1px solid #e5e7eb;
+  background:#10151c;
+  border-bottom:1px solid #252c36;
   position:sticky;
   top:0;
   z-index:100;
 }
 
 .navbar{
-  max-width:1200px;
+  width:min(1180px,92%);
   margin:auto;
-  padding:18px 24px;
+  min-height:72px;
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
 
 .logo{
-  font-size:24px;
+  font-size:25px;
   font-weight:700;
-  color:#111827;
+  color:#ffffff;
+  letter-spacing:-.5px;
 }
 
 .logo span{
-  color:#2563eb;
+  color:#4f8cff;
 }
 
 nav{
   display:flex;
-  gap:25px;
+  gap:28px;
 }
 
 nav a{
+  color:#aeb8c5;
   text-decoration:none;
-  color:#4b5563;
-  font-size:15px;
+  font-size:14px;
 }
 
 nav a:hover{
-  color:#2563eb;
+  color:#ffffff;
 }
 
 /* HERO */
+
 .hero{
+  width:min(1180px,92%);
+  margin:auto;
+  padding:55px 0 35px;
   text-align:center;
-  padding:55px 20px 35px;
 }
 
 .hero h1{
   font-size:42px;
-  color:#111827;
-  margin-bottom:12px;
+  line-height:1.15;
+  margin-bottom:13px;
+  color:#ffffff;
 }
 
 .hero p{
-  color:#6b7280;
-  font-size:17px;
+  color:#9aa5b1;
+  font-size:16px;
 }
 
 /* MAIN */
+
 .container{
-  width:min(1100px,92%);
-  margin:0 auto 60px;
+  width:min(1180px,92%);
+  margin:auto;
+  padding-bottom:60px;
 }
 
+/* EDITOR */
+
 .editor{
-  background:#ffffff;
-  border:1px solid #e5e7eb;
-  border-radius:12px;
-  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  background:#111720;
+  border:1px solid #252d38;
+  border-radius:14px;
   overflow:hidden;
+  box-shadow:0 15px 45px rgba(0,0,0,.25);
 }
 
 /* UPLOAD */
+
 .upload-area{
-  padding:35px;
-  text-align:center;
-  border-bottom:1px solid #e5e7eb;
+  padding:28px;
+  border-bottom:1px solid #252d38;
 }
 
 .upload-box{
-  border:2px dashed #cbd5e1;
+  min-height:190px;
+  border:1px dashed #3b4654;
   border-radius:10px;
-  padding:45px 20px;
-  background:#f8fafc;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.upload-box:hover{
-  border-color:#2563eb;
-  background:#eff6ff;
+  background:#0d131a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
 }
 
 .upload-box h2{
-  font-size:22px;
-  margin-bottom:10px;
-  color:#111827;
+  font-size:20px;
+  margin-bottom:8px;
+  color:#ffffff;
 }
 
 .upload-box p{
-  color:#6b7280;
+  color:#8995a3;
+  font-size:14px;
   margin-bottom:20px;
 }
 
-.upload-btn{
-  display:inline-block;
-  background:#2563eb;
-  color:white;
-  padding:12px 24px;
+/* REAL BUTTON */
+
+.choose-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:150px;
+  padding:12px 22px;
+  background:#4f8cff;
+  color:#ffffff;
   border-radius:7px;
+  font-size:14px;
   font-weight:600;
   cursor:pointer;
+  transition:.2s;
+  border:1px solid #4f8cff;
+}
+
+.choose-btn:hover{
+  background:#3d78e8;
+  border-color:#3d78e8;
 }
 
 #photoInput{
-  display:none;
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
 }
 
 /* WORKSPACE */
+
 .workspace{
   display:grid;
-  grid-template-columns:1fr 300px;
-  min-height:500px;
+  grid-template-columns:minmax(0,1fr) 320px;
 }
 
+/* PREVIEW */
+
 .preview{
+  min-height:560px;
   padding:25px;
+  background:#0d131a;
+  border-right:1px solid #252d38;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#f8fafc;
-  border-right:1px solid #e5e7eb;
 }
 
 .canvas-wrap{
   width:100%;
-  max-width:700px;
-  min-height:400px;
+  min-height:480px;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#e5e7eb;
-  border-radius:8px;
+  background:
+    linear-gradient(45deg,#151b23 25%,transparent 25%),
+    linear-gradient(-45deg,#151b23 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#151b23 75%),
+    linear-gradient(-45deg,transparent 75%,#151b23 75%);
+  background-size:24px 24px;
+  background-position:0 0,0 12px,12px -12px,-12px 0;
+  border:1px solid #29313c;
+  border-radius:10px;
   overflow:hidden;
 }
 
 canvas{
-  max-width:100%;
-  max-height:500px;
   display:none;
+  max-width:100%;
+  max-height:530px;
+  width:auto;
+  height:auto;
 }
 
 /* TOOLS */
-.tools{
-  padding:24px;
-  background:#fff;
-}
 
-.tools h3{
-  font-size:17px;
-  margin-bottom:15px;
-  color:#111827;
+.tools{
+  background:#111720;
+  padding:24px;
 }
 
 .tool-group{
   margin-bottom:25px;
 }
 
+.tools h3{
+  color:#ffffff;
+  font-size:15px;
+  margin-bottom:14px;
+}
+
 .tool-row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:9px;
-}
-
-button{
-  border:none;
-  cursor:pointer;
-  font-family:inherit;
+  gap:8px;
 }
 
 .tool-btn{
-  padding:10px 8px;
-  border:1px solid #d1d5db;
-  background:#fff;
+  min-height:38px;
+  background:#171e27;
+  border:1px solid #303a47;
   border-radius:6px;
-  color:#374151;
+  color:#c7d0da;
+  cursor:pointer;
   font-size:13px;
 }
 
 .tool-btn:hover{
-  border-color:#2563eb;
-  color:#2563eb;
-}
-
-.ai-btn{
-  width:100%;
-  padding:12px;
-  margin-bottom:9px;
-  border-radius:7px;
-  background:#111827;
-  color:#fff;
-  font-weight:600;
-}
-
-.ai-btn:hover{
-  background:#2563eb;
-}
-
-.ai-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.download-btn{
-  width:100%;
-  padding:13px;
-  border-radius:7px;
-  background:#16a34a;
-  color:#fff;
-  font-weight:600;
-}
-
-.download-btn:hover{
-  background:#15803d;
+  border-color:#4f8cff;
+  color:#ffffff;
 }
 
 /* SLIDERS */
+
 .slider-box{
-  margin-bottom:15px;
+  margin-bottom:16px;
 }
 
 .slider-box label{
   display:flex;
   justify-content:space-between;
+  margin-bottom:8px;
+  color:#aeb8c5;
   font-size:13px;
-  color:#4b5563;
-  margin-bottom:7px;
+}
+
+.slider-box label span:last-child{
+  color:#4f8cff;
 }
 
 input[type="range"]{
   width:100%;
+  accent-color:#4f8cff;
+  cursor:pointer;
+}
+
+/* AI BUTTONS */
+
+.ai-btn{
+  width:100%;
+  min-height:43px;
+  margin-bottom:9px;
+  border:1px solid #303a47;
+  border-radius:7px;
+  background:#171e27;
+  color:#ffffff;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.ai-btn:hover{
+  background:#4f8cff;
+  border-color:#4f8cff;
+}
+
+.ai-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+/* DOWNLOAD */
+
+.download-btn{
+  width:100%;
+  min-height:44px;
+  border:0;
+  border-radius:7px;
+  background:#4f8cff;
+  color:#ffffff;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.download-btn:hover{
+  background:#3d78e8;
 }
 
 /* STATUS */
+
 .status{
-  margin-top:15px;
-  padding:10px;
-  border-radius:6px;
-  background:#f3f4f6;
-  color:#4b5563;
-  font-size:13px;
+  min-height:40px;
+  margin-top:12px;
+  padding:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  min-height:36px;
+  border:1px solid #29313c;
+  border-radius:6px;
+  background:#0d131a;
+  color:#929eab;
+  font-size:12px;
+  line-height:1.4;
 }
 
 /* FEATURES */
+
 .features{
-  margin-top:35px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:18px;
+  margin-top:25px;
 }
 
 .feature{
-  background:white;
-  border:1px solid #e5e7eb;
-  padding:25px;
+  background:#111720;
+  border:1px solid #252d38;
   border-radius:10px;
+  padding:23px;
 }
 
 .feature h3{
+  color:#ffffff;
+  font-size:16px;
   margin-bottom:8px;
-  color:#111827;
 }
 
 .feature p{
-  color:#6b7280;
+  color:#8995a3;
+  font-size:13px;
   line-height:1.6;
-  font-size:14px;
 }
 
 /* FOOTER */
+
 footer{
+  border-top:1px solid #252d38;
   text-align:center;
-  padding:30px;
-  color:#6b7280;
-  font-size:14px;
+  padding:28px 20px;
+  color:#687482;
+  font-size:13px;
 }
 
 /* MOBILE */
-@media(max-width:800px){
-  .workspace{
-    grid-template-columns:1fr;
-  }
 
-  .preview{
-    border-right:none;
-    border-bottom:1px solid #e5e7eb;
-  }
+@media(max-width:850px){
 
-  .features{
-    grid-template-columns:1fr;
+  .navbar{
+    min-height:62px;
   }
 
   nav{
     display:none;
   }
 
+  .hero{
+    padding:40px 0 28px;
+  }
+
   .hero h1{
-    font-size:32px;
+    font-size:31px;
+  }
+
+  .workspace{
+    grid-template-columns:1fr;
+  }
+
+  .preview{
+    min-height:400px;
+    border-right:0;
+    border-bottom:1px solid #252d38;
+  }
+
+  .canvas-wrap{
+    min-height:340px;
+  }
+
+  .tools{
+    padding:20px;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:500px){
+
+  .upload-area{
+    padding:18px;
+  }
+
+  .upload-box{
+    min-height:170px;
+  }
+
+  .hero h1{
+    font-size:28px;
+  }
+
+  .preview{
+    padding:15px;
+  }
+
+  .canvas-wrap{
+    min-height:300px;
   }
 }
 </style>
@@ -346,44 +451,67 @@ footer{
 
 <header>
   <div class="navbar">
-    <div class="logo">Photo<span>Fix</span> AI</div>
+
+    <div class="logo">
+      Photo<span>Fix</span> AI
+    </div>
 
     <nav>
       <a href="#editor">Editor</a>
       <a href="#features">Features</a>
       <a href="#ai">AI Tools</a>
     </nav>
+
   </div>
 </header>
 
+
 <section class="hero">
+
   <h1>Professional Photo Editor</h1>
-  <p>Edit, enhance and remove backgrounds from your photos.</p>
+
+  <p>
+    Edit, enhance and remove backgrounds from your photos.
+  </p>
+
 </section>
+
 
 <main class="container">
 
 <section class="editor" id="editor">
 
+  <!-- UPLOAD -->
+
   <div class="upload-area">
 
-    <label class="upload-box" for="photoInput">
+    <div class="upload-box">
 
-      <h2>Choose a Photo</h2>
+      <h2>Upload Your Photo</h2>
 
-      <p>JPG, PNG or WEBP — Maximum 15MB</p>
+      <p>
+        JPG, PNG or WEBP · Maximum 15MB
+      </p>
 
-      <span class="upload-btn">Choose Photo</span>
+      <label
+        for="photoInput"
+        class="choose-btn"
+      >
+        Choose Photo
+      </label>
 
-    </label>
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/jpeg,image/png,image/webp"
+      >
 
-    <input
-      type="file"
-      id="photoInput"
-      accept="image/jpeg,image/png,image/webp"
-    >
+    </div>
 
   </div>
+
+
+  <!-- WORKSPACE -->
 
   <div class="workspace">
 
@@ -397,13 +525,17 @@ footer{
 
     </div>
 
+
     <aside class="tools">
+
+      <!-- ADJUST -->
 
       <div class="tool-group">
 
         <h3>Adjust</h3>
 
         <div class="slider-box">
+
           <label>
             <span>Brightness</span>
             <span id="brightnessValue">100%</span>
@@ -416,9 +548,12 @@ footer{
             max="200"
             value="100"
           >
+
         </div>
 
+
         <div class="slider-box">
+
           <label>
             <span>Contrast</span>
             <span id="contrastValue">100%</span>
@@ -431,9 +566,12 @@ footer{
             max="200"
             value="100"
           >
+
         </div>
 
+
         <div class="slider-box">
+
           <label>
             <span>Saturation</span>
             <span id="saturationValue">100%</span>
@@ -446,9 +584,13 @@ footer{
             max="200"
             value="100"
           >
+
         </div>
 
       </div>
+
+
+      <!-- BASIC TOOLS -->
 
       <div class="tool-group">
 
@@ -456,31 +598,59 @@ footer{
 
         <div class="tool-row">
 
-          <button type="button" class="tool-btn" id="rotateBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="rotateBtn"
+          >
             Rotate
           </button>
 
-          <button type="button" class="tool-btn" id="flipBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="flipBtn"
+          >
             Flip
           </button>
 
-          <button type="button" class="tool-btn" id="bwBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="bwBtn"
+          >
             B&W
           </button>
 
-          <button type="button" class="tool-btn" id="sepiaBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="sepiaBtn"
+          >
             Sepia
           </button>
 
-          <button type="button" class="tool-btn" id="vintageBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="vintageBtn"
+          >
             Vintage
           </button>
 
-          <button type="button" class="tool-btn" id="enhanceBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="enhanceBtn"
+          >
             Enhance
           </button>
 
-          <button type="button" class="tool-btn" id="resetBtn">
+          <button
+            type="button"
+            class="tool-btn"
+            id="resetBtn"
+          >
             Reset
           </button>
 
@@ -488,47 +658,54 @@ footer{
 
       </div>
 
+
+      <!-- AI -->
+
       <div class="tool-group" id="ai">
 
         <h3>AI Tools</h3>
 
         <button
           type="button"
-          id="removeBgBtn"
           class="ai-btn"
+          id="removeBgBtn"
         >
           Remove Background
         </button>
 
         <button
           type="button"
-          id="aiEnhanceBtn"
           class="ai-btn"
+          id="aiEnhanceBtn"
         >
           AI Enhance
         </button>
 
         <button
           type="button"
-          id="quickEffectsBtn"
           class="ai-btn"
+          id="quickEffectsBtn"
         >
           Quick Effects
         </button>
 
       </div>
 
+
+      <!-- DOWNLOAD -->
+
       <button
         type="button"
-        id="downloadBtn"
         class="download-btn"
+        id="downloadBtn"
       >
         Download PNG
       </button>
 
+
       <div
-        id="status"
         class="status"
+        id="status"
       >
         Choose a photo to start editing.
       </div>
@@ -539,41 +716,62 @@ footer{
 
 </section>
 
-<section class="features" id="features">
+
+<!-- FEATURES -->
+
+<section
+  class="features"
+  id="features"
+>
 
   <div class="feature">
+
     <h3>Easy Editing</h3>
+
     <p>
       Adjust brightness, contrast and saturation
       with simple controls.
     </p>
+
   </div>
 
+
   <div class="feature">
+
     <h3>AI Background Removal</h3>
+
     <p>
       Remove the background from your photo
       using the AI tool.
     </p>
+
   </div>
 
+
   <div class="feature">
+
     <h3>Quick Export</h3>
+
     <p>
       Download your edited image as a PNG
       with one click.
     </p>
+
   </div>
 
 </section>
 
 </main>
 
+
 <footer>
-  © 2026 PhotoFix AI — Simple & Professional Photo Editing
+  © 2026 PhotoFix AI — Professional Photo Editing
 </footer>
 
+
 <script>
+
+/* ELEMENTS */
 
 const photoInput =
   document.getElementById("photoInput");
@@ -602,67 +800,161 @@ const contrast =
 const saturation =
   document.getElementById("saturation");
 
+
+/* STATE */
+
 let originalImage = null;
 let currentFile = null;
+
 let rotation = 0;
 let flipped = false;
 let filterMode = "none";
 
 
+/* STATUS */
+
 function showStatus(message){
+
   statusBox.textContent = message;
+
 }
 
 
 /* PHOTO UPLOAD */
 
-photoInput.addEventListener("change", function(){
+photoInput.addEventListener(
+  "change",
+  function(){
 
-  const file = this.files[0];
+    const file =
+      this.files && this.files[0];
 
-  if(!file){
-    return;
+    if(!file){
+      return;
+    }
+
+
+    if(
+      !file.type.startsWith("image/")
+    ){
+
+      showStatus(
+        "Please select an image file."
+      );
+
+      this.value = "";
+
+      return;
+    }
+
+
+    if(
+      file.size >
+      15 * 1024 * 1024
+    ){
+
+      showStatus(
+        "Photo 15MB se choti honi chahiye."
+      );
+
+      this.value = "";
+
+      return;
+    }
+
+
+    currentFile = file;
+
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+      function(event){
+
+        const img =
+          new Image();
+
+
+        img.onload =
+          function(){
+
+            originalImage = img;
+
+            rotation = 0;
+            flipped = false;
+            filterMode = "none";
+
+
+            brightness.value = 100;
+            contrast.value = 100;
+            saturation.value = 100;
+
+
+            document.getElementById(
+              "brightnessValue"
+            ).textContent = "100%";
+
+            document.getElementById(
+              "contrastValue"
+            ).textContent = "100%";
+
+            document.getElementById(
+              "saturationValue"
+            ).textContent = "100%";
+
+
+            canvas.style.display =
+              "block";
+
+
+            drawImage();
+
+
+            showStatus(
+              "Photo uploaded successfully."
+            );
+
+          };
+
+
+        img.onerror =
+          function(){
+
+            originalImage = null;
+            currentFile = null;
+
+            showStatus(
+              "Photo load nahi ho saki."
+            );
+
+          };
+
+
+        img.src =
+          event.target.result;
+
+      };
+
+
+    reader.onerror =
+      function(){
+
+        showStatus(
+          "Photo read nahi ho saki."
+        );
+
+      };
+
+
+    reader.readAsDataURL(file);
+
   }
-
-  if(file.size > 15 * 1024 * 1024){
-    showStatus("Photo 15MB se choti honi chahiye.");
-    return;
-  }
-
-  currentFile = file;
-
-  const reader = new FileReader();
-
-  reader.onload = function(event){
-
-    const img = new Image();
-
-    img.onload = function(){
-
-      originalImage = img;
-
-      rotation = 0;
-      flipped = false;
-      filterMode = "none";
-
-      canvas.style.display = "block";
-
-      drawImage();
-
-      showStatus("Photo successfully loaded.");
-
-    };
-
-    img.src = event.target.result;
-
-  };
-
-  reader.readAsDataURL(file);
-
-});
+);
 
 
-/* DRAW */
+/* DRAW IMAGE */
 
 function drawImage(){
 
@@ -670,13 +962,18 @@ function drawImage(){
     return;
   }
 
-  let width =
+
+  const width =
     originalImage.naturalWidth;
 
-  let height =
+  const height =
     originalImage.naturalHeight;
 
-  if(rotation === 90 || rotation === 270){
+
+  if(
+    rotation === 90 ||
+    rotation === 270
+  ){
 
     canvas.width = height;
     canvas.height = width;
@@ -688,6 +985,7 @@ function drawImage(){
 
   }
 
+
   ctx.save();
 
   ctx.clearRect(
@@ -697,50 +995,75 @@ function drawImage(){
     canvas.height
   );
 
-  let brightnessValue =
-    brightness.value;
-
-  let contrastValue =
-    contrast.value;
-
-  let saturationValue =
-    saturation.value;
 
   let filters =
-    `brightness(${brightnessValue}%)
-     contrast(${contrastValue}%)
-     saturate(${saturationValue}%)`;
+    "brightness(" +
+    brightness.value +
+    "%) " +
+
+    "contrast(" +
+    contrast.value +
+    "%) " +
+
+    "saturate(" +
+    saturation.value +
+    "%)";
+
 
   if(filterMode === "bw"){
-    filters += " grayscale(100%)";
+
+    filters +=
+      " grayscale(100%)";
+
   }
+
 
   if(filterMode === "sepia"){
-    filters += " sepia(100%)";
+
+    filters +=
+      " sepia(100%)";
+
   }
+
 
   if(filterMode === "vintage"){
-    filters += " sepia(35%) contrast(110%) saturate(80%)";
+
+    filters +=
+      " sepia(35%) contrast(110%) saturate(80%)";
+
   }
+
 
   if(filterMode === "enhance"){
-    filters += " contrast(115%) saturate(110%) brightness(105%)";
+
+    filters +=
+      " contrast(115%) saturate(110%) brightness(105%)";
+
   }
 
+
   ctx.filter = filters;
+
 
   ctx.translate(
     canvas.width / 2,
     canvas.height / 2
   );
 
+
   ctx.rotate(
-    rotation * Math.PI / 180
+    rotation *
+    Math.PI /
+    180
   );
 
+
   if(flipped){
+
     ctx.scale(-1,1);
+
   }
+
 
   ctx.drawImage(
     originalImage,
@@ -750,174 +1073,267 @@ function drawImage(){
     height
   );
 
+
   ctx.restore();
+
 }
 
 
 /* SLIDERS */
 
-brightness.addEventListener("input", function(){
+brightness.addEventListener(
+  "input",
+  function(){
 
-  document.getElementById(
-    "brightnessValue"
-  ).textContent =
-    this.value + "%";
+    document.getElementById(
+      "brightnessValue"
+    ).textContent =
+      this.value + "%";
 
-  drawImage();
+    drawImage();
 
-});
-
-
-contrast.addEventListener("input", function(){
-
-  document.getElementById(
-    "contrastValue"
-  ).textContent =
-    this.value + "%";
-
-  drawImage();
-
-});
-
-
-saturation.addEventListener("input", function(){
-
-  document.getElementById(
-    "saturationValue"
-  ).textContent =
-    this.value + "%";
-
-  drawImage();
-
-});
-
-
-/* TOOLS */
-
-document.getElementById("rotateBtn")
-.addEventListener("click", function(){
-
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
   }
-
-  rotation =
-    (rotation + 90) % 360;
-
-  drawImage();
-
-});
+);
 
 
-document.getElementById("flipBtn")
-.addEventListener("click", function(){
+contrast.addEventListener(
+  "input",
+  function(){
 
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
+    document.getElementById(
+      "contrastValue"
+    ).textContent =
+      this.value + "%";
+
+    drawImage();
+
   }
-
-  flipped = !flipped;
-
-  drawImage();
-
-});
+);
 
 
-document.getElementById("bwBtn")
-.addEventListener("click", function(){
+saturation.addEventListener(
+  "input",
+  function(){
 
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
+    document.getElementById(
+      "saturationValue"
+    ).textContent =
+      this.value + "%";
+
+    drawImage();
+
   }
-
-  filterMode = "bw";
-
-  drawImage();
-
-});
+);
 
 
-document.getElementById("sepiaBtn")
-.addEventListener("click", function(){
+/* ROTATE */
 
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
+document.getElementById(
+  "rotateBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    rotation =
+      (rotation + 90) % 360;
+
+    drawImage();
+
   }
-
-  filterMode = "sepia";
-
-  drawImage();
-
-});
+);
 
 
-document.getElementById("vintageBtn")
-.addEventListener("click", function(){
+/* FLIP */
 
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
+document.getElementById(
+  "flipBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    flipped =
+      !flipped;
+
+    drawImage();
+
   }
-
-  filterMode = "vintage";
-
-  drawImage();
-
-});
+);
 
 
-document.getElementById("enhanceBtn")
-.addEventListener("click", function(){
+/* B&W */
 
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
+document.getElementById(
+  "bwBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    filterMode = "bw";
+
+    drawImage();
+
   }
-
-  filterMode = "enhance";
-
-  drawImage();
-
-});
+);
 
 
-document.getElementById("resetBtn")
-.addEventListener("click", function(){
+/* SEPIA */
 
-  if(!originalImage){
-    showStatus("Pehle photo choose karo.");
-    return;
+document.getElementById(
+  "sepiaBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    filterMode = "sepia";
+
+    drawImage();
+
   }
+);
 
-  brightness.value = 100;
-  contrast.value = 100;
-  saturation.value = 100;
 
-  document.getElementById(
-    "brightnessValue"
-  ).textContent = "100%";
+/* VINTAGE */
 
-  document.getElementById(
-    "contrastValue"
-  ).textContent = "100%";
+document.getElementById(
+  "vintageBtn"
+).addEventListener(
+  "click",
+  function(){
 
-  document.getElementById(
-    "saturationValue"
-  ).textContent = "100%";
+    if(!originalImage){
 
-  rotation = 0;
-  flipped = false;
-  filterMode = "none";
+      showStatus(
+        "Pehle photo choose karo."
+      );
 
-  drawImage();
+      return;
+    }
 
-  showStatus("Photo reset ho gayi.");
 
-});
+    filterMode = "vintage";
+
+    drawImage();
+
+  }
+);
+
+
+/* ENHANCE */
+
+document.getElementById(
+  "enhanceBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    filterMode = "enhance";
+
+    drawImage();
+
+  }
+);
+
+
+/* RESET */
+
+document.getElementById(
+  "resetBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    brightness.value = 100;
+    contrast.value = 100;
+    saturation.value = 100;
+
+
+    document.getElementById(
+      "brightnessValue"
+    ).textContent = "100%";
+
+    document.getElementById(
+      "contrastValue"
+    ).textContent = "100%";
+
+    document.getElementById(
+      "saturationValue"
+    ).textContent = "100%";
+
+
+    rotation = 0;
+    flipped = false;
+    filterMode = "none";
+
+
+    drawImage();
+
+
+    showStatus(
+      "Photo reset ho gayi."
+    );
+
+  }
+);
 
 
 /* BACKGROUND REMOVE */
@@ -930,7 +1346,10 @@ removeBgBtn.addEventListener(
 
 async function removeBackground(){
 
-  if(!originalImage || !currentFile){
+  if(
+    !originalImage ||
+    !currentFile
+  ){
 
     showStatus(
       "Pehle photo choose karo."
@@ -939,25 +1358,30 @@ async function removeBackground(){
     return;
   }
 
+
   removeBgBtn.disabled = true;
 
   removeBgBtn.textContent =
     "Removing Background...";
 
+
   showStatus(
     "AI background removal start ho raha hai..."
   );
+
 
   try{
 
     const formData =
       new FormData();
 
+
     formData.append(
       "image",
       currentFile,
       currentFile.name
     );
+
 
     const response =
       await fetch(
@@ -968,14 +1392,279 @@ async function removeBackground(){
         }
       );
 
+
     if(!response.ok){
 
       let message =
         "Background removal failed.";
+
 
       try{
 
         const data =
           await response.json();
 
-        if(
+
+        if(data.error){
+
+          message =
+            data.error;
+
+        }
+
+      }catch(e){}
+
+
+      throw new Error(message);
+
+    }
+
+
+    const blob =
+      await response.blob();
+
+
+    const imageUrl =
+      URL.createObjectURL(blob);
+
+
+    const img =
+      new Image();
+
+
+    img.onload =
+      function(){
+
+        originalImage = img;
+
+        currentFile = null;
+
+        rotation = 0;
+        flipped = false;
+        filterMode = "none";
+
+
+        brightness.value = 100;
+        contrast.value = 100;
+        saturation.value = 100;
+
+
+        document.getElementById(
+          "brightnessValue"
+        ).textContent = "100%";
+
+        document.getElementById(
+          "contrastValue"
+        ).textContent = "100%";
+
+        document.getElementById(
+          "saturationValue"
+        ).textContent = "100%";
+
+
+        canvas.style.display =
+          "block";
+
+
+        drawImage();
+
+
+        URL.revokeObjectURL(
+          imageUrl
+        );
+
+
+        showStatus(
+          "Background successfully removed."
+        );
+
+
+        removeBgBtn.disabled =
+          false;
+
+
+        removeBgBtn.textContent =
+          "Remove Background";
+
+      };
+
+
+    img.onerror =
+      function(){
+
+        URL.revokeObjectURL(
+          imageUrl
+        );
+
+
+        showStatus(
+          "Result image load nahi ho saki."
+        );
+
+
+        removeBgBtn.disabled =
+          false;
+
+
+        removeBgBtn.textContent =
+          "Remove Background";
+
+      };
+
+
+    img.src =
+      imageUrl;
+
+
+  }catch(error){
+
+    console.error(
+      "Background removal error:",
+      error
+    );
+
+
+    showStatus(
+      "Background Remove Error: " +
+      error.message
+    );
+
+
+    removeBgBtn.disabled =
+      false;
+
+
+    removeBgBtn.textContent =
+      "Remove Background";
+
+  }
+
+}
+
+
+/* AI ENHANCE */
+
+document.getElementById(
+  "aiEnhanceBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    filterMode = "enhance";
+
+
+    brightness.value = 105;
+    contrast.value = 115;
+    saturation.value = 110;
+
+
+    document.getElementById(
+      "brightnessValue"
+    ).textContent = "105%";
+
+    document.getElementById(
+      "contrastValue"
+    ).textContent = "115%";
+
+    document.getElementById(
+      "saturationValue"
+    ).textContent = "110%";
+
+
+    drawImage();
+
+
+    showStatus(
+      "AI enhancement applied."
+    );
+
+  }
+);
+
+
+/* QUICK EFFECTS */
+
+document.getElementById(
+  "quickEffectsBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    filterMode = "vintage";
+
+    drawImage();
+
+
+    showStatus(
+      "Quick effect applied."
+    );
+
+  }
+);
+
+
+/* DOWNLOAD */
+
+downloadBtn.addEventListener(
+  "click",
+  function(){
+
+    if(!originalImage){
+
+      showStatus(
+        "Pehle photo choose karo."
+      );
+
+      return;
+    }
+
+
+    const link =
+      document.createElement("a");
+
+
+    link.download =
+      "photofix-ai.png";
+
+
+    link.href =
+      canvas.toDataURL(
+        "image/png"
+      );
+
+
+    link.click();
+
+
+    showStatus(
+      "Image download ho rahi hai."
+    );
+
+  }
+);
+
+</script>
+
+</body>
+</html>
+```
