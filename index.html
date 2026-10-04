@@ -96,6 +96,7 @@ nav a:hover{
 }
 
 .upload-area{
+  display:block;
   border:2px dashed #2c4965;
   border-radius:20px;
   padding:35px 20px;
@@ -119,7 +120,11 @@ nav a:hover{
 }
 
 #photoInput{
-  display:none;
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
 }
 
 .upload-btn{
@@ -147,6 +152,8 @@ nav a:hover{
 #canvas{
   max-width:100%;
   max-height:600px;
+  width:auto;
+  height:auto;
   display:none;
 }
 
@@ -206,9 +213,13 @@ input[type="range"]{
 }
 
 .tool-btn:hover,
-.ai-btn:hover{
-  background:#264866;
+.ai-btn:hover,
+.download-btn:hover{
   transform:translateY(-1px);
+}
+
+.tool-btn:hover{
+  background:#264866;
 }
 
 .ai-section{
@@ -252,6 +263,7 @@ input[type="range"]{
 .ai-btn:disabled{
   opacity:.6;
   cursor:not-allowed;
+  transform:none;
 }
 
 .download-area{
@@ -284,6 +296,7 @@ footer{
 }
 
 @media(max-width:800px){
+
   header{
     padding:15px 4%;
   }
@@ -320,6 +333,10 @@ footer{
   .tool-btn{
     width:100%;
   }
+
+  .hero h1{
+    font-size:40px;
+  }
 }
 </style>
 </head>
@@ -327,228 +344,255 @@ footer{
 <body>
 
 <header>
-  <div class="logo">PhotoFix AI</div>
+
+  <div class="logo">
+    PhotoFix AI
+  </div>
 
   <nav>
     <a href="#editor">Editor</a>
     <a href="#features">Features</a>
     <a href="#ai">AI Tools</a>
   </nav>
+
 </header>
 
 <section class="hero">
-  <h1>Professional <span>Photo Editing</span></h1>
+
+  <h1>
+    Professional <span>Photo Editing</span>
+  </h1>
 
   <p>
     Edit, enhance and remove backgrounds from your photos
     with PhotoFix AI.
   </p>
+
 </section>
 
 <section id="editor" class="editor-section">
 
-  <div class="editor-card">
+<div class="editor-card">
 
-    <label class="upload-area" for="photoInput">
-      <h2>Upload Your Photo</h2>
+<label class="upload-area" for="photoInput">
 
-      <p>
-        JPG, PNG or WEBP — maximum 15MB
-      </p>
+  <h2>
+    Upload Your Photo
+  </h2>
 
-      <span class="upload-btn">
-        Choose Photo
+  <p>
+    JPG, PNG or WEBP — maximum 15MB
+  </p>
+
+  <span class="upload-btn">
+    Choose Photo
+  </span>
+
+</label>
+
+<input
+  id="photoInput"
+  type="file"
+  accept="image/jpeg,image/png,image/webp"
+>
+
+<div class="preview-wrap">
+
+  <div
+    id="emptyMessage"
+    class="empty-message">
+
+    Your photo preview will appear here
+
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+</div>
+
+<div class="controls">
+
+  <div class="control">
+
+    <label>
+      Brightness:
+      <span id="brightnessValue" class="value">
+        100%
       </span>
     </label>
 
     <input
-      id="photoInput"
-      type="file"
-      accept="image/jpeg,image/png,image/webp"
+      id="brightness"
+      type="range"
+      min="0"
+      max="200"
+      value="100"
     >
 
-    <div class="preview-wrap">
+  </div>
 
-      <div
-        id="emptyMessage"
-        class="empty-message">
-        Your photo preview will appear here
-      </div>
+  <div class="control">
 
-      <canvas id="canvas"></canvas>
+    <label>
+      Contrast:
+      <span id="contrastValue" class="value">
+        100%
+      </span>
+    </label>
 
-    </div>
-
-    <div class="controls">
-
-      <div class="control">
-        <label>
-          Brightness:
-          <span id="brightnessValue" class="value">100%</span>
-        </label>
-
-        <input
-          id="brightness"
-          type="range"
-          min="0"
-          max="200"
-          value="100">
-      </div>
-
-      <div class="control">
-        <label>
-          Contrast:
-          <span id="contrastValue" class="value">100%</span>
-        </label>
-
-        <input
-          id="contrast"
-          type="range"
-          min="0"
-          max="200"
-          value="100">
-      </div>
-
-      <div class="control">
-        <label>
-          Saturation:
-          <span id="saturationValue" class="value">100%</span>
-        </label>
-
-        <input
-          id="saturation"
-          type="range"
-          min="0"
-          max="200"
-          value="100">
-      </div>
-
-    </div>
-
-    <div class="tools">
-
-      <button
-        class="tool-btn"
-        onclick="rotatePhoto()">
-        Rotate
-      </button>
-
-      <button
-        class="tool-btn"
-        onclick="flipHorizontal()">
-        Flip
-      </button>
-
-      <button
-        class="tool-btn"
-        onclick="blackWhite()">
-        B&W
-      </button>
-
-      <button
-        class="tool-btn"
-        onclick="sepia()">
-        Sepia
-      </button>
-
-      <button
-        class="tool-btn"
-        onclick="vintage()">
-        Vintage
-      </button>
-
-      <button
-        class="tool-btn"
-        onclick="enhancePhoto()">
-        Enhance
-      </button>
-
-      <button
-        class="tool-btn"
-        onclick="resetPhoto()">
-        Reset
-      </button>
-
-    </div>
-
-    <div id="ai" class="ai-section">
-
-      <h2>AI Tools</h2>
-
-      <div class="ai-grid">
-
-        <div class="ai-card">
-          <h3>Background Remove</h3>
-
-          <p>
-            Automatically remove the background from
-            your uploaded photo.
-          </p>
-
-          <button
-            id="removeBgBtn"
-            class="ai-btn"
-            onclick="removeBackground()">
-
-            Remove Background
-
-          </button>
-        </div>
-
-        <div class="ai-card">
-          <h3>AI Enhance</h3>
-
-          <p>
-            Improve brightness, contrast and image clarity.
-          </p>
-
-          <button
-            class="ai-btn"
-            onclick="enhancePhoto()">
-
-            Enhance Photo
-
-          </button>
-        </div>
-
-        <div class="ai-card">
-          <h3>Quick Effects</h3>
-
-          <p>
-            Apply professional photo effects instantly.
-          </p>
-
-          <button
-            class="ai-btn"
-            onclick="vintage()">
-
-            Apply Effect
-
-          </button>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div
-      id="status"
-      class="status">
-    </div>
-
-    <div class="download-area">
-
-      <button
-        class="download-btn"
-        onclick="downloadPhoto()">
-
-        Download PNG
-
-      </button>
-
-    </div>
+    <input
+      id="contrast"
+      type="range"
+      min="0"
+      max="200"
+      value="100"
+    >
 
   </div>
+
+  <div class="control">
+
+    <label>
+      Saturation:
+      <span id="saturationValue" class="value">
+        100%
+      </span>
+    </label>
+
+    <input
+      id="saturation"
+      type="range"
+      min="0"
+      max="200"
+      value="100"
+    >
+
+  </div>
+
+</div>
+
+<div class="tools">
+
+  <button class="tool-btn" onclick="rotatePhoto()">
+    Rotate
+  </button>
+
+  <button class="tool-btn" onclick="flipHorizontal()">
+    Flip
+  </button>
+
+  <button class="tool-btn" onclick="blackWhite()">
+    B&W
+  </button>
+
+  <button class="tool-btn" onclick="sepia()">
+    Sepia
+  </button>
+
+  <button class="tool-btn" onclick="vintage()">
+    Vintage
+  </button>
+
+  <button class="tool-btn" onclick="enhancePhoto()">
+    Enhance
+  </button>
+
+  <button class="tool-btn" onclick="resetPhoto()">
+    Reset
+  </button>
+
+</div>
+
+<div id="ai" class="ai-section">
+
+<h2>
+  AI Tools
+</h2>
+
+<div class="ai-grid">
+
+<div class="ai-card">
+
+  <h3>
+    Background Remove
+  </h3>
+
+  <p>
+    Automatically remove the background from your uploaded photo.
+  </p>
+
+  <button
+    id="removeBgBtn"
+    class="ai-btn"
+    onclick="removeBackground()">
+
+    Remove Background
+
+  </button>
+
+</div>
+
+<div class="ai-card">
+
+  <h3>
+    AI Enhance
+  </h3>
+
+  <p>
+    Improve brightness, contrast and image clarity.
+  </p>
+
+  <button
+    class="ai-btn"
+    onclick="enhancePhoto()">
+
+    Enhance Photo
+
+  </button>
+
+</div>
+
+<div class="ai-card">
+
+  <h3>
+    Quick Effects
+  </h3>
+
+  <p>
+    Apply professional photo effects instantly.
+  </p>
+
+  <button
+    class="ai-btn"
+    onclick="vintage()">
+
+    Apply Effect
+
+  </button>
+
+</div>
+
+</div>
+</div>
+
+<div
+  id="status"
+  class="status">
+</div>
+
+<div class="download-area">
+
+<button
+  class="download-btn"
+  onclick="downloadPhoto()">
+
+  Download PNG
+
+</button>
+
+</div>
+
+</div>
 
 </section>
 
@@ -595,75 +639,104 @@ let originalImage = null;
 let rotation = 0;
 let flip = 1;
 
-photoInput.addEventListener(
-  "change",
-  function(){
 
-    const file =
-      this.files[0];
+/* ==============================
+   PHOTO UPLOAD
+   ============================== */
 
-    if(!file){
-      return;
-    }
+photoInput.addEventListener("change", function(){
 
-    if(file.size > 15 * 1024 * 1024){
+  const file = this.files && this.files[0];
+
+  if(!file){
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+
+    showStatus(
+      "Please JPG, PNG ya WEBP photo select karo."
+    );
+
+    this.value = "";
+    return;
+  }
+
+  if(file.size > 15 * 1024 * 1024){
+
+    showStatus(
+      "Photo 15MB se choti honi chahiye."
+    );
+
+    this.value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.onload = function(){
+
+      originalImage = img;
+
+      rotation = 0;
+      flip = 1;
+
+      brightness.value = 100;
+      contrast.value = 100;
+      saturation.value = 100;
+
+      brightnessValue.textContent = "100%";
+      contrastValue.textContent = "100%";
+      saturationValue.textContent = "100%";
+
+      emptyMessage.style.display = "none";
+      canvas.style.display = "block";
+
+      drawImage();
 
       showStatus(
-        "Photo 15MB se choti honi chahiye."
+        "Photo successfully uploaded. ✅"
       );
 
-      return;
-    }
+    };
 
-    const reader =
-      new FileReader();
+    img.onerror = function(){
 
-    reader.onload =
-      function(e){
+      showStatus(
+        "Photo load nahi ho saki. Dusri photo try karo."
+      );
 
-        const img =
-          new Image();
+    };
 
-        img.onload =
-          function(){
+    img.src = e.target.result;
 
-            originalImage = img;
+  };
 
-            rotation = 0;
-            flip = 1;
+  reader.onerror = function(){
 
-            emptyMessage.style.display =
-              "none";
+    showStatus(
+      "Photo read nahi ho saki."
+    );
 
-            canvas.style.display =
-              "block";
+  };
 
-            drawImage();
+  reader.readAsDataURL(file);
 
-          };
+});
 
-        img.src =
-          e.target.result;
-      };
 
-    reader.readAsDataURL(file);
-  }
-);
+/* ==============================
+   SLIDERS
+   ============================== */
 
-brightness.addEventListener(
-  "input",
-  updateImage
-);
+brightness.addEventListener("input", updateImage);
+contrast.addEventListener("input", updateImage);
+saturation.addEventListener("input", updateImage);
 
-contrast.addEventListener(
-  "input",
-  updateImage
-);
-
-saturation.addEventListener(
-  "input",
-  updateImage
-);
 
 function updateImage(){
 
@@ -677,7 +750,13 @@ function updateImage(){
     saturation.value + "%";
 
   drawImage();
+
 }
+
+
+/* ==============================
+   DRAW IMAGE
+   ============================== */
 
 function drawImage(){
 
@@ -703,6 +782,7 @@ function drawImage(){
 
     canvas.height =
       originalImage.height;
+
   }
 
   ctx.clearRect(
@@ -746,40 +826,70 @@ function drawImage(){
   );
 
   ctx.restore();
+
 }
+
+
+/* ==============================
+   ROTATE
+   ============================== */
 
 function rotatePhoto(){
 
   if(!originalImage){
-    showStatus("Pehle photo choose karo.");
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
   rotation += 90;
 
   drawImage();
+
 }
+
+
+/* ==============================
+   FLIP
+   ============================== */
 
 function flipHorizontal(){
 
   if(!originalImage){
-    showStatus("Pehle photo choose karo.");
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
   flip *= -1;
 
   drawImage();
+
 }
+
+
+/* ==============================
+   BLACK & WHITE
+   ============================== */
 
 function blackWhite(){
 
   if(!originalImage){
-    showStatus("Pehle photo choose karo.");
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
-  ctx.save();
+  drawImage();
 
   const imageData =
     ctx.getImageData(
@@ -803,14 +913,10 @@ function blackWhite(){
       0.587 * data[i + 1] +
       0.114 * data[i + 2];
 
-    data[i] =
-      gray;
+    data[i] = gray;
+    data[i + 1] = gray;
+    data[i + 2] = gray;
 
-    data[i + 1] =
-      gray;
-
-    data[i + 2] =
-      gray;
   }
 
   ctx.putImageData(
@@ -819,13 +925,21 @@ function blackWhite(){
     0
   );
 
-  ctx.restore();
 }
+
+
+/* ==============================
+   SEPIA
+   ============================== */
 
 function sepia(){
 
   if(!originalImage){
-    showStatus("Pehle photo choose karo.");
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
@@ -834,7 +948,6 @@ function sepia(){
   ctx.save();
 
   ctx.globalAlpha = 0.25;
-
   ctx.fillStyle = "#704214";
 
   ctx.fillRect(
@@ -845,12 +958,22 @@ function sepia(){
   );
 
   ctx.restore();
+
 }
+
+
+/* ==============================
+   VINTAGE
+   ============================== */
 
 function vintage(){
 
   if(!originalImage){
-    showStatus("Pehle photo choose karo.");
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
@@ -859,12 +982,22 @@ function vintage(){
   saturation.value = 75;
 
   updateImage();
+
 }
+
+
+/* ==============================
+   ENHANCE
+   ============================== */
 
 function enhancePhoto(){
 
   if(!originalImage){
-    showStatus("Pehle photo choose karo.");
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
@@ -875,13 +1008,24 @@ function enhancePhoto(){
   updateImage();
 
   showStatus(
-    "Photo enhanced successfully."
+    "Photo enhanced successfully. ✅"
   );
+
 }
+
+
+/* ==============================
+   RESET
+   ============================== */
 
 function resetPhoto(){
 
   if(!originalImage){
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
     return;
   }
 
@@ -894,9 +1038,16 @@ function resetPhoto(){
 
   updateImage();
 
-  statusBox.style.display =
-    "none";
+  showStatus(
+    "Photo reset ho gayi."
+  );
+
 }
+
+
+/* ==============================
+   STATUS
+   ============================== */
 
 function showStatus(message){
 
@@ -905,11 +1056,13 @@ function showStatus(message){
 
   statusBox.style.display =
     "block";
+
 }
 
-/* =========================================
+
+/* ==============================
    BACKGROUND REMOVE
-   ========================================= */
+   ============================== */
 
 async function removeBackground(){
 
@@ -922,12 +1075,8 @@ async function removeBackground(){
     return;
   }
 
-  const button =
-    document.getElementById(
-      "removeBgBtn"
-    );
-
   const file =
+    photoInput.files &&
     photoInput.files[0];
 
   if(!file){
@@ -938,6 +1087,11 @@ async function removeBackground(){
 
     return;
   }
+
+  const button =
+    document.getElementById(
+      "removeBgBtn"
+    );
 
   button.disabled = true;
 
@@ -961,9 +1115,11 @@ async function removeBackground(){
 
     /*
       IMPORTANT:
-      Frontend directly ClearBackdrop ko call nahi karta.
 
-      Request Vercel ke backend par jati hai:
+      Browser directly ClearBackdrop ko
+      call nahi karta.
+
+      Request Vercel backend par jati hai:
       /api/remove-background
     */
 
@@ -978,18 +1134,216 @@ async function removeBackground(){
 
     if(!response.ok){
 
-      let errorMessage =
+      let message =
         "Background removal failed.";
 
-      try{
+      const contentType =
+        response.headers.get(
+          "content-type"
+        ) || "";
 
-        const errorData =
-          await response.json();
+      if(
+        contentType.includes(
+          "application/json"
+        )
+      ){
 
-        if(errorData.error){
-          errorMessage =
-            errorData.error;
-        }
+        try{
 
-      }catch(e){
+          const data =
+            await response.json();
+
+          if(data.error){
+            message =
+              data.error;
+          }
+
+        }catch(e){}
+
+      }else{
+
+        try{
+
+          const text =
+            await response.text();
+
+          if(text){
+            message = text;
+          }
+
+        }catch(e){}
+
+      }
+
+      throw new Error(message);
+
+    }
+
+    const blob =
+      await response.blob();
+
+    if(
+      !blob ||
+      blob.size === 0
+    ){
+
+      throw new Error(
+        "AI ne empty image return ki."
+      );
+
+    }
+
+    const imageURL =
+      URL.createObjectURL(blob);
+
+    const resultImage =
+      new Image();
+
+    resultImage.onload =
+      function(){
+
+        originalImage =
+          resultImage;
+
+        rotation = 0;
+        flip = 1;
+
+        brightness.value = 100;
+        contrast.value = 100;
+        saturation.value = 100;
+
+        brightnessValue.textContent =
+          "100%";
+
+        contrastValue.textContent =
+          "100%";
+
+        saturationValue.textContent =
+          "100%";
+
+        canvas.width =
+          resultImage.naturalWidth ||
+          resultImage.width;
+
+        canvas.height =
+          resultImage.naturalHeight ||
+          resultImage.height;
+
+        ctx.clearRect(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        ctx.filter = "none";
+
+        ctx.drawImage(
+          resultImage,
+          0,
+          0
+        );
+
+        canvas.style.display =
+          "block";
+
+        emptyMessage.style.display =
+          "none";
+
+        URL.revokeObjectURL(
+          imageURL
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Remove Background";
+
+        showStatus(
+          "Background successfully removed! ✅"
+        );
+
+      };
+
+    resultImage.onerror =
+      function(){
+
+        URL.revokeObjectURL(
+          imageURL
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "Remove Background";
+
+        showStatus(
+          "AI image load nahi ho saki."
+        );
+
+      };
+
+    resultImage.src =
+      imageURL;
+
+  }catch(error){
+
+    console.error(
+      "Background removal error:",
+      error
+    );
+
+    button.disabled = false;
+
+    button.textContent =
+      "Remove Background";
+
+    showStatus(
+      "Background Remove Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* ==============================
+   DOWNLOAD
+   ============================== */
+
+function downloadPhoto(){
+
+  if(
+    !originalImage ||
+    canvas.width === 0 ||
+    canvas.height === 0
+  ){
+
+    showStatus(
+      "Pehle photo choose karo."
+    );
+
+    return;
+  }
+
+  const link =
+    document.createElement("a");
+
+  link.download =
+    "photofix-ai-edited.png";
+
+  link.href =
+    canvas.toDataURL(
+      "image/png"
+    );
+
+  link.click();
+
+}
+
+</script>
+
+</body>
+</html>
 ```
