@@ -9,41 +9,85 @@ document.addEventListener("DOMContentLoaded", function () {
      ELEMENTS
   ========================= */
 
-  const photoInput = document.getElementById("photoInput");
-  const choosePhotoBtn = document.getElementById("choosePhotoBtn");
-  const heroChooseBtn = document.getElementById("heroChooseBtn");
-  const uploadArea = document.getElementById("uploadArea");
-  const uploadMessage = document.getElementById("uploadMessage");
+  const photoInput =
+    document.getElementById("photoInput");
 
-  const canvas = document.getElementById("canvas");
-  const emptyPreview = document.getElementById("emptyPreview");
+  const choosePhotoBtn =
+    document.getElementById("choosePhotoBtn");
 
-  const statusBox = document.getElementById("statusBox");
+  const heroChooseBtn =
+    document.getElementById("heroChooseBtn");
 
-  const brightness = document.getElementById("brightness");
-  const contrast = document.getElementById("contrast");
-  const saturation = document.getElementById("saturation");
+  const uploadArea =
+    document.getElementById("uploadArea");
 
-  const brightnessValue = document.getElementById("brightnessValue");
-  const contrastValue = document.getElementById("contrastValue");
-  const saturationValue = document.getElementById("saturationValue");
+  const uploadMessage =
+    document.getElementById("uploadMessage");
 
-  const rotateBtn = document.getElementById("rotateBtn");
-  const flipBtn = document.getElementById("flipBtn");
-  const bwBtn = document.getElementById("bwBtn");
-  const sepiaBtn = document.getElementById("sepiaBtn");
-  const vintageBtn = document.getElementById("vintageBtn");
-  const enhanceBtn = document.getElementById("enhanceBtn");
-  const resetBtn = document.getElementById("resetBtn");
+  const canvas =
+    document.getElementById("canvas");
 
-  const removeBgBtn = document.getElementById("removeBgBtn");
-  const aiEnhanceBtn = document.getElementById("aiEnhanceBtn");
-  const quickEffectsBtn = document.getElementById("quickEffectsBtn");
+  const emptyPreview =
+    document.getElementById("emptyPreview");
 
-  const downloadBtn = document.getElementById("downloadBtn");
+  const statusBox =
+    document.getElementById("statusBox");
+
+  const brightness =
+    document.getElementById("brightness");
+
+  const contrast =
+    document.getElementById("contrast");
+
+  const saturation =
+    document.getElementById("saturation");
+
+  const brightnessValue =
+    document.getElementById("brightnessValue");
+
+  const contrastValue =
+    document.getElementById("contrastValue");
+
+  const saturationValue =
+    document.getElementById("saturationValue");
+
+  const rotateBtn =
+    document.getElementById("rotateBtn");
+
+  const flipBtn =
+    document.getElementById("flipBtn");
+
+  const bwBtn =
+    document.getElementById("bwBtn");
+
+  const sepiaBtn =
+    document.getElementById("sepiaBtn");
+
+  const vintageBtn =
+    document.getElementById("vintageBtn");
+
+  const enhanceBtn =
+    document.getElementById("enhanceBtn");
+
+  const resetBtn =
+    document.getElementById("resetBtn");
+
+  const removeBgBtn =
+    document.getElementById("removeBgBtn");
+
+  const aiEnhanceBtn =
+    document.getElementById("aiEnhanceBtn");
+
+  const quickEffectsBtn =
+    document.getElementById("quickEffectsBtn");
+
+  const downloadBtn =
+    document.getElementById("downloadBtn");
 
   const qualityButtons =
-    document.querySelectorAll(".quality-button");
+    document.querySelectorAll(
+      ".quality-button"
+    );
 
 
   /* =========================
@@ -59,6 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let exportQuality = "original";
 
+  let resultObjectUrl = null;
+
 
   /* =========================
      STATUS
@@ -71,13 +117,16 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    statusBox.textContent = message;
-    statusBox.style.display = "block";
+    statusBox.textContent =
+      message;
+
+    statusBox.style.display =
+      "block";
   }
 
 
   /* =========================
-     SCROLL TO EDITOR
+     SCROLL
   ========================= */
 
   function scrollToEditor() {
@@ -106,17 +155,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateSliderLabels() {
 
-    if (brightness && brightnessValue) {
+    if (
+      brightness &&
+      brightnessValue
+    ) {
       brightnessValue.textContent =
         brightness.value + "%";
     }
 
-    if (contrast && contrastValue) {
+    if (
+      contrast &&
+      contrastValue
+    ) {
       contrastValue.textContent =
         contrast.value + "%";
     }
 
-    if (saturation && saturationValue) {
+    if (
+      saturation &&
+      saturationValue
+    ) {
       saturationValue.textContent =
         saturation.value + "%";
     }
@@ -141,22 +199,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   if (choosePhotoBtn) {
-
     choosePhotoBtn.addEventListener(
       "click",
       openFilePicker
     );
-
   }
 
 
   if (heroChooseBtn) {
-
     heroChooseBtn.addEventListener(
       "click",
       openFilePicker
     );
-
   }
 
 
@@ -194,99 +248,96 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!file) return;
 
-    /* File type */
-
     const allowedTypes = [
       "image/jpeg",
       "image/png",
       "image/webp"
     ];
 
-    if (!allowedTypes.includes(file.type)) {
-
+    if (
+      !allowedTypes.includes(
+        file.type
+      )
+    ) {
       showStatus(
         "❌ Sirf JPG, PNG ya WEBP photo choose karo."
       );
-
       return;
     }
-
-
-    /* File size */
 
     const maxSize =
       15 * 1024 * 1024;
 
     if (file.size > maxSize) {
-
       showStatus(
         "❌ Photo 15MB se choti honi chahiye."
       );
-
       return;
     }
-
 
     showStatus(
       "Photo load ho rahi hai..."
     );
 
-
     const objectUrl =
       URL.createObjectURL(file);
 
-    const image = new Image();
+    const image =
+      new Image();
 
+    image.onload =
+      function () {
 
-    image.onload = function () {
+        originalImage =
+          image;
 
-      originalImage = image;
-      currentFile = file;
+        currentFile =
+          file;
 
-      resetControls();
+        resetControls();
 
-      if (emptyPreview) {
-        emptyPreview.style.display =
-          "none";
-      }
+        if (emptyPreview) {
+          emptyPreview.style.display =
+            "none";
+        }
 
-      if (canvas) {
-        canvas.style.display =
-          "block";
-      }
+        if (canvas) {
+          canvas.style.display =
+            "block";
+        }
 
-      drawPreview();
+        drawPreview();
 
-      if (uploadMessage) {
+        if (uploadMessage) {
+          uploadMessage.textContent =
+            file.name;
+        }
 
-        uploadMessage.textContent =
-          file.name;
+        showStatus(
+          "✅ Photo successfully loaded."
+        );
 
-      }
+        URL.revokeObjectURL(
+          objectUrl
+        );
 
-      showStatus(
-        "✅ Photo successfully loaded."
-      );
+        scrollToEditor();
+      };
 
-      URL.revokeObjectURL(objectUrl);
+    image.onerror =
+      function () {
 
-      scrollToEditor();
+        URL.revokeObjectURL(
+          objectUrl
+        );
 
-    };
+        showStatus(
+          "❌ Photo load nahi ho saki. Dobara try karo."
+        );
+      };
 
-
-    image.onerror = function () {
-
-      URL.revokeObjectURL(objectUrl);
-
-      showStatus(
-        "❌ Photo load nahi ho saki. Dobara try karo."
-      );
-
-    };
-
-
-    image.src = objectUrl;
+    image.src =
+      objectUrl;
   }
 
 
@@ -331,7 +382,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
-
     uploadArea.addEventListener(
       "dragleave",
       function () {
@@ -342,7 +392,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       }
     );
-
 
     uploadArea.addEventListener(
       "drop",
@@ -362,12 +411,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       }
     );
-
   }
 
 
   /* =========================
-     FILTER STRING
+     FILTER
   ========================= */
 
   function getFilterString() {
@@ -387,44 +435,31 @@ document.addEventListener("DOMContentLoaded", function () {
         ? Number(saturation.value)
         : 100;
 
-
     let filter =
       "brightness(" +
       b +
       "%) " +
-
       "contrast(" +
       c +
       "%) " +
-
       "saturate(" +
       s +
       "%)";
 
-
     if (filterMode === "bw") {
-
       filter +=
         " grayscale(100%)";
-
     }
-
 
     if (filterMode === "sepia") {
-
       filter +=
         " sepia(80%)";
-
     }
-
 
     if (filterMode === "vintage") {
-
       filter +=
         " sepia(35%) saturate(85%) contrast(105%)";
-
     }
-
 
     return filter;
   }
@@ -436,18 +471,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function drawPreview() {
 
-    if (!canvas || !originalImage) {
+    if (
+      !canvas ||
+      !originalImage
+    ) {
       return;
     }
-
 
     const ctx =
       canvas.getContext("2d");
 
-    if (!ctx) {
-      return;
-    }
-
+    if (!ctx) return;
 
     const sourceWidth =
       originalImage.naturalWidth ||
@@ -457,7 +491,6 @@ document.addEventListener("DOMContentLoaded", function () {
       originalImage.naturalHeight ||
       originalImage.height;
 
-
     if (
       !sourceWidth ||
       !sourceHeight
@@ -465,10 +498,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-
     const maxPreview =
       1600;
-
 
     let width =
       sourceWidth;
@@ -476,28 +507,34 @@ document.addEventListener("DOMContentLoaded", function () {
     let height =
       sourceHeight;
 
-
     const largest =
-      Math.max(width, height);
+      Math.max(
+        width,
+        height
+      );
 
-
-    if (largest > maxPreview) {
+    if (
+      largest >
+      maxPreview
+    ) {
 
       const scale =
-        maxPreview / largest;
+        maxPreview /
+        largest;
 
       width =
-        Math.round(width * scale);
+        Math.round(
+          width * scale
+        );
 
       height =
-        Math.round(height * scale);
-
+        Math.round(
+          height * scale
+        );
     }
-
 
     const isRotated =
       rotation % 180 !== 0;
-
 
     canvas.width =
       isRotated
@@ -509,7 +546,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ? width
         : height;
 
-
     ctx.save();
 
     ctx.clearRect(
@@ -519,23 +555,19 @@ document.addEventListener("DOMContentLoaded", function () {
       canvas.height
     );
 
-
     ctx.imageSmoothingEnabled =
       true;
 
     ctx.imageSmoothingQuality =
       "high";
 
-
     ctx.filter =
       getFilterString();
-
 
     ctx.translate(
       canvas.width / 2,
       canvas.height / 2
     );
-
 
     ctx.rotate(
       rotation *
@@ -543,16 +575,12 @@ document.addEventListener("DOMContentLoaded", function () {
       180
     );
 
-
     if (flipped) {
-
       ctx.scale(
         -1,
         1
       );
-
     }
-
 
     ctx.drawImage(
       originalImage,
@@ -562,9 +590,7 @@ document.addEventListener("DOMContentLoaded", function () {
       height
     );
 
-
     ctx.restore();
-
   }
 
 
@@ -572,9 +598,15 @@ document.addEventListener("DOMContentLoaded", function () {
      SLIDERS
   ========================= */
 
-  if (brightness) {
+  [
+    brightness,
+    contrast,
+    saturation
+  ].forEach(function (slider) {
 
-    brightness.addEventListener(
+    if (!slider) return;
+
+    slider.addEventListener(
       "input",
       function () {
 
@@ -584,41 +616,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
 
-  }
-
-
-  if (contrast) {
-
-    contrast.addEventListener(
-      "input",
-      function () {
-
-        updateSliderLabels();
-        drawPreview();
-
-      }
-    );
-
-  }
-
-
-  if (saturation) {
-
-    saturation.addEventListener(
-      "input",
-      function () {
-
-        updateSliderLabels();
-        drawPreview();
-
-      }
-    );
-
-  }
+  });
 
 
   /* =========================
-     ROTATE
+     EDIT BUTTONS
   ========================= */
 
   if (rotateBtn) {
@@ -628,19 +630,14 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
 
         rotation =
-          (rotation + 90) % 360;
+          (rotation + 90) %
+          360;
 
         drawPreview();
-
       }
     );
-
   }
 
-
-  /* =========================
-     FLIP
-  ========================= */
 
   if (flipBtn) {
 
@@ -652,16 +649,10 @@ document.addEventListener("DOMContentLoaded", function () {
           !flipped;
 
         drawPreview();
-
       }
     );
-
   }
 
-
-  /* =========================
-     BLACK & WHITE
-  ========================= */
 
   if (bwBtn) {
 
@@ -675,16 +666,10 @@ document.addEventListener("DOMContentLoaded", function () {
             : "bw";
 
         drawPreview();
-
       }
     );
-
   }
 
-
-  /* =========================
-     SEPIA
-  ========================= */
 
   if (sepiaBtn) {
 
@@ -698,16 +683,10 @@ document.addEventListener("DOMContentLoaded", function () {
             : "sepia";
 
         drawPreview();
-
       }
     );
-
   }
 
-
-  /* =========================
-     VINTAGE
-  ========================= */
 
   if (vintageBtn) {
 
@@ -721,16 +700,10 @@ document.addEventListener("DOMContentLoaded", function () {
             : "vintage";
 
         drawPreview();
-
       }
     );
-
   }
 
-
-  /* =========================
-     ENHANCE
-  ========================= */
 
   if (enhanceBtn) {
 
@@ -739,46 +712,40 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
 
         if (!originalImage) {
-
           showStatus(
             "Pehle photo choose karo."
           );
-
           return;
         }
 
-
         if (brightness) {
-          brightness.value = 105;
+          brightness.value =
+            105;
         }
 
         if (contrast) {
-          contrast.value = 108;
+          contrast.value =
+            108;
         }
 
         if (saturation) {
-          saturation.value = 108;
+          saturation.value =
+            108;
         }
 
-        filterMode = "none";
+        filterMode =
+          "none";
 
         updateSliderLabels();
         drawPreview();
 
-
         showStatus(
           "✨ Photo enhanced."
         );
-
       }
     );
-
   }
 
-
-  /* =========================
-     RESET
-  ========================= */
 
   if (resetBtn) {
 
@@ -787,27 +754,20 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
 
         if (!originalImage) {
-
           showStatus(
             "Pehle photo choose karo."
           );
-
           return;
         }
 
-
         resetControls();
-
         drawPreview();
-
 
         showStatus(
           "↩️ Editing reset ho gayi."
         );
-
       }
     );
-
   }
 
 
@@ -822,44 +782,35 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
 
         if (!originalImage) {
-
           showStatus(
             "Pehle photo choose karo."
           );
-
           return;
         }
 
-
-        /*
-          Abhi AI Enhance ko local enhancement
-          ke taur par rakha gaya hai.
-        */
-
         if (brightness) {
-          brightness.value = 105;
+          brightness.value =
+            105;
         }
 
         if (contrast) {
-          contrast.value = 110;
+          contrast.value =
+            110;
         }
 
         if (saturation) {
-          saturation.value = 106;
+          saturation.value =
+            106;
         }
 
         updateSliderLabels();
-
         drawPreview();
-
 
         showStatus(
           "✨ AI Enhance applied."
         );
-
       }
     );
-
   }
 
 
@@ -874,46 +825,43 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
 
         if (!originalImage) {
-
           showStatus(
             "Pehle photo choose karo."
           );
-
           return;
         }
 
-
         if (brightness) {
-          brightness.value = 103;
+          brightness.value =
+            103;
         }
 
         if (contrast) {
-          contrast.value = 106;
+          contrast.value =
+            106;
         }
 
         if (saturation) {
-          saturation.value = 110;
+          saturation.value =
+            110;
         }
 
-        filterMode = "none";
+        filterMode =
+          "none";
 
         updateSliderLabels();
-
         drawPreview();
-
 
         showStatus(
           "✨ Quick effects applied."
         );
-
       }
     );
-
   }
 
 
   /* =========================
-     QUALITY BUTTONS
+     QUALITY
   ========================= */
 
   if (qualityButtons.length) {
@@ -933,11 +881,9 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             );
 
-
             button.classList.add(
               "active"
             );
-
 
             exportQuality =
               button.dataset.quality ||
@@ -946,23 +892,19 @@ document.addEventListener("DOMContentLoaded", function () {
               ) ||
               "original";
 
-
             showStatus(
               "Export quality: " +
               exportQuality
             );
-
           }
         );
-
       }
     );
-
   }
 
 
   /* =========================
-     EXPORT CANVAS
+     EXPORT
   ========================= */
 
   function drawToCanvas(
@@ -977,17 +919,12 @@ document.addEventListener("DOMContentLoaded", function () {
       return false;
     }
 
-
     const ctx =
       outputCanvas.getContext(
         "2d"
       );
 
-
-    if (!ctx) {
-      return false;
-    }
-
+    if (!ctx) return false;
 
     const sourceWidth =
       originalImage.naturalWidth ||
@@ -997,23 +934,26 @@ document.addEventListener("DOMContentLoaded", function () {
       originalImage.naturalHeight ||
       originalImage.height;
 
-
     let width =
       sourceWidth;
 
     let height =
       sourceHeight;
 
-
     if (
       maxSize &&
-      Math.max(width, height) >
-      maxSize
+      Math.max(
+        width,
+        height
+      ) > maxSize
     ) {
 
       const scale =
         maxSize /
-        Math.max(width, height);
+        Math.max(
+          width,
+          height
+        );
 
       width =
         Math.round(
@@ -1024,13 +964,10 @@ document.addEventListener("DOMContentLoaded", function () {
         Math.round(
           height * scale
         );
-
     }
-
 
     const isRotated =
       rotation % 180 !== 0;
-
 
     outputCanvas.width =
       isRotated
@@ -1042,7 +979,6 @@ document.addEventListener("DOMContentLoaded", function () {
         ? width
         : height;
 
-
     ctx.save();
 
     ctx.imageSmoothingEnabled =
@@ -1051,16 +987,13 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.imageSmoothingQuality =
       "high";
 
-
     ctx.filter =
       getFilterString();
-
 
     ctx.translate(
       outputCanvas.width / 2,
       outputCanvas.height / 2
     );
-
 
     ctx.rotate(
       rotation *
@@ -1068,16 +1001,12 @@ document.addEventListener("DOMContentLoaded", function () {
       180
     );
 
-
     if (flipped) {
-
       ctx.scale(
         -1,
         1
       );
-
     }
-
 
     ctx.drawImage(
       originalImage,
@@ -1087,9 +1016,7 @@ document.addEventListener("DOMContentLoaded", function () {
       height
     );
 
-
     ctx.restore();
-
 
     return true;
   }
@@ -1106,103 +1033,82 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
 
         if (!originalImage) {
-
           showStatus(
             "Pehle photo choose karo."
           );
-
           return;
         }
 
-
         let maxSize = null;
-
 
         if (
           exportQuality === "HD"
         ) {
-
           maxSize = 1920;
-
-        } else if (
-          exportQuality === "2K"
-        ) {
-
-          maxSize = 2560;
-
-        } else if (
-          exportQuality === "4K"
-        ) {
-
-          maxSize = 3840;
-
         }
 
+        if (
+          exportQuality === "2K"
+        ) {
+          maxSize = 2560;
+        }
+
+        if (
+          exportQuality === "4K"
+        ) {
+          maxSize = 3840;
+        }
 
         const outputCanvas =
           document.createElement(
             "canvas"
           );
 
-
-        const success =
-          drawToCanvas(
+        if (
+          !drawToCanvas(
             outputCanvas,
             maxSize
-          );
-
-
-        if (!success) {
-
+          )
+        ) {
           showStatus(
             "❌ Image export nahi ho saki."
           );
-
           return;
         }
-
 
         outputCanvas.toBlob(
           function (blob) {
 
             if (!blob) {
-
               showStatus(
                 "❌ PNG export failed."
               );
-
               return;
             }
-
 
             const url =
               URL.createObjectURL(
                 blob
               );
 
-
             const link =
               document.createElement(
                 "a"
               );
 
-
-            link.href = url;
+            link.href =
+              url;
 
             link.download =
               "photofix-ai-edited.png";
-
 
             document.body.appendChild(
               link
             );
 
-
             link.click();
 
-
             link.remove();
-
 
             setTimeout(
               function () {
@@ -1213,18 +1119,14 @@ document.addEventListener("DOMContentLoaded", function () {
               1000
             );
 
-
             showStatus(
               "✅ Photo download ho gayi."
             );
-
           },
           "image/png"
         );
-
       }
     );
-
   }
 
 
@@ -1242,10 +1144,8 @@ document.addEventListener("DOMContentLoaded", function () {
         event.stopPropagation();
 
         removeBackground();
-
       }
     );
-
   }
 
 
@@ -1255,32 +1155,32 @@ document.addEventListener("DOMContentLoaded", function () {
       !originalImage ||
       !currentFile
     ) {
-
       showStatus(
         "Pehle photo choose karo."
       );
-
       return;
     }
 
-
-    if (removeBgBtn.disabled) {
+    if (
+      removeBgBtn &&
+      removeBgBtn.disabled
+    ) {
       return;
     }
 
+    if (removeBgBtn) {
+      removeBgBtn.disabled =
+        true;
 
-    removeBgBtn.disabled = true;
-
-    removeBgBtn.textContent =
-      "Removing Background...";
-
+      removeBgBtn.textContent =
+        "Removing Background...";
+    }
 
     try {
 
       showStatus(
         "Photo AI ke liye prepare ho rahi hai..."
       );
-
 
       const sourceWidth =
         originalImage.naturalWidth ||
@@ -1290,16 +1190,13 @@ document.addEventListener("DOMContentLoaded", function () {
         originalImage.naturalHeight ||
         originalImage.height;
 
-
       if (
         !sourceWidth ||
         !sourceHeight
       ) {
-
         throw new Error(
           "Photo dimensions nahi mil sakin."
         );
-
       }
 
 
@@ -1307,8 +1204,8 @@ document.addEventListener("DOMContentLoaded", function () {
          PREPARE IMAGE
       ========================= */
 
-      const maxUploadSize = 2500;
-
+      const maxUploadSize =
+        2200;
 
       let uploadWidth =
         sourceWidth;
@@ -1316,13 +1213,11 @@ document.addEventListener("DOMContentLoaded", function () {
       let uploadHeight =
         sourceHeight;
 
-
       const largest =
         Math.max(
           sourceWidth,
           sourceHeight
         );
-
 
       if (
         largest >
@@ -1333,7 +1228,6 @@ document.addEventListener("DOMContentLoaded", function () {
           maxUploadSize /
           largest;
 
-
         uploadWidth =
           Math.max(
             1,
@@ -1343,7 +1237,6 @@ document.addEventListener("DOMContentLoaded", function () {
             )
           );
 
-
         uploadHeight =
           Math.max(
             1,
@@ -1352,7 +1245,6 @@ document.addEventListener("DOMContentLoaded", function () {
               scale
             )
           );
-
       }
 
 
@@ -1360,7 +1252,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.createElement(
           "canvas"
         );
-
 
       uploadCanvas.width =
         uploadWidth;
@@ -1374,13 +1265,10 @@ document.addEventListener("DOMContentLoaded", function () {
           "2d"
         );
 
-
       if (!uploadCtx) {
-
         throw new Error(
           "Mobile image processing failed."
         );
-
       }
 
 
@@ -1390,7 +1278,6 @@ document.addEventListener("DOMContentLoaded", function () {
         uploadWidth,
         uploadHeight
       );
-
 
       uploadCtx.imageSmoothingEnabled =
         true;
@@ -1409,8 +1296,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       /* =========================
-         CONVERT TO BLOB
+         CONVERT
       ========================= */
+
+      showStatus(
+        "Photo compress ho rahi hai..."
+      );
 
       const uploadBlob =
         await new Promise(
@@ -1422,32 +1313,41 @@ document.addEventListener("DOMContentLoaded", function () {
             uploadCanvas.toBlob(
               function (blob) {
 
-                if (blob) {
-
+                if (
+                  blob &&
+                  blob.size > 0
+                ) {
                   resolve(blob);
-
                 } else {
-
                   reject(
                     new Error(
                       "Photo prepare nahi ho saki."
                     )
                   );
-
                 }
 
               },
               "image/jpeg",
-              0.88
+              0.82
             );
-
           }
         );
 
 
-      showStatus(
-        "AI background removal start ho raha hai..."
+      console.log(
+        "PhotoFix upload size:",
+        uploadBlob.size
       );
+
+
+      if (
+        uploadBlob.size >
+        15 * 1024 * 1024
+      ) {
+        throw new Error(
+          "Photo upload ke liye bohat bari hai."
+        );
+      }
 
 
       /* =========================
@@ -1457,7 +1357,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const formData =
         new FormData();
 
-
       formData.append(
         "image",
         uploadBlob,
@@ -1466,26 +1365,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       /* =========================
-         REQUEST TIMEOUT
+         REQUEST
       ========================= */
+
+      showStatus(
+        "AI background removal start ho raha hai..."
+      );
 
       const controller =
         new AbortController();
 
-
       const timeout =
         setTimeout(
           function () {
-
             controller.abort();
-
           },
-          120000
+          90000
         );
 
 
       let response;
-
 
       try {
 
@@ -1495,7 +1394,6 @@ document.addEventListener("DOMContentLoaded", function () {
             {
               method: "POST",
               body: formData,
-              credentials: "same-origin",
               cache: "no-store",
               signal: controller.signal
             }
@@ -1503,18 +1401,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
       } catch (error) {
 
+        console.error(
+          "PhotoFix fetch error:",
+          error
+        );
+
         if (
           error &&
           error.name ===
           "AbortError"
         ) {
-
           throw new Error(
             "AI processing mein bohat time lag raha hai. Dobara try karo."
           );
-
         }
-
 
         throw new Error(
           "AI server se connection nahi ho saka."
@@ -1525,13 +1425,13 @@ document.addEventListener("DOMContentLoaded", function () {
         clearTimeout(
           timeout
         );
-
       }
 
 
-      /* =========================
-         RESPONSE CHECK
-      ========================= */
+      console.log(
+        "PhotoFix API status:",
+        response.status
+      );
 
       const responseType =
         (
@@ -1540,24 +1440,20 @@ document.addEventListener("DOMContentLoaded", function () {
           ) || ""
         ).toLowerCase();
 
-
       console.log(
-        "PhotoFix API status:",
-        response.status
-      );
-
-
-      console.log(
-        "PhotoFix API content type:",
+        "PhotoFix API type:",
         responseType
       );
 
+
+      /* =========================
+         ERROR RESPONSE
+      ========================= */
 
       if (!response.ok) {
 
         let errorMessage =
           "Background removal failed.";
-
 
         try {
 
@@ -1570,15 +1466,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const data =
               await response.json();
 
-
             if (
               data &&
               data.error
             ) {
-
               errorMessage =
                 data.error;
-
             }
 
           } else {
@@ -1586,38 +1479,30 @@ document.addEventListener("DOMContentLoaded", function () {
             const text =
               await response.text();
 
-
             if (text) {
-
               errorMessage =
                 text.substring(
                   0,
                   300
                 );
-
             }
-
           }
 
         } catch (error) {
-
           console.error(
             "API error read failed:",
             error
           );
-
         }
-
 
         throw new Error(
           errorMessage
         );
-
       }
 
 
       /* =========================
-         IMAGE RESPONSE CHECK
+         IMAGE CHECK
       ========================= */
 
       if (
@@ -1626,59 +1511,31 @@ document.addEventListener("DOMContentLoaded", function () {
         )
       ) {
 
-        let serverMessage =
-          "AI ne image ke bajaye unexpected response diya.";
-
-
-        try {
-
-          const text =
-            await response.text();
-
-
-          if (text) {
-
-            serverMessage =
-              "AI response: " +
-              text.substring(
-                0,
-                300
-              );
-
-          }
-
-        } catch (error) {}
-
-
         throw new Error(
-          serverMessage
+          "AI ne image ke bajaye unexpected response diya."
         );
-
       }
 
 
       showStatus(
-        "AI result mil gaya. Image screen par aa rahi hai..."
+        "AI result mil gaya..."
       );
 
 
       /* =========================
-         GET RESULT
+         RESULT BLOB
       ========================= */
 
       const resultBlob =
         await response.blob();
 
-
       if (
         !resultBlob ||
         resultBlob.size === 0
       ) {
-
         throw new Error(
           "AI ne empty image return ki."
         );
-
       }
 
 
@@ -1688,17 +1545,21 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
-      console.log(
-        "Background result type:",
-        resultBlob.type
-      );
-
-
       /* =========================
-         CREATE IMAGE URL
+         RESULT URL
       ========================= */
 
-      const resultUrl =
+      if (resultObjectUrl) {
+
+        URL.revokeObjectURL(
+          resultObjectUrl
+        );
+
+        resultObjectUrl =
+          null;
+      }
+
+      resultObjectUrl =
         URL.createObjectURL(
           resultBlob
         );
@@ -1709,8 +1570,15 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
+      /* =========================
+         LOAD RESULT
+      ========================= */
+
       const resultImage =
         new Image();
+
+      resultImage.decoding =
+        "async";
 
 
       await new Promise(
@@ -1719,51 +1587,58 @@ document.addEventListener("DOMContentLoaded", function () {
           reject
         ) {
 
+          let finished =
+            false;
+
+          const finish =
+            function (
+              error
+            ) {
+
+              if (finished) {
+                return;
+              }
+
+              finished =
+                true;
+
+              if (error) {
+                reject(error);
+              } else {
+                resolve();
+              }
+            };
+
+
           resultImage.onload =
             function () {
-
-              resolve();
-
+              finish();
             };
 
 
           resultImage.onerror =
             function () {
-
-              reject(
+              finish(
                 new Error(
                   "AI result image load nahi ho saki."
                 )
               );
-
             };
 
 
           resultImage.src =
-            resultUrl;
-
+            resultObjectUrl;
         }
       );
 
-
-      /* =========================
-         VALIDATE RESULT
-      ========================= */
 
       if (
         !resultImage.naturalWidth ||
         !resultImage.naturalHeight
       ) {
-
-        URL.revokeObjectURL(
-          resultUrl
-        );
-
-
         throw new Error(
           "AI result image valid nahi hai."
         );
-
       }
 
 
@@ -1775,16 +1650,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       /* =========================
-         SET RESULT AS MAIN IMAGE
+         SET RESULT
       ========================= */
 
       originalImage =
         resultImage;
 
-
-      /* =========================
-         UPDATE CURRENT FILE
-      ========================= */
 
       try {
 
@@ -1794,46 +1665,47 @@ document.addEventListener("DOMContentLoaded", function () {
             "photofix-background-removed.png",
             {
               type:
-                resultBlob.type ||
                 "image/png"
             }
           );
 
-      } catch (fileError) {
+      } catch (error) {
 
         console.warn(
-          "File update failed:",
-          fileError
+          "File object update failed:",
+          error
         );
-
       }
 
 
       /* =========================
-         RESET EDITS
+         RESET EDITING
       ========================= */
 
-      rotation = 0;
+      rotation =
+        0;
 
-      flipped = false;
+      flipped =
+        false;
 
-      filterMode = "none";
+      filterMode =
+        "none";
 
 
       if (brightness) {
-        brightness.value = 100;
+        brightness.value =
+          100;
       }
-
 
       if (contrast) {
-        contrast.value = 100;
+        contrast.value =
+          100;
       }
-
 
       if (saturation) {
-        saturation.value = 100;
+        saturation.value =
+          100;
       }
-
 
       updateSliderLabels();
 
@@ -1843,18 +1715,13 @@ document.addEventListener("DOMContentLoaded", function () {
       ========================= */
 
       if (emptyPreview) {
-
         emptyPreview.style.display =
           "none";
-
       }
 
-
       if (canvas) {
-
         canvas.style.display =
           "block";
-
       }
 
 
@@ -1862,31 +1729,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       if (uploadMessage) {
-
         uploadMessage.textContent =
           "Background removed successfully";
-
       }
 
 
       showStatus(
         "✅ Background successfully remove ho gaya."
-      );
-
-
-      /* =========================
-         CLEAN URL
-      ========================= */
-
-      setTimeout(
-        function () {
-
-          URL.revokeObjectURL(
-            resultUrl
-          );
-
-        },
-        1000
       );
 
 
@@ -1896,7 +1745,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "Background removal error:",
         error
       );
-
 
       showStatus(
         "❌ " +
@@ -1908,18 +1756,17 @@ document.addEventListener("DOMContentLoaded", function () {
         )
       );
 
-
     } finally {
 
-      removeBgBtn.disabled =
-        false;
+      if (removeBgBtn) {
 
+        removeBgBtn.disabled =
+          false;
 
-      removeBgBtn.textContent =
-        "Remove Background";
-
+        removeBgBtn.textContent =
+          "Remove Background";
+      }
     }
-
   }
 
 
@@ -1929,22 +1776,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateSliderLabels();
 
-
   if (canvas) {
-
     canvas.style.display =
       "none";
-
   }
-
 
   if (emptyPreview) {
-
     emptyPreview.style.display =
       "block";
-
   }
-
 
   console.log(
     "PhotoFix AI editor loaded successfully."
