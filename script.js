@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (statusBox) {
       statusBox.textContent = message;
     }
+
+    console.log("PhotoFix AI:", message);
   }
 
 
@@ -315,13 +317,11 @@ document.addEventListener("DOMContentLoaded", function () {
             resetControls();
 
             if (canvas) {
-              canvas.style.display =
-                "block";
+              canvas.style.display = "block";
             }
 
             if (emptyPreview) {
-              emptyPreview.style.display =
-                "none";
+              emptyPreview.style.display = "none";
             }
 
             drawPreview();
@@ -348,13 +348,11 @@ document.addEventListener("DOMContentLoaded", function () {
             currentFile = null;
 
             if (canvas) {
-              canvas.style.display =
-                "none";
+              canvas.style.display = "none";
             }
 
             if (emptyPreview) {
-              emptyPreview.style.display =
-                "flex";
+              emptyPreview.style.display = "flex";
             }
 
             if (uploadMessage) {
@@ -380,13 +378,11 @@ document.addEventListener("DOMContentLoaded", function () {
           currentFile = null;
 
           if (canvas) {
-            canvas.style.display =
-              "none";
+            canvas.style.display = "none";
           }
 
           if (emptyPreview) {
-            emptyPreview.style.display =
-              "flex";
+            emptyPreview.style.display = "flex";
           }
 
           if (uploadMessage) {
@@ -511,17 +507,13 @@ document.addEventListener("DOMContentLoaded", function () {
       width:
         Math.max(
           1,
-          Math.round(
-            width * scale
-          )
+          Math.round(width * scale)
         ),
 
       height:
         Math.max(
           1,
-          Math.round(
-            height * scale
-          )
+          Math.round(height * scale)
         )
 
     };
@@ -595,6 +587,10 @@ document.addEventListener("DOMContentLoaded", function () {
       originalImage.naturalHeight ||
       originalImage.height;
 
+    if (!sourceWidth || !sourceHeight) {
+      return;
+    }
+
     const safe =
       getPreviewSize(
         sourceWidth,
@@ -663,11 +659,8 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     }
 
-    ctx.imageSmoothingEnabled =
-      true;
-
-    ctx.imageSmoothingQuality =
-      "high";
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
 
     ctx.drawImage(
       originalImage,
@@ -1074,7 +1067,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         downloadBtn.disabled = true;
-
         downloadBtn.textContent =
           "Preparing PNG...";
 
@@ -1084,14 +1076,10 @@ document.addEventListener("DOMContentLoaded", function () {
             getExportSize();
 
           const exportCanvas =
-            document.createElement(
-              "canvas"
-            );
+            document.createElement("canvas");
 
           const exportCtx =
-            exportCanvas.getContext(
-              "2d"
-            );
+            exportCanvas.getContext("2d");
 
           if (!exportCtx) {
             throw new Error(
@@ -1125,11 +1113,8 @@ document.addEventListener("DOMContentLoaded", function () {
           exportCtx.filter =
             getFilterString();
 
-          exportCtx.imageSmoothingEnabled =
-            true;
-
-          exportCtx.imageSmoothingQuality =
-            "high";
+          exportCtx.imageSmoothingEnabled = true;
+          exportCtx.imageSmoothingQuality = "high";
 
           exportCtx.translate(
             exportCanvas.width / 2,
@@ -1143,10 +1128,7 @@ document.addEventListener("DOMContentLoaded", function () {
           );
 
           if (flipped) {
-            exportCtx.scale(
-              -1,
-              1
-            );
+            exportCtx.scale(-1, 1);
           }
 
           exportCtx.drawImage(
@@ -1168,9 +1150,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   "PNG create nahi ho saki."
                 );
 
-                downloadBtn.disabled =
-                  false;
-
+                downloadBtn.disabled = false;
                 downloadBtn.textContent =
                   "Download PNG";
 
@@ -1179,14 +1159,10 @@ document.addEventListener("DOMContentLoaded", function () {
               }
 
               const url =
-                URL.createObjectURL(
-                  blob
-                );
+                URL.createObjectURL(blob);
 
               const link =
-                document.createElement(
-                  "a"
-                );
+                document.createElement("a");
 
               link.href = url;
 
@@ -1195,33 +1171,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 exportQuality +
                 ".png";
 
-              document.body.appendChild(
-                link
-              );
+              document.body.appendChild(link);
 
               link.click();
 
               link.remove();
 
-              setTimeout(
-                function () {
-
-                  URL.revokeObjectURL(
-                    url
-                  );
-
-                },
-                1000
-              );
+              setTimeout(function () {
+                URL.revokeObjectURL(url);
+              }, 1000);
 
               showStatus(
                 exportQuality.toUpperCase() +
                 " PNG download start ho gayi."
               );
 
-              downloadBtn.disabled =
-                false;
-
+              downloadBtn.disabled = false;
               downloadBtn.textContent =
                 "Download PNG";
 
@@ -1240,9 +1205,7 @@ document.addEventListener("DOMContentLoaded", function () {
             "Image download nahi ho saki."
           );
 
-          downloadBtn.disabled =
-            false;
-
+          downloadBtn.disabled = false;
           downloadBtn.textContent =
             "Download PNG";
 
@@ -1341,7 +1304,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =====================================================
-     BACKGROUND REMOVAL — MOBILE FIX
+     BACKGROUND REMOVAL — FINAL MOBILE RESULT FIX
   ===================================================== */
 
   if (removeBgBtn) {
@@ -1353,7 +1316,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         event.stopPropagation();
 
-        removeBackground(event);
+        removeBackground();
 
       }
     );
@@ -1361,12 +1324,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  async function removeBackground(event) {
-
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+  async function removeBackground() {
 
     if (!originalImage || !currentFile) {
 
@@ -1374,6 +1332,10 @@ document.addEventListener("DOMContentLoaded", function () {
         "Pehle photo choose karo."
       );
 
+      return;
+    }
+
+    if (removeBgBtn.disabled) {
       return;
     }
 
@@ -1385,7 +1347,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
 
       /* =====================================
-         PREPARE SMALLER MOBILE IMAGE
+         PREPARE IMAGE
       ===================================== */
 
       showStatus(
@@ -1402,11 +1364,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const maxUploadSize = 2500;
 
-      let uploadWidth =
-        sourceWidth;
-
-      let uploadHeight =
-        sourceHeight;
+      let uploadWidth = sourceWidth;
+      let uploadHeight = sourceHeight;
 
       const largest =
         Math.max(
@@ -1417,25 +1376,28 @@ document.addEventListener("DOMContentLoaded", function () {
       if (largest > maxUploadSize) {
 
         const scale =
-          maxUploadSize /
-          largest;
+          maxUploadSize / largest;
 
         uploadWidth =
-          Math.round(
-            sourceWidth * scale
+          Math.max(
+            1,
+            Math.round(
+              sourceWidth * scale
+            )
           );
 
         uploadHeight =
-          Math.round(
-            sourceHeight * scale
+          Math.max(
+            1,
+            Math.round(
+              sourceHeight * scale
+            )
           );
 
       }
 
       const uploadCanvas =
-        document.createElement(
-          "canvas"
-        );
+        document.createElement("canvas");
 
       uploadCanvas.width =
         uploadWidth;
@@ -1444,15 +1406,20 @@ document.addEventListener("DOMContentLoaded", function () {
         uploadHeight;
 
       const uploadCtx =
-        uploadCanvas.getContext(
-          "2d"
-        );
+        uploadCanvas.getContext("2d");
 
       if (!uploadCtx) {
         throw new Error(
           "Mobile image processing failed."
         );
       }
+
+      uploadCtx.clearRect(
+        0,
+        0,
+        uploadWidth,
+        uploadHeight
+      );
 
       uploadCtx.drawImage(
         originalImage,
@@ -1464,21 +1431,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       /* =====================================
-         CONVERT TO JPEG
+         CREATE JPEG
       ===================================== */
 
       const uploadBlob =
-        await new Promise(
-          function (resolve) {
+        await new Promise(function (resolve) {
 
-            uploadCanvas.toBlob(
-              resolve,
-              "image/jpeg",
-              0.88
-            );
+          uploadCanvas.toBlob(
+            function (blob) {
+              resolve(blob);
+            },
+            "image/jpeg",
+            0.88
+          );
 
-          }
-        );
+        });
 
       if (!uploadBlob) {
         throw new Error(
@@ -1488,7 +1455,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       /* =====================================
-         SEND TO API
+         SEND REQUEST
       ===================================== */
 
       showStatus(
@@ -1501,22 +1468,16 @@ document.addEventListener("DOMContentLoaded", function () {
       formData.append(
         "image",
         uploadBlob,
-        "photofix-mobile-photo.jpg"
+        "photofix-photo.jpg"
       );
-
 
       const controller =
         new AbortController();
 
       const timeout =
-        setTimeout(
-          function () {
-
-            controller.abort();
-
-          },
-          120000
-        );
+        setTimeout(function () {
+          controller.abort();
+        }, 120000);
 
 
       let response;
@@ -1525,32 +1486,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
         response =
           await fetch(
-            window.location.origin +
             "/api/remove-background",
             {
               method: "POST",
               body: formData,
-              signal: controller.signal,
               credentials: "same-origin",
-              cache: "no-store"
+              cache: "no-store",
+              signal: controller.signal
             }
           );
 
-      } catch (fetchError) {
+      } catch (error) {
 
         if (
-          fetchError &&
-          fetchError.name === "AbortError"
+          error &&
+          error.name === "AbortError"
         ) {
 
           throw new Error(
-            "AI server ko response dene mein bohat time lag raha hai."
+            "AI processing mein bohat time lag raha hai. Dobara try karo."
           );
 
         }
 
         throw new Error(
-          "Mobile se AI server connect nahi ho saka."
+          "AI server se connection nahi ho saka."
         );
 
       } finally {
@@ -1561,23 +1521,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       /* =====================================
-         CHECK API RESPONSE
+         CHECK RESPONSE
       ===================================== */
+
+      const responseType =
+        (
+          response.headers.get(
+            "content-type"
+          ) || ""
+        ).toLowerCase();
+
+      console.log(
+        "PhotoFix API status:",
+        response.status
+      );
+
+      console.log(
+        "PhotoFix API content type:",
+        responseType
+      );
+
 
       if (!response.ok) {
 
-        let message =
+        let errorMessage =
           "Background removal failed.";
 
         try {
 
-          const contentType =
-            response.headers.get(
-              "content-type"
-            ) || "";
-
           if (
-            contentType.includes(
+            responseType.includes(
               "application/json"
             )
           ) {
@@ -1585,119 +1558,176 @@ document.addEventListener("DOMContentLoaded", function () {
             const data =
               await response.json();
 
-            if (
-              data &&
-              data.error
-            ) {
-
-              message =
+            if (data && data.error) {
+              errorMessage =
                 data.error;
-
             }
 
           } else {
 
-            const serverText =
+            const text =
               await response.text();
 
-            if (serverText) {
-
-              message =
-                "Server error: " +
-                serverText.substring(
-                  0,
-                  250
-                );
-
+            if (text) {
+              errorMessage =
+                text.substring(0, 300);
             }
 
           }
 
-        } catch (readError) {
+        } catch (error) {
 
           console.error(
-            "Response read error:",
-            readError
+            "API error read failed:",
+            error
           );
 
         }
 
         throw new Error(
-          message
+          errorMessage
         );
 
       }
 
 
       /* =====================================
-         GET RESULT
+         SUCCESS RESPONSE MUST BE IMAGE
       ===================================== */
 
+      if (
+        !responseType.startsWith("image/")
+      ) {
+
+        let serverMessage =
+          "AI ne image ke bajaye unexpected response diya.";
+
+        try {
+
+          const text =
+            await response.text();
+
+          if (text) {
+            serverMessage =
+              "AI response: " +
+              text.substring(0, 300);
+          }
+
+        } catch (error) {}
+
+        throw new Error(
+          serverMessage
+        );
+
+      }
+
+
       showStatus(
-        "AI result mil gaya, image load ho rahi hai..."
+        "AI result mil gaya. Image load ho rahi hai..."
       );
 
-      const blob =
+
+      /* =====================================
+         GET IMAGE BLOB
+      ===================================== */
+
+      const resultBlob =
         await response.blob();
 
       if (
-        !blob ||
-        blob.size === 0
+        !resultBlob ||
+        resultBlob.size === 0
       ) {
 
         throw new Error(
-          "AI ne empty image result diya."
+          "AI ne empty image return ki."
         );
 
       }
+
+      console.log(
+        "Background result size:",
+        resultBlob.size
+      );
+
+      console.log(
+        "Background result type:",
+        resultBlob.type
+      );
 
 
       /* =====================================
-         RESULT IMAGE
+         CONVERT RESULT TO DATA URL
       ===================================== */
 
-      let resultType =
-        blob.type || "image/png";
+      const dataUrl =
+        await new Promise(function (resolve, reject) {
 
-      if (
-        !resultType.startsWith(
-          "image/"
-        )
-      ) {
+          const reader =
+            new FileReader();
 
-        resultType =
-          "image/png";
+          reader.onload = function () {
+            resolve(reader.result);
+          };
 
-      }
+          reader.onerror = function () {
+            reject(
+              new Error(
+                "AI result read nahi ho saka."
+              )
+            );
+          };
 
-      const resultUrl =
-        URL.createObjectURL(
-          blob
-        );
+          reader.readAsDataURL(resultBlob);
+
+        });
+
+
+      /* =====================================
+         LOAD RESULT IMAGE
+      ===================================== */
+
+      showStatus(
+        "Background removed image screen par aa rahi hai..."
+      );
 
       const resultImage =
         new Image();
-
 
       resultImage.onload =
         function () {
 
           try {
 
+            console.log(
+              "Result image loaded:",
+              resultImage.naturalWidth,
+              resultImage.naturalHeight
+            );
+
+
+            /* =============================
+               REPLACE ORIGINAL IMAGE
+            ============================= */
+
             originalImage =
               resultImage;
 
 
-            /* Update file */
+            /* =============================
+               UPDATE FILE
+            ============================= */
 
             try {
 
               currentFile =
                 new File(
-                  [blob],
+                  [resultBlob],
                   "photofix-background-removed.png",
                   {
-                    type: resultType
+                    type:
+                      resultBlob.type ||
+                      "image/png"
                   }
                 );
 
@@ -1711,7 +1741,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            /* Reset edits */
+            /* =============================
+               RESET EDITS
+            ============================= */
 
             rotation = 0;
             flipped = false;
@@ -1732,38 +1764,45 @@ document.addEventListener("DOMContentLoaded", function () {
             updateSliderLabels();
 
 
-            /* Show result */
-
-            if (canvas) {
-              canvas.style.display =
-                "block";
-            }
+            /* =============================
+               SHOW CANVAS
+            ============================= */
 
             if (emptyPreview) {
               emptyPreview.style.display =
                 "none";
             }
 
-            drawPreview();
-
-
-            if (uploadMessage) {
-
-              uploadMessage.textContent =
-                "Background removed successfully";
-
+            if (canvas) {
+              canvas.style.display =
+                "block";
             }
 
 
-            URL.revokeObjectURL(
-              resultUrl
-            );
+            /* =============================
+               FORCE REDRAW
+            ============================= */
 
+            drawPreview();
+
+
+            /* =============================
+               UPDATE UPLOAD MESSAGE
+            ============================= */
+
+            if (uploadMessage) {
+              uploadMessage.textContent =
+                "Background removed successfully";
+            }
+
+
+            /* =============================
+               SUCCESS
+            ============================= */
 
             showStatus(
               "✅ Background successfully remove ho gaya."
             );
-
 
             removeBgBtn.disabled =
               false;
@@ -1778,10 +1817,6 @@ document.addEventListener("DOMContentLoaded", function () {
               error
             );
 
-            URL.revokeObjectURL(
-              resultUrl
-            );
-
             removeBgBtn.disabled =
               false;
 
@@ -1789,7 +1824,11 @@ document.addEventListener("DOMContentLoaded", function () {
               "Remove Background";
 
             showStatus(
-              "AI result process nahi ho saka."
+              "❌ Result image process nahi ho saki: " +
+              (
+                error.message ||
+                "Unknown error"
+              )
             );
 
           }
@@ -1798,10 +1837,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       resultImage.onerror =
-        function () {
+        function (error) {
 
-          URL.revokeObjectURL(
-            resultUrl
+          console.error(
+            "Result image load error:",
+            error
           );
 
           removeBgBtn.disabled =
@@ -1811,14 +1851,14 @@ document.addEventListener("DOMContentLoaded", function () {
             "Remove Background";
 
           showStatus(
-            "AI result image load nahi ho saki."
+            "❌ AI result image load nahi ho saki."
           );
 
         };
 
 
       resultImage.src =
-        resultUrl;
+        dataUrl;
 
 
     } catch (error) {
@@ -1833,7 +1873,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
       removeBgBtn.textContent =
         "Remove Background";
-
 
       showStatus(
         "❌ " +
