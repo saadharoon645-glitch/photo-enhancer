@@ -1,5 +1,6 @@
 /* =====================================================
    PHOTOFIX AI — STABLE MOBILE EDITOR
+   Mobile Background Removal Fix
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -44,12 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const qualityButtons =
     document.querySelectorAll(".quality-button");
 
-
-  /* =========================
-     CANVAS
-  ========================= */
-
-  const ctx = canvas ? canvas.getContext("2d") : null;
+  const ctx = canvas
+    ? canvas.getContext("2d")
+    : null;
 
 
   /* =========================
@@ -71,9 +69,11 @@ document.addEventListener("DOMContentLoaded", function () {
   ========================= */
 
   function showStatus(message) {
+
     if (statusBox) {
       statusBox.textContent = message;
     }
+
   }
 
 
@@ -107,9 +107,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function resetControls() {
 
-    if (brightness) brightness.value = 100;
-    if (contrast) contrast.value = 100;
-    if (saturation) saturation.value = 100;
+    if (brightness) {
+      brightness.value = 100;
+    }
+
+    if (contrast) {
+      contrast.value = 100;
+    }
+
+    if (saturation) {
+      saturation.value = 100;
+    }
 
     rotation = 0;
     flipped = false;
@@ -137,39 +145,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================
-     CHOOSE PHOTO BUTTON
+     CHOOSE PHOTO
   ========================= */
 
   if (choosePhotoBtn) {
 
-    choosePhotoBtn.addEventListener("click", function (event) {
+    choosePhotoBtn.addEventListener(
+      "click",
+      function (event) {
 
-      event.preventDefault();
+        event.preventDefault();
+        openFilePicker();
 
-      openFilePicker();
-
-    });
+      }
+    );
 
   }
 
 
   /* =========================
-     START EDITING BUTTON
-     
-     IMPORTANT:
-     File picker MUST open directly
-     from the user's click.
+     START EDITING
   ========================= */
 
   if (heroChooseBtn) {
 
-    heroChooseBtn.addEventListener("click", function (event) {
+    heroChooseBtn.addEventListener(
+      "click",
+      function (event) {
 
-      event.preventDefault();
+        event.preventDefault();
+        openFilePicker();
 
-      openFilePicker();
-
-    });
+      }
+    );
 
   }
 
@@ -180,129 +188,149 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (photoInput) {
 
-    photoInput.addEventListener("change", function () {
+    photoInput.addEventListener(
+      "change",
+      function () {
 
-      const file =
-        photoInput.files &&
-        photoInput.files.length
-          ? photoInput.files[0]
-          : null;
+        const file =
+          photoInput.files &&
+          photoInput.files.length
+            ? photoInput.files[0]
+            : null;
 
-      if (!file) {
-        return;
-      }
-
-
-      /* =========================
-         FILE TYPE
-      ========================= */
-
-      const validTypes = [
-        "image/jpeg",
-        "image/png",
-        "image/webp"
-      ];
-
-      if (!validTypes.includes(file.type)) {
-
-        showStatus(
-          "Please select a JPG, PNG or WEBP image."
-        );
-
-        if (uploadMessage) {
-          uploadMessage.textContent =
-            "Invalid image format.";
+        if (!file) {
+          return;
         }
 
-        photoInput.value = "";
 
-        return;
-      }
-
-
-      /* =========================
-         FILE SIZE
-      ========================= */
-
-      if (file.size > 15 * 1024 * 1024) {
-
-        showStatus(
-          "Photo 15MB se choti honi chahiye."
-        );
-
-        if (uploadMessage) {
-          uploadMessage.textContent =
-            "File is larger than 15MB.";
-        }
-
-        photoInput.value = "";
-
-        return;
-      }
+        const validTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ];
 
 
-      /* =========================
-         SAVE FILE
-      ========================= */
+        if (!validTypes.includes(file.type)) {
 
-      currentFile = file;
-
-      showStatus("Photo load ho rahi hai...");
-
-      if (uploadMessage) {
-        uploadMessage.textContent =
-          "Loading photo...";
-      }
-
-
-      /* =========================
-         OBJECT URL
-      ========================= */
-
-      const imageUrl =
-        URL.createObjectURL(file);
-
-      const img =
-        new Image();
-
-
-      img.onload = function () {
-
-        try {
-
-          originalImage = img;
-
-          resetControls();
-
-
-          if (canvas) {
-            canvas.style.display = "block";
-          }
-
-          if (emptyPreview) {
-            emptyPreview.style.display = "none";
-          }
-
-
-          drawPreview();
-
+          showStatus(
+            "Please select a JPG, PNG or WEBP image."
+          );
 
           if (uploadMessage) {
             uploadMessage.textContent =
-              file.name;
+              "Invalid image format.";
           }
 
+          photoInput.value = "";
+
+          return;
+        }
+
+
+        if (file.size > 15 * 1024 * 1024) {
+
           showStatus(
-            "Photo uploaded successfully."
+            "Photo 15MB se choti honi chahiye."
           );
 
+          if (uploadMessage) {
+            uploadMessage.textContent =
+              "File is larger than 15MB.";
+          }
 
-        } catch (error) {
+          photoInput.value = "";
 
-          console.error(
-            "Photo preview error:",
-            error
-          );
+          return;
+        }
+
+
+        currentFile = file;
+
+        showStatus(
+          "Photo load ho rahi hai..."
+        );
+
+        if (uploadMessage) {
+          uploadMessage.textContent =
+            "Loading photo...";
+        }
+
+
+        const imageUrl =
+          URL.createObjectURL(file);
+
+        const img = new Image();
+
+
+        img.onload = function () {
+
+          try {
+
+            originalImage = img;
+
+            resetControls();
+
+
+            if (canvas) {
+              canvas.style.display = "block";
+            }
+
+            if (emptyPreview) {
+              emptyPreview.style.display = "none";
+            }
+
+
+            drawPreview();
+
+
+            if (uploadMessage) {
+              uploadMessage.textContent =
+                file.name;
+            }
+
+
+            showStatus(
+              "Photo uploaded successfully."
+            );
+
+          } catch (error) {
+
+            console.error(
+              "Photo preview error:",
+              error
+            );
+
+            originalImage = null;
+            currentFile = null;
+
+            if (canvas) {
+              canvas.style.display = "none";
+            }
+
+            if (emptyPreview) {
+              emptyPreview.style.display = "flex";
+            }
+
+            if (uploadMessage) {
+              uploadMessage.textContent =
+                "Photo preview failed.";
+            }
+
+            showStatus(
+              "Photo preview nahi ban saki."
+            );
+
+          }
+
+
+          URL.revokeObjectURL(imageUrl);
+
+        };
+
+
+        img.onerror = function () {
+
+          URL.revokeObjectURL(imageUrl);
 
           originalImage = null;
           currentFile = null;
@@ -317,51 +345,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
           if (uploadMessage) {
             uploadMessage.textContent =
-              "Photo preview failed.";
+              "Photo load failed.";
           }
 
           showStatus(
-            "Photo preview nahi ban saki."
+            "Photo load nahi ho saki."
           );
 
-        }
+        };
 
 
-        URL.revokeObjectURL(imageUrl);
+        img.src = imageUrl;
 
-      };
-
-
-      img.onerror = function () {
-
-        URL.revokeObjectURL(imageUrl);
-
-        originalImage = null;
-        currentFile = null;
-
-        if (canvas) {
-          canvas.style.display = "none";
-        }
-
-        if (emptyPreview) {
-          emptyPreview.style.display = "flex";
-        }
-
-        if (uploadMessage) {
-          uploadMessage.textContent =
-            "Photo load failed.";
-        }
-
-        showStatus(
-          "Photo load nahi ho saki."
-        );
-
-      };
-
-
-      img.src = imageUrl;
-
-    });
+      }
+    );
 
   }
 
@@ -377,7 +374,6 @@ document.addEventListener("DOMContentLoaded", function () {
       function (event) {
 
         event.preventDefault();
-
         uploadArea.classList.add("dragover");
 
       }
@@ -412,11 +408,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (photoInput) {
 
-          photoInput.files = files;
+          try {
 
-          photoInput.dispatchEvent(
-            new Event("change")
-          );
+            photoInput.files = files;
+
+            photoInput.dispatchEvent(
+              new Event("change")
+            );
+
+          } catch (error) {
+
+            console.error(
+              "Drag and drop error:",
+              error
+            );
+
+          }
 
         }
 
@@ -539,7 +546,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-
     const sourceWidth =
       originalImage.naturalWidth ||
       originalImage.width;
@@ -548,13 +554,11 @@ document.addEventListener("DOMContentLoaded", function () {
       originalImage.naturalHeight ||
       originalImage.height;
 
-
     const safe =
       getPreviewSize(
         sourceWidth,
         sourceHeight
       );
-
 
     drawToCanvas(
       safe.width,
@@ -574,11 +578,9 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-
     const rotated =
       rotation === 90 ||
       rotation === 270;
-
 
     canvas.width =
       rotated
@@ -590,9 +592,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ? width
         : height;
 
-
     ctx.save();
-
 
     ctx.clearRect(
       0,
@@ -601,23 +601,19 @@ document.addEventListener("DOMContentLoaded", function () {
       canvas.height
     );
 
-
     ctx.filter =
       getFilterString();
-
 
     ctx.translate(
       canvas.width / 2,
       canvas.height / 2
     );
 
-
     ctx.rotate(
       rotation *
       Math.PI /
       180
     );
-
 
     if (flipped) {
 
@@ -628,12 +624,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
     ctx.imageSmoothingEnabled = true;
 
     ctx.imageSmoothingQuality =
       "high";
-
 
     ctx.drawImage(
       originalImage,
@@ -645,7 +639,6 @@ document.addEventListener("DOMContentLoaded", function () {
       height
     );
 
-
     ctx.restore();
 
   }
@@ -655,49 +648,24 @@ document.addEventListener("DOMContentLoaded", function () {
      SLIDERS
   ========================= */
 
-  if (brightness) {
+  [brightness, contrast, saturation]
+    .forEach(function (slider) {
 
-    brightness.addEventListener(
-      "input",
-      function () {
-
-        updateSliderLabels();
-        drawPreview();
-
+      if (!slider) {
+        return;
       }
-    );
 
-  }
+      slider.addEventListener(
+        "input",
+        function () {
 
+          updateSliderLabels();
+          drawPreview();
 
-  if (contrast) {
+        }
+      );
 
-    contrast.addEventListener(
-      "input",
-      function () {
-
-        updateSliderLabels();
-        drawPreview();
-
-      }
-    );
-
-  }
-
-
-  if (saturation) {
-
-    saturation.addEventListener(
-      "input",
-      function () {
-
-        updateSliderLabels();
-        drawPreview();
-
-      }
-    );
-
-  }
+    });
 
 
   /* =========================
@@ -932,15 +900,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           );
 
-
           button.classList.add(
             "active"
           );
 
-
           exportQuality =
             button.dataset.quality;
-
 
           showStatus(
             "Export quality: " +
@@ -968,7 +933,6 @@ document.addEventListener("DOMContentLoaded", function () {
       originalImage.naturalHeight ||
       originalImage.height;
 
-
     if (exportQuality === "original") {
 
       return {
@@ -978,9 +942,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
     let targetLongestSide;
-
 
     if (exportQuality === "hd") {
 
@@ -1004,13 +966,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
     const sourceLongest =
       Math.max(
         sourceWidth,
         sourceHeight
       );
-
 
     if (
       sourceLongest >=
@@ -1024,11 +984,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
     const scale =
       targetLongestSide /
       sourceLongest;
-
 
     return {
 
@@ -1067,35 +1025,29 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
 
-
         downloadBtn.disabled = true;
 
         downloadBtn.textContent =
           "Preparing PNG...";
-
 
         try {
 
           const size =
             getExportSize();
 
-
           const exportCanvas =
             document.createElement(
               "canvas"
             );
-
 
           const exportCtx =
             exportCanvas.getContext(
               "2d"
             );
 
-
           const rotated =
             rotation === 90 ||
             rotation === 270;
-
 
           exportCanvas.width =
             rotated
@@ -1107,9 +1059,7 @@ document.addEventListener("DOMContentLoaded", function () {
               ? size.width
               : size.height;
 
-
           exportCtx.save();
-
 
           exportCtx.clearRect(
             0,
@@ -1118,10 +1068,8 @@ document.addEventListener("DOMContentLoaded", function () {
             exportCanvas.height
           );
 
-
           exportCtx.filter =
             getFilterString();
-
 
           exportCtx.imageSmoothingEnabled =
             true;
@@ -1129,19 +1077,16 @@ document.addEventListener("DOMContentLoaded", function () {
           exportCtx.imageSmoothingQuality =
             "high";
 
-
           exportCtx.translate(
             exportCanvas.width / 2,
             exportCanvas.height / 2
           );
-
 
           exportCtx.rotate(
             rotation *
             Math.PI /
             180
           );
-
 
           if (flipped) {
 
@@ -1151,7 +1096,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
           }
-
 
           exportCtx.drawImage(
             originalImage,
@@ -1163,9 +1107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             size.height
           );
 
-
           exportCtx.restore();
-
 
           exportCanvas.toBlob(
             function (blob) {
@@ -1186,18 +1128,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
               }
 
-
               const url =
                 URL.createObjectURL(
                   blob
                 );
 
-
               const link =
                 document.createElement(
                   "a"
                 );
-
 
               link.href = url;
 
@@ -1206,16 +1145,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 exportQuality +
                 ".png";
 
-
               document.body.appendChild(
                 link
               );
 
-
               link.click();
 
               link.remove();
-
 
               setTimeout(
                 function () {
@@ -1228,12 +1164,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 1000
               );
 
-
               showStatus(
                 exportQuality.toUpperCase() +
                 " PNG download start ho gayi."
               );
-
 
               downloadBtn.disabled =
                 false;
@@ -1245,7 +1179,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "image/png"
           );
 
-
         } catch (error) {
 
           console.error(
@@ -1253,11 +1186,9 @@ document.addEventListener("DOMContentLoaded", function () {
             error
           );
 
-
           showStatus(
             "Image download nahi ho saki."
           );
-
 
           downloadBtn.disabled =
             false;
@@ -1341,9 +1272,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /* =========================
+  /* =====================================================
      BACKGROUND REMOVAL
-  ========================= */
+     MOBILE-SAFE VERSION
+  ===================================================== */
 
   if (removeBgBtn) {
 
@@ -1384,9 +1316,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
+      /* =========================
+         CREATE FORM DATA
+      ========================= */
+
       const formData =
         new FormData();
-
 
       formData.append(
         "image",
@@ -1395,21 +1330,54 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
-      const response =
-        await fetch(
-          "/api/remove-background",
-          {
-            method: "POST",
-            body: formData
-          }
+      /* =========================
+         SEND REQUEST
+      ========================= */
+
+      const controller =
+        new AbortController();
+
+      const timeout =
+        setTimeout(
+          function () {
+
+            controller.abort();
+
+          },
+          120000
         );
 
+
+      let response;
+
+      try {
+
+        response =
+          await fetch(
+            "/api/remove-background",
+            {
+              method: "POST",
+              body: formData,
+              signal: controller.signal,
+              cache: "no-store"
+            }
+          );
+
+      } finally {
+
+        clearTimeout(timeout);
+
+      }
+
+
+      /* =========================
+         CHECK RESPONSE
+      ========================= */
 
       if (!response.ok) {
 
         let message =
           "Background removal failed.";
-
 
         try {
 
@@ -1428,7 +1396,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const data =
               await response.json();
 
-
             if (
               data &&
               data.error
@@ -1443,7 +1410,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const serverText =
               await response.text();
-
 
             if (serverText) {
 
@@ -1461,12 +1427,11 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
 
           console.error(
-            "Server response error:",
+            "Response read error:",
             error
           );
 
         }
-
 
         throw new Error(
           message
@@ -1475,13 +1440,43 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
+      /* =========================
+         GET RESULT BLOB
+      ========================= */
+
+      showStatus(
+        "AI result mil gaya, image prepare ho rahi hai..."
+      );
+
+
       const blob =
         await response.blob();
 
 
       if (
-        !blob.type ||
-        !blob.type.startsWith("image/")
+        !blob ||
+        blob.size === 0
+      ) {
+
+        throw new Error(
+          "AI ne empty image result diya."
+        );
+
+      }
+
+
+      /* =========================
+         CHECK IMAGE
+      ========================= */
+
+      const blobType =
+        blob.type || "";
+
+
+      if (
+        !blobType.startsWith(
+          "image/"
+        )
       ) {
 
         throw new Error(
@@ -1491,66 +1486,133 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
+      /* =========================
+         LOAD RESULT
+      ========================= */
+
       const imageUrl =
         URL.createObjectURL(
           blob
         );
 
-
-      const img =
+      const resultImage =
         new Image();
 
 
-      img.onload =
+      resultImage.onload =
         function () {
 
-          originalImage = img;
+          try {
 
-          rotation = 0;
-          flipped = false;
-          filterMode = "none";
+            originalImage =
+              resultImage;
 
-          brightness.value = 100;
-          contrast.value = 100;
-          saturation.value = 100;
+            /*
+              IMPORTANT:
+              Keep the processed image as
+              currentFile so another operation
+              can continue using it.
+            */
 
-          updateSliderLabels();
+            try {
+
+              currentFile =
+                new File(
+                  [blob],
+                  "photofix-background-removed.png",
+                  {
+                    type:
+                      blob.type || "image/png"
+                  }
+                );
+
+            } catch (fileError) {
+
+              console.warn(
+                "Could not create new File:",
+                fileError
+              );
+
+            }
 
 
-          if (canvas) {
-            canvas.style.display =
-              "block";
+            rotation = 0;
+            flipped = false;
+            filterMode = "none";
+
+
+            if (brightness) {
+              brightness.value = 100;
+            }
+
+            if (contrast) {
+              contrast.value = 100;
+            }
+
+            if (saturation) {
+              saturation.value = 100;
+            }
+
+
+            updateSliderLabels();
+
+
+            if (canvas) {
+              canvas.style.display =
+                "block";
+            }
+
+            if (emptyPreview) {
+              emptyPreview.style.display =
+                "none";
+            }
+
+
+            drawPreview();
+
+
+            if (uploadMessage) {
+              uploadMessage.textContent =
+                "Background removed successfully";
+            }
+
+
+            URL.revokeObjectURL(
+              imageUrl
+            );
+
+
+            showStatus(
+              "Background successfully remove ho gaya."
+            );
+
+
+            removeBgBtn.disabled =
+              false;
+
+            removeBgBtn.textContent =
+              "Remove Background";
+
+
+          } catch (error) {
+
+            console.error(
+              "Result image processing error:",
+              error
+            );
+
+            URL.revokeObjectURL(
+              imageUrl
+            );
+
+            throw error;
+
           }
-
-          if (emptyPreview) {
-            emptyPreview.style.display =
-              "none";
-          }
-
-
-          drawPreview();
-
-
-          URL.revokeObjectURL(
-            imageUrl
-          );
-
-
-          showStatus(
-            "Background successfully remove ho gaya."
-          );
-
-
-          removeBgBtn.disabled =
-            false;
-
-          removeBgBtn.textContent =
-            "Remove Background";
 
         };
 
 
-      img.onerror =
+      resultImage.onerror =
         function () {
 
           URL.revokeObjectURL(
@@ -1572,7 +1634,13 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-      img.src =
+      /*
+        Important for mobile:
+        Use decoded blob URL instead of
+        trying to convert through canvas first.
+      */
+
+      resultImage.src =
         imageUrl;
 
 
@@ -1584,9 +1652,25 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
 
+      let errorMessage =
+        error && error.message
+          ? error.message
+          : "Background removal failed.";
+
+
+      if (
+        error &&
+        error.name === "AbortError"
+      ) {
+
+        errorMessage =
+          "Mobile connection slow hai. Background removal ko zyada time laga.";
+
+      }
+
+
       showStatus(
-        error.message ||
-        "Background removal failed."
+        errorMessage
       );
 
 
@@ -1609,18 +1693,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   if (canvas) {
-    canvas.style.display = "none";
+    canvas.style.display =
+      "none";
   }
 
 
   if (emptyPreview) {
-    emptyPreview.style.display = "flex";
+    emptyPreview.style.display =
+      "flex";
   }
 
 
   showStatus(
     "Choose a photo to start editing."
   );
-
 
 });
