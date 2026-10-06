@@ -943,7 +943,154 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     );
   }
+/* =========================
+   REMOVE BACKGROUND
+   ========================= */
 
+if (removeBgBtn) {
+  removeBgBtn.addEventListener(
+    "click",
+    async function (event) {
+      event.preventDefault();
+
+      if (!currentFile) {
+        showStatus("Pehle photo choose karo.");
+        return;
+      }
+
+      try {
+        removeBgBtn.disabled = true;
+        removeBgBtn.textContent = "Removing Background...";
+        showStatus("Background remove ho raha hai...");
+
+        const formData = new FormData();
+
+        formData.append(
+          "image_file",
+          currentFile,
+          currentFile.name || "photo.jpg"
+        );
+
+        const response = await fetch(
+          "/api/remove-background",
+          {
+            method: "POST",
+            body: formData,
+            cache: "no-store"
+          }
+        );
+
+        if (!response.ok) {
+          let errorMessage =
+            "Background removal failed.";
+
+          try {
+            const errorText = await response.text();
+
+            try {
+              const errorJson =
+                JSON.parse(errorText);
+
+              if (errorJson.error) {
+                errorMessage =
+                  errorJson.error;
+              }
+            } catch (e) {
+              if (errorText) {
+                errorMessage =
+                  errorText;
+              }
+            }
+          } catch (e) {}
+
+          throw new Error(errorMessage);
+        }
+
+        const resultBlob =
+          await response.blob();
+
+        if (!resultBlob.size) {
+          throw new Error(
+            "Empty image result mila."
+          );
+        }
+
+        const resultUrl =
+          URL.createObjectURL(resultBlob);
+
+        const resultImage =
+          new Image();
+
+        resultImage.onload = function () {
+          originalImage = resultImage;
+
+          currentFile = new File(
+            [resultBlob],
+            "photofix-background-removed.png",
+            {
+              type: "image/png"
+            }
+          );
+
+          rotation = 0;
+          flipped = false;
+          filterMode = "none";
+
+          if (canvas) {
+            canvas.style.display =
+              "block";
+          }
+
+          if (emptyPreview) {
+            emptyPreview.style.display =
+              "none";
+          }
+
+          drawPreview();
+
+          showStatus(
+            "Background successfully removed!"
+          );
+
+          removeBgBtn.disabled = false;
+          removeBgBtn.textContent =
+            "Remove Background";
+
+          URL.revokeObjectURL(
+            resultUrl
+          );
+        };
+
+        resultImage.onerror = function () {
+          URL.revokeObjectURL(
+            resultUrl
+          );
+
+          throw new Error(
+            "Processed image load nahi ho saki."
+          );
+        };
+
+        resultImage.src = resultUrl;
+
+      } catch (error) {
+        console.error(
+          "Background removal error:",
+          error
+        );
+
+        showStatus(
+          error.message ||
+          "Background removal failed."
+        );
+
+        removeBgBtn.disabled = false;
+        removeBgBtn.textContent =
+          "Remove Background";
+      }
+    }
+  );
+}
 
   /* =========================
      QUALITY
