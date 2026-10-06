@@ -1,14 +1,10 @@
-```javascript
 // =====================================================
 // PHOTOFIX AI — BACKGROUND REMOVAL API
-// Vercel + remove.bg
+// Vercel + bgclear.ai
 // =====================================================
 
 export default async function handler(request) {
-
-  // -----------------------------------------
-  // ONLY POST ALLOWED
-  // -----------------------------------------
+  // Only POST is allowed
   if (request.method !== "POST") {
     return new Response(
       JSON.stringify({
@@ -25,17 +21,10 @@ export default async function handler(request) {
   }
 
   try {
-
-    // -----------------------------------------
-    // API KEY
-    // -----------------------------------------
-    const apiKey =
-      process.env.REMOVE_BG_API_KEY ||
-      process.env.REMOVEBG_API_KEY ||
-      process.env.REMOVE_BG_KEY;
+    const apiKey = process.env.BGCLEAR_API_KEY;
 
     if (!apiKey) {
-      console.error("REMOVE_BG_API_KEY is missing");
+      console.error("BGCLEAR_API_KEY is missing");
 
       return new Response(
         JSON.stringify({
@@ -51,12 +40,9 @@ export default async function handler(request) {
       );
     }
 
-    // -----------------------------------------
-    // READ FORM DATA FROM FRONTEND
-    // -----------------------------------------
+    // Get uploaded image from frontend
     const incomingForm = await request.formData();
 
-    // Accept the common possible field names
     const image =
       incomingForm.get("image") ||
       incomingForm.get("image_file") ||
@@ -78,11 +64,7 @@ export default async function handler(request) {
       );
     }
 
-    // -----------------------------------------
-    // CHECK FILE SIZE
-    // remove.bg accepts files up to 22 MB.
-    // We keep a safer 15 MB limit for PhotoFix.
-    // -----------------------------------------
+    // 15 MB maximum
     if (image.size > 15 * 1024 * 1024) {
       return new Response(
         JSON.stringify({
@@ -98,40 +80,41 @@ export default async function handler(request) {
       );
     }
 
-    // -----------------------------------------
-    // SEND IMAGE TO REMOVE.BG
-    // -----------------------------------------
-    const removeBgForm = new FormData();
+    // Send image to bgclear
+    const bgForm = new FormData();
 
-    removeBgForm.append(
+    bgForm.append(
       "image_file",
       image,
       image.name || "photo.jpg"
     );
 
-    removeBgForm.append("size", "auto");
+    // Preview is FREE and is good for testing
+    bgForm.append("size", "preview");
 
-    const apiResponse = await fetch(
-      "https://api.remove.bg/v1.0/removebg",
+    // Transparent PNG result
+    bgForm.append("format", "png");
+
+    const response = await fetch(
+      "https://www.bgclear.ai/api/v1/remove",
       {
         method: "POST",
+
         headers: {
-          "X-Api-Key": apiKey
+          Authorization: `Bearer ${apiKey}`
         },
-        body: removeBgForm
+
+        body: bgForm
       }
     );
 
-    // -----------------------------------------
-    // HANDLE REMOVE.BG ERROR
-    // -----------------------------------------
-    if (!apiResponse.ok) {
-
-      const errorText = await apiResponse.text();
+    // API error
+    if (!response.ok) {
+      const errorText = await response.text();
 
       console.error(
-        "remove.bg error:",
-        apiResponse.status,
+        "bgclear error:",
+        response.status,
         errorText
       );
 
@@ -142,7 +125,7 @@ export default async function handler(request) {
           details: errorText
         }),
         {
-          status: apiResponse.status,
+          status: response.status,
           headers: {
             "Content-Type": "application/json"
           }
@@ -150,16 +133,12 @@ export default async function handler(request) {
       );
     }
 
-    // -----------------------------------------
-    // GET PROCESSED PNG
-    // -----------------------------------------
-    const resultBuffer = await apiResponse.arrayBuffer();
+    // Get transparent PNG
+    const result = await response.arrayBuffer();
 
-    // -----------------------------------------
-    // RETURN PNG TO FRONTEND
-    // -----------------------------------------
-    return new Response(resultBuffer, {
+    return new Response(result, {
       status: 200,
+
       headers: {
         "Content-Type": "image/png",
         "Cache-Control": "no-store"
@@ -167,7 +146,6 @@ export default async function handler(request) {
     });
 
   } catch (error) {
-
     console.error(
       "Background removal server error:",
       error
@@ -176,7 +154,8 @@ export default async function handler(request) {
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Something went wrong while removing the background."
+        error: "Something went wrong while removing the background.",
+        details: error.message
       }),
       {
         status: 500,
@@ -187,18 +166,3 @@ export default async function handler(request) {
     );
   }
 }
-```
-
-**Abhi sirf itna karo:**
-
-1. GitHub → `api` folder
-2. `remove-background.js` open karo
-3. **Purana poora code delete**
-4. Upar wala **poora code paste**
-5. **Commit changes**
-
-⚠️ **`script.js` ko abhi change mat karna.**
-
-Ek aur important cheez: Vercel Environment Variables mein API key ka naam **`REMOVE_BG_API_KEY`** hona chahiye. Agar tumne pehle koi doosra naam rakha tha, is code mein doosre do common names bhi support hain. remove.bg ki official API documentation ke mutabiq API key `X-API-Key` header se authenticate hoti hai.
-
-**Code paste + commit karne ke baad mujhe sirf “done” likhna. Phir main next step deployment ka dunga.**
